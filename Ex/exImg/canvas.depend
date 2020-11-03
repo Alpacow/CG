@@ -1,0 +1,126 @@
+# depslib dependency file v1.0
+1589222603 source:c:\users\flan\desktop\cg\demos\gl_1_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1603974868 c:\users\flan\desktop\cg\demos\gl_1_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Vector2.h"
+
+1426372440 c:\users\flan\desktop\cg\demos\gl_1_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1437579942 c:\users\flan\desktop\cg\demos\gl_1_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426372440 c:\users\flan\desktop\cg\demos\gl_1_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1589217858 c:\users\flan\desktop\cg\demos\gl_1_canvasglut\src\vector2.h
+
+1603975055 source:c:\users\flan\desktop\cg\demos\gl_1_canvasglut\src\main.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"gl_canvas2d.h"
+	"Bola.h"
+	"Relogio.h"
+	"Botao.h"
+
+1589214882 c:\users\flan\desktop\cg\demos\gl_1_canvasglut\src\bola.h
+	"gl_canvas2d.h"
+
+1193164156 c:\users\flan\desktop\cg\demos\gl_1_canvasglut\src\relogio.h
+	"gl_canvas2d.h"
+
+1589214891 c:\users\flan\desktop\cg\demos\gl_1_canvasglut\src\botao.h
+	"gl_canvas2d.h"
+
+1589218349 source:c:\users\flan\desktop\cg\demos\gl_1_canvasglut\src\relogio.cpp
+	"Relogio.h"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+
+1604426750 source:c:\users\flan\desktop\cg\ex\eximg\src\bmp.cpp
+	"Bmp.h"
+	"Utils.h"
+	"gl_canvas2d.h"
+	<string.h>
+	<vector>
+	<algorithm>
+
+1604419897 c:\users\flan\desktop\cg\ex\eximg\src\bmp.h
+	<stdio.h>
+	<stdlib.h>
+
+1604424608 c:\users\flan\desktop\cg\ex\eximg\src\utils.h
+	<vector>
+	"Bmp.h"
+
+1604426724 c:\users\flan\desktop\cg\ex\eximg\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Vector2.h"
+
+1426372440 c:\users\flan\desktop\cg\ex\eximg\include\gl\glut.h
+	"freeglut_std.h"
+
+1437579942 c:\users\flan\desktop\cg\ex\eximg\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426372440 c:\users\flan\desktop\cg\ex\eximg\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1604425226 c:\users\flan\desktop\cg\ex\eximg\src\vector2.h
+
+1604425198 source:c:\users\flan\desktop\cg\ex\eximg\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1604426862 source:c:\users\flan\desktop\cg\ex\eximg\src\main.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<iostream>
+	<stdlib.h>
+	<vector>
+	"gl_canvas2d.h"
+	"Utils.h"
+	"Botao.h"
+	"Bmp.h"
+
+1604425213 c:\users\flan\desktop\cg\ex\eximg\src\botao.h
+	"gl_canvas2d.h"
+
+1604424597 source:c:\users\flan\desktop\cg\ex\eximg\src\utils.cpp
+	"gl_canvas2d.h"
+	"Utils.h"
+
