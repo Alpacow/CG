@@ -1,4 +1,4 @@
-#include "gl_canvas2d.h"
+#include "../gl_canvas2d.h"
 
 #include "Utils.h"
 

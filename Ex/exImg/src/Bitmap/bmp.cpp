@@ -1,15 +1,13 @@
 //*********************************************************
 //
 // classe para fazer o carregamento de arquivos no formato BMP
-// Autor: Cesar Tadeu Pozzer
-//        pozzer@inf.ufsm.br
-//  Versao 09/2010
 //
 //**********************************************************
 
 #include "Bmp.h"
-#include "Utils.h"
-#include "gl_canvas2d.h"
+#include "../Utils/Utils.h"
+#include "../gl_canvas2d.h"
+
 #include <string.h>
 #include <vector>
 #include <algorithm>

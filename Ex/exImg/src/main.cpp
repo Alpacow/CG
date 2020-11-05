@@ -7,9 +7,9 @@
 #include <vector>
 
 #include "gl_canvas2d.h"
-#include "Utils.h"
-#include "Button.h"
-#include "Bmp.h"
+#include "Utils/Utils.h"
+#include "Button/Button.h"
+#include "Bitmap/Bmp.h"
 
 
 #define RECT_SIZE 10

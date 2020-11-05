@@ -73,14 +73,14 @@
 1604600467 c:\users\flan\desktop\cg\ex\eximg\src\utils.h
 	<vector>
 
-1604601454 c:\users\flan\desktop\cg\ex\eximg\src\gl_canvas2d.h
+1604609134 c:\users\flan\desktop\cg\ex\eximg\src\gl_canvas2d.h
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
 	<string.h>
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
-	"Vector2.h"
+	"Utils/Vector2.h"
 
 1426372440 c:\users\flan\desktop\cg\ex\eximg\include\gl\glut.h
 	"freeglut_std.h"
@@ -105,7 +105,7 @@
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1604601472 source:c:\users\flan\desktop\cg\ex\eximg\src\main.cpp
+1604609208 source:c:\users\flan\desktop\cg\ex\eximg\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	<math.h>
@@ -113,9 +113,9 @@
 	<stdlib.h>
 	<vector>
 	"gl_canvas2d.h"
-	"Utils.h"
-	"Button.h"
-	"Bmp.h"
+	"Utils/Utils.h"
+	"Button/Button.h"
+	"Bitmap/Bmp.h"
 
 1604425213 c:\users\flan\desktop\cg\ex\eximg\src\botao.h
 	"gl_canvas2d.h"
@@ -198,5 +198,35 @@
 1604601430 c:\users\flan\desktop\cg\ex\eximg\src\button.h
 	<iostream>
 	"gl_canvas2d.h"
+	"Utils.h"
+
+1589217858 c:\users\flan\desktop\cg\ex\eximg\src\utils\vector2.h
+
+1604609086 source:c:\users\flan\desktop\cg\ex\eximg\src\bitmap\bmp.cpp
+	"Bmp.h"
+	"../Utils/Utils.h"
+	"../gl_canvas2d.h"
+	<string.h>
+	<vector>
+	<algorithm>
+	<iostream>
+
+1604594579 c:\users\flan\desktop\cg\ex\eximg\src\bitmap\bmp.h
+	<stdio.h>
+	<stdlib.h>
+
+1604600467 c:\users\flan\desktop\cg\ex\eximg\src\utils\utils.h
+	<vector>
+
+1604601390 source:c:\users\flan\desktop\cg\ex\eximg\src\button\button.cpp
+	"Button.h"
+
+1604609155 c:\users\flan\desktop\cg\ex\eximg\src\button\button.h
+	<iostream>
+	"../gl_canvas2d.h"
+	"../Utils/Utils.h"
+
+1604609189 source:c:\users\flan\desktop\cg\ex\eximg\src\utils\utils.cpp
+	"../gl_canvas2d.h"
 	"Utils.h"
 

@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include "gl_canvas2d.h"
-#include "Utils.h"
+#include "../gl_canvas2d.h"
+#include "../Utils/Utils.h"
 
 class Button
 {
