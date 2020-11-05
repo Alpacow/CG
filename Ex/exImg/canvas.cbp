@@ -45,7 +45,8 @@
 		</Linker>
 		<Unit filename="include/GL/glut.h" />
 		<Unit filename="src/Bmp.h" />
-		<Unit filename="src/Botao.h" />
+		<Unit filename="src/Button.cpp" />
+		<Unit filename="src/Button.h" />
 		<Unit filename="src/Utils.cpp" />
 		<Unit filename="src/Utils.h" />
 		<Unit filename="src/Vector2.h" />

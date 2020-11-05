@@ -13,6 +13,7 @@
 #include <string.h>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -59,10 +60,9 @@ void Bmp::convertBGRtoRGB()
 void Bmp::renderBmp(int px, int py)
 {
     int x = 0;
-    //dt = (flip) ? mirrored() : data;
-    for(int i = 0; i < getHeight(); i++) {
-        for(int j = 0; j < getWidth(); j++) {
-            vector<float> rgb = RGBtoFloat(data[x], data[x + 1], data[x + 2]);
+    for(int i = 0; i < height; i++) {
+        for(int j = 0; j < width; j++) {
+            vector<float> rgb = Utils::RGBtoFloat(data[x], data[x + 1], data[x + 2]);
             CV::color(rgb[0], rgb[1], rgb[2]);
             CV::point(px + j, py + getHeight() - i); // img certa
             //CV::point(px + i, py + j); // virado p esquerda
@@ -72,12 +72,39 @@ void Bmp::renderBmp(int px, int py)
         }
     }
 }
+/*
+void Bmp::renderBmp(int px, int py)
+{
+    int x = 0, p;
+    for(int i = 0; i < height; i++) {
+        p = (width - 1) * (i + 1);
+        for(int j = 0; j < width; j++) {
+            vector<float> rgb = RGBtoFloat(data[p - 2], data[p - 1], data[p]);
+            CV::color(rgb[0], rgb[1], rgb[2]);
+            CV::point(px + j, py + getHeight() - i); // img certa
+            //CV::point(px + i, py + j); // virado p esquerda
+            //CV::point(px + j, py + i); // cabeça p baixo
+            //CV::point(px + getHeight() - i, py + j); // virado p direita
+            //cout << endl << p << " - " << x;
+            if (p <= x) break;
+            p -= 3;
+        }
+        x += (width - 1);
+    }
+}*/
 
 void Bmp::mirroredX()
 {
+    int x = 0;
+    int y = width - 1;
     for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width/2; j++) {
-            swap(data[i * width + j], data[i * width + (width - 1 - j)]);
+        for (int j = 0; j < width; j++) {
+            swap(data[x], data[y - 2]);
+            swap(data[x + 1], data[y - 1]);
+            swap(data[x + 2], data[y]);
+            x += 3;
+            y += 3;
+            //swap(data[i * width + j], data[i * width + (width - 1 - j)]);
             //newdt[(w-1) * (i + 1) - j + i]
         }
     }
@@ -96,27 +123,6 @@ void Bmp::setFlip(int value)
 {
     flip = value;
 }
-
-void Bmp::mirrored2()
-{
-    int dt[] = {0, 1, 2, 3, 4, 5, 6, 7};
-    int i, j;
-    int w = 4;
-    for (i = 0; i < 2; i++) {
-        for (j = 0; j < 4/2; j++) {
-            swap(dt[i * w + j], dt[i * w + (w - 1 - j)]);
-        }
-    }
-    printf("\n novo\n");
-    for (i = 0; i < 2; i++) {
-        for (j = 0; j < 4; j++) {
-            printf("%d (%d) ", dt[i * w + j], i * w + j);
-        }
-        printf("\n");
-    }
-}
-
-
 
 void Bmp::load(const char *fileName)
 {
@@ -169,6 +175,7 @@ void Bmp::load(const char *fileName)
     }
 
     if( width*height*3 != imagesize ) {
+        cout << width*height*3 << imagesize << endl;
         printf("\nWarning: Arquivo BMP nao eh potencia de 2");
         getchar();
     }

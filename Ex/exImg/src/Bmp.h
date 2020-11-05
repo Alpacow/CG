@@ -20,49 +20,52 @@
 #define INFOHEADER_SIZE  40 //sizeof(INFOHEADER) da 40 e esta correto.
 #define uchar unsigned char
 
-typedef struct {
-   unsigned short int type;                 /* Magic identifier            */
-   unsigned int size;                       /* File size in bytes          */
-   unsigned short int reserved1, reserved2;
-   unsigned int offset;                     /* Offset to image data em bytes*/
-} HEADER;
+class BmpHeader
+{
+public:
+    unsigned short int type;                 /* Magic identifier            */
+    unsigned int size;                       /* File size in bytes          */
+    unsigned short int reserved1, reserved2;
+    unsigned int offset;                     /* Offset to image data em bytes*/
+};
 
 
-typedef struct {
-   unsigned int size;               /* Header size in bytes      */
-   int width,height;                /* Width and height of image */
-   unsigned short int planes;       /* Number of colour planes   */
-   unsigned short int bits;         /* Bits per pixel            */
-   unsigned int compression;        /* Compression type          */
-   unsigned int imagesize;          /* Image size in bytes       */
-   int xresolution,yresolution;     /* Pixels per meter          */
-   unsigned int ncolours;           /* Number of colours         */
-   unsigned int impcolours;         /* Important colours         */
-} INFOHEADER;
+class BmpInfoHeader
+{
+public:
+    unsigned int size;               /* Header size in bytes      */
+    int width, height;                /* Width and height of image */
+    unsigned short int planes;       /* Number of colour planes   */
+    unsigned short int bits;         /* Bits per pixel            */
+    unsigned int compression;        /* Compression type          */
+    unsigned int imagesize;          /* Image size in bytes       */
+    int xresolution,yresolution;     /* Pixels per meter          */
+    unsigned int ncolours;           /* Number of colours         */
+    unsigned int impcolours;         /* Important colours         */
+};
 
 
 class Bmp
 {
 private:
-   int width, height, imagesize, bytesPerLine, bits, flip = 0;
-   unsigned char *data;
+    int width, height, imagesize, bytesPerLine, bits, flip = 0;
+    unsigned char *data;
 
-   HEADER     header;
-   INFOHEADER info;
+    BmpHeader header;
+    BmpInfoHeader info;
 
-   void load(const char *fileName);
+    void load(const char *fileName);
 
 public:
-   Bmp(const char *fileName);
-   uchar* getImage();
-   int    getWidth(void);
-   int    getHeight(void);
-   void   convertBGRtoRGB(void);
-   void   renderBmp(int px, int py);
-   void  mirroredX();
-   void  mirroredY();
-   void  mirrored2();
-   void setFlip(int value);
+    Bmp(const char *fileName);
+    uchar* getImage();
+    int    getWidth(void);
+    int    getHeight(void);
+    void   convertBGRtoRGB(void);
+    void   renderBmp(int px, int py);
+    void  mirroredX();
+    void  mirroredY();
+    void setFlip(int value);
 };
 
 #endif

@@ -1,11 +1,19 @@
-#ifndef __UTILS_H__
-#define __UTILS_H__
+//*************************************************************
+//
+// classe que contém funções auxiliares utilizadas na aplicação
+//
+//*************************************************************
+
+#ifndef ___UTILS__H___
+#define ___UTILS__H___
 
 #include <vector>
-#include "Bmp.h"
 using namespace std;
 
-// Funções auxiliares utilizadas na aplicação
-vector<float> RGBtoFloat(int r, int g, int b);
-
+class Utils
+{
+public:
+    static vector<float> RGBtoFloat(int r, int g, int b);
+};
 #endif
+

@@ -8,7 +8,7 @@
 
 #include "gl_canvas2d.h"
 #include "Utils.h"
-#include "Botao.h"
+#include "Button.h"
 #include "Bmp.h"
 
 
@@ -18,8 +18,7 @@
 
 using namespace std;
 
-Button   *bt = NULL; //se a aplicacao tiver varios botoes, sugiro implementar um manager de botoes.
-Button   *bt2 = NULL; //se a aplicacao tiver varios botoes, sugiro implementar um manager de botoes.
+Button* bts = new Button();
 vector<float> rgb; // controla cores passadas em RGB
 // imagem
 Bmp *img1;
@@ -48,14 +47,13 @@ void DrawMouseScreenCoords()
 void render()
 {
     CV::text(W/2 - 50, 10, "Teste imagens");
-    bt->Render();
-    bt2->Render();
-    DrawMouseScreenCoords();
+    bts->renderButtons();
+    //DrawMouseScreenCoords();
     if (opcao == 200)
         img1->setFlip(0);
     if (opcao == 202)
         img1->setFlip(1);
-    img1->mirroredX();
+    //img1->mirroredX();
     img1->renderBmp(250, 200);
 }
 
@@ -63,7 +61,6 @@ void render()
 void keyboard(int key)
 {
     printf("\nTecla: %d", key);
-    //if( key < 200)
     opcao = key;
 
     switch(key) {
@@ -85,12 +82,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
     mouseX = x; //guarda as coordenadas do mouse para exibir dentro da render()
     mouseY = y;
     //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
-    if( state == 0 ) {
-        if( bt->Colidiu(x, y) ) {
-            cout << "Clicou no botao" << endl;
-            img1->mirroredX();
-        }
-    }
+    bts->checkButtonState(state, x, y);
 }
 
 
@@ -100,12 +92,8 @@ int main(int argc, char *argv[])
 
     img1 = new Bmp("C:\\Users\\Flan\\Desktop\\CG\\Ex\\exImg\\resources\\img1.bmp");
     img1->convertBGRtoRGB();
-
-    rgb = RGBtoFloat(70,130,180);
+    rgb = Utils::RGBtoFloat(28,28,28);
     CV::clear(rgb[0], rgb[1], rgb[2]);
 
-    rgb = RGBtoFloat(222,184,135);
-    bt = new Button(10, 20, 140, 50, (char*)"b1", rgb);
-    bt2 = new Button(180, 20, 140, 50, (char*)"b2", rgb);
     CV::run();
 }

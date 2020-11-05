@@ -15,7 +15,7 @@ static float calcRtoF (float i)
    @param g: inteiro equivalente a GREEN
    @param b: inteiro equivalente a BLUE
 */
-vector<float> RGBtoFloat (int r, int g, int b)
+vector<float> Utils::RGBtoFloat (int r, int g, int b)
 {
     vector<float> rgb;
     rgb.push_back(calcRtoF(r));
