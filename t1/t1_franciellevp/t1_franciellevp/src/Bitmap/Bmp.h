@@ -1,47 +1,41 @@
 //*********************************************************
 //
 // classe para fazer o carregamento de arquivos no formato BMP
-// Autor: Cesar Tadeu Pozzer
-//        pozzer@inf.ufsm.br
-//
-//  Referencia:  http://astronomy.swin.edu.au/~pbourke/dataformats/bmp/
-//  Versao 09/2010
 //
 //**********************************************************
-
 #ifndef ___BMP__H___
 #define ___BMP__H___
 
-#include <stdio.h>
-#include <stdlib.h>
-
+#include <string>
 
 #define HEADER_SIZE      14 //sizeof(HEADER) vai dar 16 devido ao alinhamento de bytes
 #define INFOHEADER_SIZE  40 //sizeof(INFOHEADER) da 40 e esta correto.
 #define uchar unsigned char
 
+using namespace std;
+
 class BmpHeader
 {
 public:
-    unsigned short int type;                 /* Magic identifier            */
-    unsigned int size;                       /* File size in bytes          */
-    unsigned short int reserved1, reserved2;
-    unsigned int offset;                     /* Offset to image data em bytes*/
+    short type;                 /* Magic identifier            */
+    int size;                       /* File size in bytes          */
+    short reserved1, reserved2;
+    int offset;                     /* Offset to image data em bytes*/
 };
 
 
 class BmpInfoHeader
 {
 public:
-    unsigned int size;               /* Header size in bytes      */
+    int size;               /* Header size in bytes      */
     int width, height;                /* Width and height of image */
-    unsigned short int planes;       /* Number of colour planes   */
-    unsigned short int bits;         /* Bits per pixel            */
-    unsigned int compression;        /* Compression type          */
-    unsigned int imagesize;          /* Image size in bytes       */
+    short planes;       /* Number of colour planes   */
+    short bits;         /* Bits per pixel            */
+    int compression;        /* Compression type          */
+    int imagesize;          /* Image size in bytes       */
     int xresolution,yresolution;     /* Pixels per meter          */
-    unsigned int ncolours;           /* Number of colours         */
-    unsigned int impcolours;         /* Important colours         */
+    int ncolours;           /* Number of colours         */
+    int impcolours;         /* Important colours         */
 };
 
 
@@ -54,10 +48,10 @@ private:
     BmpHeader header;
     BmpInfoHeader info;
 
-    void load(const char *fileName);
+    void load(const char* fileName);
 
 public:
-    Bmp(const char *fileName);
+    Bmp(string fileName);
     uchar* getImage();
     int    getWidth(void);
     int    getHeight(void);

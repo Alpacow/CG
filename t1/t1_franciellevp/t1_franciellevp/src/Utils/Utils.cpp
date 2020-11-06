@@ -1,6 +1,8 @@
 #include "../gl_canvas2d.h"
-
 #include "Utils.h"
+
+#include <unistd.h>
+#include <iostream>
 
 using namespace std;
 
@@ -22,4 +24,20 @@ vector<float> Utils::RGBtoFloat (int r, int g, int b)
     rgb.push_back(calcRtoF(g));
     rgb.push_back(calcRtoF(b));
     return rgb;
+}
+
+string Utils::getPath (const char* filename) {
+    char buf[100];
+    string path;
+    const char* aux;
+    getcwd(buf, sizeof(buf));
+    #ifdef WIN32
+        aux = "\\t1_franciellevp\\resources\\";
+        path = strcat(buf, aux);
+    #else
+        aux = "/t1_franciellevp/resources/";
+        path = strcat(buf, aux);
+    #endif
+    path += filename;
+    return path;
 }

@@ -8,22 +8,21 @@
 #include "../Utils/Utils.h"
 #include "../gl_canvas2d.h"
 
-#include <string.h>
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
-Bmp::Bmp(const char *fileName)
+Bmp::Bmp(string fileName)
 {
     width = height = 0;
     data = NULL;
-    if( fileName != NULL && strlen(fileName) > 0 ) {
-        load(fileName);
-    } else {
-        printf("Error: Invalid BMP filename");
-    }
+    if(!fileName.empty() && fileName.size() > 0)
+        load(fileName.c_str());
+    else
+        cout << "Error: Invalid BMP filename" << endl;
 }
 
 uchar* Bmp::getImage()
@@ -122,15 +121,14 @@ void Bmp::setFlip(int value)
     flip = value;
 }
 
-void Bmp::load(const char *fileName)
+void Bmp::load(const char* fileName)
 {
     FILE *fp = fopen(fileName, "rb");
-    if( fp == NULL ) {
-        printf("\nErro ao abrir arquivo %s para leitura", fileName);
+    if(fp == NULL) {
+        cout << endl << "Erro ao abrir arquivo " << fileName << " para leitura" << endl;
         return;
     }
-
-    printf("\n\nCarregando arquivo %s", fileName);
+    cout << "\nCarregando arquivo " << fileName << endl;
 
     //le o HEADER componente a componente devido ao problema de alinhamento de bytes. Usando
     //o comando fread(header, sizeof(HEADER),1,fp) sao lidos 16 bytes ao inves de 14
@@ -139,6 +137,11 @@ void Bmp::load(const char *fileName)
     fread(&header.reserved1, sizeof(unsigned short int), 1, fp);
     fread(&header.reserved2, sizeof(unsigned short int), 1, fp);
     fread(&header.offset,    sizeof(unsigned int),       1, fp);
+    /*fp.read(reinterpret_cast<char*>(&header.type), 2);
+    fp.read(reinterpret_cast<char*>(&header.size), 4);
+    fp.read(reinterpret_cast<char*>(&header.reserved1), 2);
+    fp.read(reinterpret_cast<char*>(&header.reserved2), 2);
+    fp.read(reinterpret_cast<char*>(&header.offset), 4);*/
 
     //le o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
     fread(&info.size,        sizeof(unsigned int),       1, fp);
@@ -152,51 +155,61 @@ void Bmp::load(const char *fileName)
     fread(&info.yresolution, sizeof(int),                1, fp);
     fread(&info.ncolours,    sizeof(unsigned int),       1, fp);
     fread(&info.impcolours,  sizeof(unsigned int),       1, fp);
+    /*fp.read(reinterpret_cast<char*>(&info.size), 4);
+    fp.read(reinterpret_cast<char*>(&info.width), 4);
+    fp.read(reinterpret_cast<char*>(&info.height), 4);
+    fp.read(reinterpret_cast<char*>(&info.planes), 2);
+    fp.read(reinterpret_cast<char*>(&info.bits), 2);
+    fp.read(reinterpret_cast<char*>(&info.compression), 4);
+    fp.read(reinterpret_cast<char*>(&info.imagesize), 4);
+    fp.read(reinterpret_cast<char*>(&info.xresolution), 4);
+    fp.read(reinterpret_cast<char*>(&info.yresolution), 4);
+    fp.read(reinterpret_cast<char*>(&info.ncolours), 4);
+    fp.read(reinterpret_cast<char*>(&info.impcolours), 4);*/
 
     width  = info.width;
     height = info.height;
     bits   = info.bits;
-    bytesPerLine =(3 * (width + 1) / 4) * 4;
+    bytesPerLine =(3 * (width + 1) / 4) * 4; // Todo: IMPORTANTE
     imagesize    = bytesPerLine*height;
     int delta    = bytesPerLine - (3 * width);
 
-    printf("\nImagem: %dx%d - Bits: %d", width, height, bits);
-    printf("\nbytesPerLine: %d", bytesPerLine);
-    printf("\nbytesPerLine: %d", width * 3);
-    printf("\ndelta: %d", delta);
-    printf("\nimagesize: %d %d", imagesize, info.imagesize);
+    cout << "Imagem: " << width << "x" << height << " - Bits: " << bits << endl;
+    cout << "bytesPerLine: " << bytesPerLine << endl;
+    cout << "bytesPerLine: " << width * 3 << endl;
+    cout << "delta: " << delta << endl;
+    cout << "imagesize: " << imagesize << " " << info.imagesize << endl;
 
     if( header.type != 19778 ) {
-        printf("\nError: Arquivo BMP invalido");
+        cout << "Error: Arquivo BMP invalido" << endl;
         getchar();
         exit(0);
     }
 
     if( width*height*3 != imagesize ) {
         cout << width*height*3 << imagesize << endl;
-        printf("\nWarning: Arquivo BMP nao eh potencia de 2");
+        cout << "Warning: Arquivo BMP nao eh potencia de 2" << endl;
         getchar();
     }
 
     if( info.compression != 0 ) {
-        printf("\nError: Formato BMP comprimido nao suportado");
+        cout << "Error: Formato BMP comprimido nao suportado" <<  endl;
         getchar();
         return;
     }
     if( bits != 24 ) {
-        printf("\nError: Formato BMP com %d bits/pixel nao suportado", bits);
+        cout << "Error: Formato BMP com %d bits/pixel nao suportado" << endl;
         getchar();
         return;
     }
 
     if( info.planes != 1 ) {
-        printf("\nError: Numero de Planes nao suportado: %d", info.planes);
+        cout << "Error: Numero de Planes nao suportado: " << info.planes << endl;
         getchar();
         return;
     }
 
     data = new unsigned char[imagesize];
     fread(data, sizeof(unsigned char), imagesize, fp);
-
     fclose(fp);
 }
