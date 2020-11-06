@@ -25,18 +25,22 @@ vector<float> Utils::RGBtoFloat (int r, int g, int b)
     rgb.push_back(calcRtoF(b));
     return rgb;
 }
-
-string Utils::getPath (const char* filename) {
+string Utils::getCurrentPath() {
     char buf[100];
-    string path;
-    const char* aux;
     getcwd(buf, sizeof(buf));
+    string path = buf;
+    return path;
+}
+
+string Utils::getImagePath (const char* filename) {
+    string path = getCurrentPath();
+    const char* aux;
     #ifdef WIN32
         aux = "\\t1_franciellevp\\resources\\";
-        path = strcat(buf, aux);
+        path += aux;
     #else
         aux = "/t1_franciellevp/resources/";
-        path = strcat(buf, aux);
+        path += aux;
     #endif
     path += filename;
     return path;

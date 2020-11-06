@@ -44,13 +44,13 @@
 			<Add library="../lib/freeglut.lib" />
 		</Linker>
 		<Unit filename="include/GL/glut.h" />
-		<Unit filename="src/Bmp.h" />
-		<Unit filename="src/Button.cpp" />
-		<Unit filename="src/Button.h" />
-		<Unit filename="src/Utils.cpp" />
-		<Unit filename="src/Utils.h" />
-		<Unit filename="src/Vector2.h" />
-		<Unit filename="src/bmp.cpp" />
+		<Unit filename="src/Bitmap/Bmp.cpp" />
+		<Unit filename="src/Bitmap/Bmp.h" />
+		<Unit filename="src/Button/Button.cpp" />
+		<Unit filename="src/Button/Button.h" />
+		<Unit filename="src/Utils/Utils.cpp" />
+		<Unit filename="src/Utils/Utils.h" />
+		<Unit filename="src/Utils/Vector2.h" />
 		<Unit filename="src/gl_canvas2d.cpp" />
 		<Unit filename="src/gl_canvas2d.h" />
 		<Unit filename="src/main.cpp" />

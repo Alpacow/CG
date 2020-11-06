@@ -62,14 +62,12 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
     bts->checkButtonState(state, x, y);
 }
 
-
 int main(int argc, char *argv[])
 {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getPath("img1.bmp"));
+    img = new Bmp(Utils::getImagePath("img1.bmp"));
     img->convertBGRtoRGB();
     rgb = Utils::RGBtoFloat(28,28,28);
     CV::clear(rgb[0], rgb[1], rgb[2]);
-
     CV::run();
 }

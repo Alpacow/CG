@@ -15,7 +15,8 @@ class Utils
 {
 public:
     static vector<float> RGBtoFloat(int r, int g, int b);
-    static string getPath(const char* filename);
+    static string getImagePath(const char* filename);
+    static string getCurrentPath();
 };
 #endif
 
