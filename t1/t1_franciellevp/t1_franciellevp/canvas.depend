@@ -274,7 +274,7 @@
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1604650670 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\main.cpp
+1604808388 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	"gl_canvas2d.h"
@@ -292,7 +292,7 @@
 	<unistd.h>
 	<iostream>
 
-1604649767 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
+1604808653 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
 	"Bmp.h"
 	"../Utils/Utils.h"
 	"../gl_canvas2d.h"
