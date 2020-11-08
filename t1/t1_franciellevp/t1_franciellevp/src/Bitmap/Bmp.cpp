@@ -61,37 +61,17 @@ void Bmp::renderBmp(int px, int py)
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(data[x], data[x + 1], data[x + 2]);
-            //cout << "(" << rgb[0] << ", " << rgb[1] << ", " << rgb[2] << ")" << " || ";
+            cout << "(" << rgb[0] << ", " << rgb[1] << ", " << rgb[2] << ")" << " || ";
             CV::color(rgb[0], rgb[1], rgb[2]);
-            CV::point(px + j, py + getHeight() - i); // img certa
+            CV::point(px + j, py + height - i); // img certa
             //CV::point(px + i, py + j); // virado p esquerda
             //CV::point(px + j, py + i); // cabeça p baixo
-            //CV::point(px + getHeight() - i, py + j); // virado p direita
+            //CV::point(px + height - i, py + j); // virado p direita
             x += 3;
         }
         cout << endl << endl;
     }
 }
-/*
-void Bmp::renderBmp(int px, int py)
-{
-    int x = 0, p;
-    for(int i = 0; i < height; i++) {
-        p = (width - 1) * (i + 1);
-        for(int j = 0; j < width; j++) {
-            vector<float> rgb = RGBtoFloat(data[p - 2], data[p - 1], data[p]);
-            CV::color(rgb[0], rgb[1], rgb[2]);
-            CV::point(px + j, py + getHeight() - i); // img certa
-            //CV::point(px + i, py + j); // virado p esquerda
-            //CV::point(px + j, py + i); // cabeça p baixo
-            //CV::point(px + getHeight() - i, py + j); // virado p direita
-            //cout << endl << p << " - " << x;
-            if (p <= x) break;
-            p -= 3;
-        }
-        x += (width - 1);
-    }
-}*/
 
 void Bmp::mirroredX()
 {
@@ -175,13 +155,13 @@ void Bmp::load(const char* fileName)
     bits   = info.bits;
     cout << (3 * (width + 1) / 4) << " - " <<  (4 - width % 4) % 4 << endl;
     int extrabytes = (4 - width % 4) % 4;
-    bytesPerLine =(3 * (width + 1) / 4) * 4 - extrabytes; // Todo: IMPORTANTE
+    bytesPerLine =(3 * (width + extrabytes) / 4) * 4; // Todo: IMPORTANTE
     imagesize    = bytesPerLine * height;
-    int delta    = bytesPerLine - 3 * width;
+    int delta    = bytesPerLine - (width + extrabytes) * 3;
 
     cout << "Imagem: " << width << "x" << height << " - Bits: " << bits << endl;
     cout << "bytesPerLine: " << bytesPerLine << endl;
-    cout << "bytesPerLine: " << width * 3 << endl;
+    cout << "bytesPerLine: " << (width + extrabytes) * 3 << endl;
     cout << "delta: " << delta << endl;
     cout << "imagesize: " << imagesize << " " << info.imagesize << endl;
 
@@ -191,7 +171,7 @@ void Bmp::load(const char* fileName)
         exit(0);
     }
 
-    if( width*height*3 != imagesize ) {
+    if( (width + extrabytes)*height*3 != imagesize ) {
         cout << width*height*3 << " " << imagesize << endl;
         cout << "Warning: Arquivo BMP nao tem largura multipla de 4" << endl;
         getchar();
