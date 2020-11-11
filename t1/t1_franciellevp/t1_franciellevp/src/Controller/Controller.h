@@ -9,6 +9,7 @@
 
 #include "../Bitmap/Bmp.h"
 #include "../Widgets/Button.h"
+#include "../Widgets/Checkbox.h"
 #include <vector>
 
 using namespace std;
@@ -17,8 +18,9 @@ class Controller
 {
 private:
     int screenWidth = 1200, screenHeight = 1000;
-    Bmp* img;                   // imagem a ser manipulada
-    Widget* bts = new Button(); // controla todos os botões do programa
+    Bmp* img;                     // imagem a ser manipulada
+    Widget* bts = new Button();   // controla todos os botões do programa
+    Widget* check = new Checkbox(); // controla todos os checkbox do programa
     vector<float> rgb;          // controla cores passadas em RGB
     int opcao = 50;             // variavel para selecao do que sera exibido na canvas.
     int mx, my;                 //variaveis do mouse para poder exibir dentro da render().

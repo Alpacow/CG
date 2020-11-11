@@ -327,14 +327,25 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1605094033 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
+1605110025 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
 	"../Canvas/gl_canvas2d.h"
-	"Controller.h"
 	"../Utils/Utils.h"
+	"Controller.h"
 	<iostream>
 
-1605095551 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
+1605110279 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
 	"../Bitmap/Bmp.h"
 	"../Widgets/Button.h"
+	"../Widgets/Checkbox.h"
 	<vector>
+
+1605111062 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\checkbox.h
+	"Widget.h"
+	<string>
+
+1605110087 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\checkbox.cpp
+	"Checkbox.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
 

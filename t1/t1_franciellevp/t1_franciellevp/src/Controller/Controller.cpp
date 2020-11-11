@@ -21,6 +21,7 @@ void Controller::Render()
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::text(screenWidth/2 - 80, 20, "T1 - Francielle Vasconcellos Pereira");
     bts->RenderWidgets();
+    check->RenderWidgets();
     if (opcao == 200)
         img->setFlip(0);
     if (opcao == 202)
@@ -44,6 +45,7 @@ void Controller::Mouse(int x, int y, int state)
     mx = x; //guarda as coordenadas do mouse para exibir dentro da render()
     my = y;
     bts->CheckState(state, x, y);
+    check->CheckState(state, x, y);
 }
 
 void Controller::InitCanvas() {
