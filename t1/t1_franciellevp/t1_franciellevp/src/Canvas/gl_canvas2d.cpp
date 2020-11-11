@@ -329,7 +329,7 @@ void CV::init(int *w, int *h, const char *title)
    glutMotionFunc(motion);
    glutMouseWheelFunc(mouseWheelCB);
 
-   printf("GL Version: %s", glGetString(GL_VERSION));
+   printf("GL Version: %s\n", glGetString(GL_VERSION));
 }
 
 void CV::run()

@@ -274,19 +274,15 @@
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1605091667 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\main.cpp
+1605095490 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
-	"Canvas/gl_canvas2d.h"
-	"Utils/Utils.h"
-	"Widgets/Button.h"
-	"Bitmap/Bmp.h"
-	<math.h>
+	"Controller/Controller.h"
 	<iostream>
 
-1604919051 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
-	<string>
+1605095417 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
 	"../Utils/Utils.h"
+	<string>
 
 1605088935 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.cpp
 	"../Canvas/gl_canvas2d.h"
@@ -311,7 +307,7 @@
 	<GL/freeglut_ext.h>
 	"../Utils/Vector2.h"
 
-1604599300 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\canvas\gl_canvas2d.cpp
+1605094231 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\canvas\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
@@ -319,7 +315,7 @@
 	"Widget.h"
 	<string>
 
-1605091510 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\widget.h
+1605094842 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\widget.h
 	<vector>
 
 1605091552 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\widget.cpp
@@ -330,4 +326,15 @@
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 	<iostream>
+
+1605094033 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
+	"../Canvas/gl_canvas2d.h"
+	"Controller.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605095551 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
+	"../Bitmap/Bmp.h"
+	"../Widgets/Button.h"
+	<vector>
 
