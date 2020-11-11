@@ -233,7 +233,7 @@
 1604601390 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\button\button.cpp
 	"Button.h"
 
-1604609155 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\button\button.h
+1605081572 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\button\button.h
 	<iostream>
 	"../gl_canvas2d.h"
 	"../Utils/Utils.h"
@@ -266,7 +266,7 @@
 
 1589217858 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\vector2.h
 
-1604650691 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.h
+1604918927 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.h
 	<vector>
 	<string>
 
@@ -274,30 +274,60 @@
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1604810912 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\main.cpp
+1605091667 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
-	"gl_canvas2d.h"
+	"Canvas/gl_canvas2d.h"
 	"Utils/Utils.h"
-	"Button/Button.h"
+	"Widgets/Button.h"
 	"Bitmap/Bmp.h"
 	<math.h>
+	<iostream>
 
-1604649539 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
+1604919051 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
 	<string>
+	"../Utils/Utils.h"
 
-1604650855 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.cpp
-	"../gl_canvas2d.h"
+1605088935 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.cpp
+	"../Canvas/gl_canvas2d.h"
 	"Utils.h"
 	<unistd.h>
 	<iostream>
 
-1604810935 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
+1605091314 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
 	"Bmp.h"
-	"../Utils/Utils.h"
-	"../gl_canvas2d.h"
+	"../Canvas/gl_canvas2d.h"
 	<vector>
 	<algorithm>
 	<iostream>
 	<fstream>
+
+1605087457 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\canvas\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"../Utils/Vector2.h"
+
+1604599300 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\canvas\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1605091055 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.h
+	"Widget.h"
+	<string>
+
+1605091510 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\widget.h
+	<vector>
+
+1605091552 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\widget.cpp
+	"Widget.h"
+
+1605091454 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.cpp
+	"Button.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
 

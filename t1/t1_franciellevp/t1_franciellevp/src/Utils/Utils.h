@@ -18,5 +18,12 @@ public:
     static string getImagePath(const char* filename);
     static string getCurrentPath();
 };
+
+
+class Color
+{
+public:
+    unsigned char rgb[3];
+};
 #endif
 

@@ -46,13 +46,15 @@
 		<Unit filename="include/GL/glut.h" />
 		<Unit filename="src/Bitmap/Bmp.cpp" />
 		<Unit filename="src/Bitmap/Bmp.h" />
-		<Unit filename="src/Button/Button.cpp" />
-		<Unit filename="src/Button/Button.h" />
+		<Unit filename="src/Canvas/gl_canvas2d.cpp" />
+		<Unit filename="src/Canvas/gl_canvas2d.h" />
 		<Unit filename="src/Utils/Utils.cpp" />
 		<Unit filename="src/Utils/Utils.h" />
 		<Unit filename="src/Utils/Vector2.h" />
-		<Unit filename="src/gl_canvas2d.cpp" />
-		<Unit filename="src/gl_canvas2d.h" />
+		<Unit filename="src/Widgets/Button.cpp" />
+		<Unit filename="src/Widgets/Button.h" />
+		<Unit filename="src/Widgets/Widget.cpp" />
+		<Unit filename="src/Widgets/Widget.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />

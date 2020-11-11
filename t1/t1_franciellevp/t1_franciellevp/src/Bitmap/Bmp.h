@@ -7,6 +7,7 @@
 #define ___BMP__H___
 
 #include <string>
+#include "../Utils/Utils.h"
 
 #define HEADER_SIZE      14 //sizeof(HEADER) vai dar 16 devido ao alinhamento de bytes
 #define INFOHEADER_SIZE  40 //sizeof(INFOHEADER) da 40 e esta correto.
@@ -44,11 +45,14 @@ class Bmp
 private:
     int width, height, imagesize, bytesPerLine, bits, flip = 0;
     unsigned char *data;
+    Color* image;
 
     BmpHeader header;
     BmpInfoHeader info;
 
     void load(const char* fileName);
+    void readHeader(FILE* fp);
+    void readInfoHeader(FILE* fp);
 
 public:
     Bmp(string fileName);

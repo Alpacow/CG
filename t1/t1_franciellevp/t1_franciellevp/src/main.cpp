@@ -1,12 +1,13 @@
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h> //callback da wheel do mouse.
 
-#include "gl_canvas2d.h"
+#include "Canvas/gl_canvas2d.h"
 #include "Utils/Utils.h"
-#include "Button/Button.h"
+#include "Widgets/Button.h"
 #include "Bitmap/Bmp.h"
 
 #include <math.h>
+#include <iostream>
 
 #define RECT_SIZE 10
 #define TEXT_COORD 2
@@ -14,10 +15,9 @@
 using namespace std;
 
 int screenWidth = 1200, screenHeight = 1000;
-Button* bts = new Button(); // controla todos os botões do programa
-vector<float> rgb; // controla cores passadas em RGB
+Widget* bts = new Button(); // controla todos os botões do programa
+vector<float> rgb;         // controla cores passadas em RGB
 Bmp* img; // imagem a ser manipulada
-
 int opcao  = 50; //variavel global para selecao do que sera exibido na canvas.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 
@@ -26,8 +26,10 @@ int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da ren
 //Deve-se manter essa função com poucas linhas de codigo.
 void render()
 {
+    rgb = Utils::RGBtoFloat(255,250,250);
+    CV::color(rgb[0], rgb[1], rgb[2]);
     CV::text(screenWidth/2 - 80, 20, "T1 - Francielle Vasconcellos Pereira");
-    bts->renderButtons();
+    bts->RenderWidgets();
     if (opcao == 200)
         img->setFlip(0);
     if (opcao == 202)
@@ -40,11 +42,10 @@ void keyboard(int key)
 {
     cout << endl << "Tecla: " << key << endl;
     opcao = key;
-
     switch(key) {
-    case 27:
-        exit(0);
-        break;
+        case 27:
+            exit(0);
+            break;
     }
 }
 
@@ -59,15 +60,14 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 {
     mouseX = x; //guarda as coordenadas do mouse para exibir dentro da render()
     mouseY = y;
-    bts->checkButtonState(state, x, y);
+    bts->CheckState(state, x, y);
 }
 
 int main(int argc, char *argv[])
 {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getImagePath("laranjinha.bmp"));
-    img->convertBGRtoRGB();
-    rgb = Utils::RGBtoFloat(28,28,28);
+    img = new Bmp(Utils::getImagePath("teste2.bmp"));
+    rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();
 }

@@ -5,8 +5,7 @@
 //**********************************************************
 
 #include "Bmp.h"
-#include "../Utils/Utils.h"
-#include "../gl_canvas2d.h"
+#include "../Canvas/gl_canvas2d.h"
 
 #include <vector>
 #include <algorithm>
@@ -23,6 +22,7 @@ Bmp::Bmp(string fileName)
         load(fileName.c_str());
     else
         cout << "Error: Invalid BMP filename" << endl;
+    convertBGRtoRGB();
 }
 
 uchar* Bmp::getImage()
@@ -57,11 +57,9 @@ void Bmp::convertBGRtoRGB()
 void Bmp::renderBmp(int px, int py)
 {
     int x = 0;
-    cout << "IMPRIMINDO" << endl;
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(data[x], data[x + 1], data[x + 2]);
-            cout << "(" << rgb[0] << ", " << rgb[1] << ", " << rgb[2] << ")" << " || ";
             CV::color(rgb[0], rgb[1], rgb[2]);
             CV::point(px + j, py + height - i); // img certa
             //CV::point(px + i, py + j); // virado p esquerda
@@ -69,7 +67,6 @@ void Bmp::renderBmp(int px, int py)
             //CV::point(px + height - i, py + j); // virado p direita
             x += 3;
         }
-        cout << endl << endl;
     }
 }
 
@@ -104,17 +101,9 @@ void Bmp::setFlip(int value)
     flip = value;
 }
 
-void Bmp::load(const char* fileName)
-{
-    FILE *fp = fopen(fileName, "rb");
-    if(fp == NULL) {
-        cout << endl << "Erro ao abrir arquivo " << fileName << " para leitura" << endl;
-        return;
-    }
-    cout << "\nCarregando arquivo " << fileName << endl;
-
-    //le o HEADER componente a componente devido ao problema de alinhamento de bytes. Usando
-    //o comando fread(header, sizeof(HEADER),1,fp) sao lidos 16 bytes ao inves de 14
+//le o HEADER componente a componente devido ao problema de alinhamento de bytes. Usando
+//o comando fread(header, sizeof(HEADER),1,fp) sao lidos 16 bytes ao inves de 14
+void Bmp::readHeader(FILE* fp) {
     fread(&header.type,      sizeof(unsigned short int), 1, fp);
     fread(&header.size,      sizeof(unsigned int),       1, fp);
     fread(&header.reserved1, sizeof(unsigned short int), 1, fp);
@@ -125,8 +114,10 @@ void Bmp::load(const char* fileName)
     fp.read(reinterpret_cast<char*>(&header.reserved1), 2);
     fp.read(reinterpret_cast<char*>(&header.reserved2), 2);
     fp.read(reinterpret_cast<char*>(&header.offset), 4);*/
+}
 
-    //le o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
+//le o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
+void Bmp::readInfoHeader(FILE* fp) {
     fread(&info.size,        sizeof(unsigned int),       1, fp);
     fread(&info.width,       sizeof(int),                1, fp);
     fread(&info.height,      sizeof(int),                1, fp);
@@ -149,13 +140,26 @@ void Bmp::load(const char* fileName)
     fp.read(reinterpret_cast<char*>(&info.yresolution), 4);
     fp.read(reinterpret_cast<char*>(&info.ncolours), 4);
     fp.read(reinterpret_cast<char*>(&info.impcolours), 4);*/
+}
 
+void Bmp::load(const char* fileName)
+{
+    FILE *fp = fopen(fileName, "rb");
+    if(fp == NULL) {
+        cout << endl << "Erro ao abrir arquivo " << fileName << " para leitura" << endl;
+        return;
+    }
+    cout << "\nCarregando arquivo " << fileName << endl;
+    readHeader(fp);
+    readInfoHeader(fp);
     width  = info.width;
     height = info.height;
     bits   = info.bits;
-    cout << (3 * (width + 1) / 4) << " - " <<  (4 - width % 4) % 4 << endl;
+    //image = new Color[width * height];
+    cout << "extra bits " <<  (4 - width % 4) % 4 << endl;
     int extrabytes = (4 - width % 4) % 4;
-    bytesPerLine =(3 * (width + extrabytes) / 4) * 4; // Todo: IMPORTANTE
+    //bytesPerLine =(3 * (width + 1) / 4) * 4; // Todo: IMPORTANTE
+    bytesPerLine = (((((width + extrabytes) * bits) + 31) & ~31) >> 3);
     imagesize    = bytesPerLine * height;
     int delta    = bytesPerLine - (width + extrabytes) * 3;
 
@@ -170,13 +174,11 @@ void Bmp::load(const char* fileName)
         getchar();
         exit(0);
     }
-
     if( (width + extrabytes)*height*3 != imagesize ) {
         cout << width*height*3 << " " << imagesize << endl;
         cout << "Warning: Arquivo BMP nao tem largura multipla de 4" << endl;
         getchar();
     }
-
     if( info.compression != 0 ) {
         cout << "Error: Formato BMP comprimido nao suportado" <<  endl;
         getchar();
@@ -187,14 +189,22 @@ void Bmp::load(const char* fileName)
         getchar();
         return;
     }
-
     if( info.planes != 1 ) {
         cout << "Error: Numero de Planes nao suportado: " << info.planes << endl;
         getchar();
         return;
     }
-
     data = new unsigned char[imagesize];
     fread(data, sizeof(unsigned char), imagesize, fp);
     fclose(fp);
+/*
+    int x = 0;
+    cout << "IMPRIMINDO" << endl;
+    for(int i = 0; i < height; i++) {
+        for(int j = 0; j < width; j++) {
+            cout << "(" << (int)data[x] << ", " << (int)data[x+1] << ", " << (int)data[x+2] << ")" << " | ";
+            x += 3;
+        }
+        cout << endl << endl;
+    }*/
 }
