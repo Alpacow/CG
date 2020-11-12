@@ -51,9 +51,9 @@ void Button::CheckState(int state, int x, int y)
 void Button::Create()
 {
     vector<float> bg = Utils::RGBtoFloat(72,61,139);
-    vector<float> label = Utils::RGBtoFloat(28, 28, 28);
-    bts.push_back(new Button(10, 20, 140, 50, bg, "b1", label));
+    vector<float> labelColor = Utils::RGBtoFloat(28, 28, 28);
+    bts.push_back(new Button(10, 20, 140, 50, bg, "b1", labelColor));
     bg = Utils::RGBtoFloat(106,90,205);
-    bts.push_back(new Button(180, 20, 140, 50, bg, "b2", label));
+    bts.push_back(new Button(180, 20, 140, 50, bg, "b2", labelColor));
 }
 

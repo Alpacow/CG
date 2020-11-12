@@ -1,8 +1,8 @@
-//*********************************************************
+//************************************************************
 //
 // classe para fazer o carregamento de arquivos no formato BMP
 //
-//**********************************************************
+//************************************************************
 
 #include "Bmp.h"
 #include "../Canvas/gl_canvas2d.h"
@@ -158,14 +158,13 @@ void Bmp::load(const char* fileName)
     //image = new Color[width * height];
     cout << "extra bits " <<  (4 - width % 4) % 4 << endl;
     int extrabytes = (4 - width % 4) % 4;
-    //bytesPerLine =(3 * (width + 1) / 4) * 4; // Todo: IMPORTANTE
-    bytesPerLine = (((((width + extrabytes) * bits) + 31) & ~31) >> 3);
+    bytesPerLine =(3 * (width + 1) / 4) * 4; // Todo: IMPORTANTE
     imagesize    = bytesPerLine * height;
-    int delta    = bytesPerLine - (width + extrabytes) * 3;
+    int delta    = bytesPerLine - (width + 1) * 3;
 
     cout << "Imagem: " << width << "x" << height << " - Bits: " << bits << endl;
     cout << "bytesPerLine: " << bytesPerLine << endl;
-    cout << "bytesPerLine: " << (width + extrabytes) * 3 << endl;
+    cout << "bytesPerLine: " << (width + 1) * 3 << endl;
     cout << "delta: " << delta << endl;
     cout << "imagesize: " << imagesize << " " << info.imagesize << endl;
 
@@ -174,10 +173,10 @@ void Bmp::load(const char* fileName)
         getchar();
         exit(0);
     }
-    if( (width + extrabytes)*height*3 != imagesize ) {
+    if( (width + 1)*height*3 != imagesize ) {
         cout << width*height*3 << " " << imagesize << endl;
         cout << "Warning: Arquivo BMP nao tem largura multipla de 4" << endl;
-        getchar();
+        //getchar();
     }
     if( info.compression != 0 ) {
         cout << "Error: Formato BMP comprimido nao suportado" <<  endl;
@@ -195,9 +194,40 @@ void Bmp::load(const char* fileName)
         return;
     }
     data = new unsigned char[imagesize];
-    fread(data, sizeof(unsigned char), imagesize, fp);
+    //fread(data, sizeof(unsigned char), imagesize, fp);
+    // iterate over infile's scanlines
+    int x = 0;
+    for (int i = 0; i < height; i++) {
+        // iterate over pixels in scanline
+        for (int j = 0; j < width; j++) {
+            uchar rgb[3];
+            // read RGB triple from infile
+            fread(&rgb, sizeof(rgb), 1, fp);
+            data[x] = rgb[0];
+            data[x+1] = rgb[1];
+            data[x+2] = rgb[2];
+            x += 3;
+        }
+        // skip over padding, if any
+        fseek(fp, extrabytes, SEEK_CUR);
+    }
     fclose(fp);
+}
+
 /*
+
+    int x = 0, a = 0;
+    for(int i = 0; i < height; i++) {
+        for(int j = 0; j < width; j++) {
+            image[a].rgb[0] = data[x];
+            image[a].rgb[1] = data[x+1];
+            image[a].rgb[2] = data[x+2];
+            x += 3;
+            a++;
+        }
+    }
+
+
     int x = 0;
     cout << "IMPRIMINDO" << endl;
     for(int i = 0; i < height; i++) {
@@ -207,4 +237,3 @@ void Bmp::load(const char* fileName)
         }
         cout << endl << endl;
     }*/
-}

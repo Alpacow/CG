@@ -11,7 +11,11 @@
 
 using namespace std;
 
-Controller::Controller() {}
+Controller::Controller()
+{
+    wds.push_back(new Button());
+    wds.push_back(new Checkbox());
+}
 
 Controller::~Controller() {}
 
@@ -20,8 +24,8 @@ void Controller::Render()
     rgb = Utils::RGBtoFloat(255,250,250);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::text(screenWidth/2 - 80, 20, "T1 - Francielle Vasconcellos Pereira");
-    bts->RenderWidgets();
-    check->RenderWidgets();
+    for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
+        wds[i]->RenderWidgets();
     if (opcao == 200)
         img->setFlip(0);
     if (opcao == 202)
@@ -44,8 +48,8 @@ void Controller::Mouse(int x, int y, int state)
 {
     mx = x; //guarda as coordenadas do mouse para exibir dentro da render()
     my = y;
-    bts->CheckState(state, x, y);
-    check->CheckState(state, x, y);
+    for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
+        wds[i]->CheckState(state, x, y);
 }
 
 void Controller::InitCanvas() {
@@ -54,4 +58,14 @@ void Controller::InitCanvas() {
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();
+}
+
+int Controller::getHeight()
+{
+    return this->screenHeight;
+}
+
+int Controller::getWidth()
+{
+    return this->screenWidth;
 }

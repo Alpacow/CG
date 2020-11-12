@@ -62,6 +62,6 @@ void Checkbox::Create()
 {
     vector<float> labelColor = Utils::RGBtoFloat(65,105,225);
     check.push_back(new Checkbox(400, 20, 20, 20, FALSE, "Check 1", labelColor));
-    check.push_back(new Checkbox(400, 50, 20, 20, FALSE, "Check 2", labelColor));
+    check.push_back(new Checkbox(400, 50, 20, 20, TRUE, "Check 2", labelColor));
 }
 

@@ -14,7 +14,6 @@ class Widget
         int x, y;
         float height, width;
         std::vector<float> bgColor;
-        std::vector<Widget> wds;
 
         Widget() {}
         ~Widget() {}
