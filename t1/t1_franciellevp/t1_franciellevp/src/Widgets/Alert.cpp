@@ -1,6 +1,6 @@
 #include "Alert.h"
+
 #include "../Canvas/gl_canvas2d.h"
-#include "../Controller/Controller.h"
 #include "../Utils/Utils.h"
 #include <iostream>
 
@@ -13,48 +13,71 @@ Alert::Alert () : Widget()
 
 Alert::~Alert() {}
 
-Alert::Alert(int x, int y, float w, float h, int hasInput, string text, vector<float> textColor, vector<float> bg)
-    : Widget(), hasInput(hasInput), text(text), textColor(textColor)
+Alert::Alert(int x, int y, float w, float h, const string txt, int type)
+    : Widget(), txt(txt)
 {
     this->x = x;
     this->y = y;
     this->width = w;
     this->height  = h;
-    this->bgColor = bg;
+    if (type == 1)
+        this->bgColor = Utils::RGBtoFloat(255,255,0);
+    else
+        this->bgColor = Utils::RGBtoFloat(255, 250, 250);
 }
 
 void Alert::Render()
 {
     CV::color(bgColor[0], bgColor[1], bgColor[2]);
     CV::rectFill(x, y, x + width, y + height);
-    CV::color(textColor[0], textColor[1], textColor[2]);
-    CV::text(x+5, y+height/2, text.c_str());
+    vector<float> color = Utils::RGBtoFloat(28, 28, 28);;
+    CV::color(color[0], color[1], color[2]);
+    int c = 5 * txt.size();
+    CV::text(x-c+width/2, y+height/2, txt.c_str()); //escreve o label do botao mais ou menos ao centro.
 
-    okButton = new Button(x+width+5, y+5+height/2, 50, 50, Utils::RGBtoFloat(28, 28, 28), "OK", Utils::RGBtoFloat(28, 28, 28));
-    if (hasInput) {
-        // TODO: desenhar input, permitindo entrada de dados
-    }
+    vector<float> bg = Utils::RGBtoFloat(128,128,128);
+    vector<float> co = Utils::RGBtoFloat(255, 250, 250);
+    CV::color(bg[0], bg[1], bg[2]);
+    wb = 50;
+    hb = 30;
+    int xb = x+width/2 - wb/2;
+    int yb = y+height/1.5;
+    CV::rectFill(xb, yb, xb+wb, yb+hb);
+    CV::color(co[0], co[1], co[2]);
+    CV::text(xb+18, yb+15, "OK");
 }
 
 void Alert::RenderWidgets()
 {
-    Render();
+    for(vector<Alert>::size_type i = 0; i != alerts.size(); i++)
+        alerts[i]->Render();
 }
 
 void Alert::CheckState(int state, int x, int y)
 {
-    if( state == 0 ) {
-        if(Colidiu(x, y)) {
-            cout << "Clicou no ALERT " << endl;
+    for(vector<Alert>::size_type i = 0; i != alerts.size(); i++) {
+        if( state == 0 ) {
+            if(alerts[i]->Colidiu(x, y)) {
+                cout << "Clicou no alert " << i << endl;
+                // como deixar de desenhar o aalert?
+            }
         }
     }
 }
 
 void Alert::Create()
 {
-    vector<float> txtColor = Utils::RGBtoFloat(65,105,225);
-    vector<float> bg = Utils::RGBtoFloat(255, 250, 250);
-    Controller* c = new Controller;
-    alert = new Alert(c->getWidth()/2, c->getHeight()/2, 200, 100, 0, "Arquivo BMP nao tem largura multipla de 4", txtColor, bg);
+    alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", 1));
 }
 
+// testa se colidiu com o botao do alert
+bool Alert::Colidiu(int mx, int my)
+{
+    wb = 50;
+    hb = 30;
+    int xb = x+width/2 - wb/2;
+    int yb = y+height/1.5;
+    if(mx >= xb && mx <= (xb + wb) && my >= y && my <= (yb + hb))
+        return true;
+    return false;
+}

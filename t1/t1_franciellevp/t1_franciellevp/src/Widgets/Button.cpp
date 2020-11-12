@@ -42,7 +42,7 @@ void Button::CheckState(int state, int x, int y)
     for(vector<Button>::size_type i = 0; i != bts.size(); i++) {
         if( state == 0 ) {
             if(bts[i]->Colidiu(x, y)) {
-                cout << "Clicou no botao" << i << endl;
+                cout << "Clicou no botao " << i << endl;
             }
         }
     }

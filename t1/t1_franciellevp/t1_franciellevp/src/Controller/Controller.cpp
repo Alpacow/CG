@@ -15,6 +15,7 @@ Controller::Controller()
 {
     wds.push_back(new Button());
     wds.push_back(new Checkbox());
+    wds.push_back(new Alert());
 }
 
 Controller::~Controller() {}
@@ -58,14 +59,4 @@ void Controller::InitCanvas() {
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();
-}
-
-int Controller::getHeight()
-{
-    return this->screenHeight;
-}
-
-int Controller::getWidth()
-{
-    return this->screenWidth;
 }

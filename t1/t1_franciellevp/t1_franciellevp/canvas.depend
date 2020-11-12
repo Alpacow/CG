@@ -53,14 +53,14 @@
 	"Controller/Controller.h"
 	<iostream>
 
-1605206278 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
+1605210265 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
 	"../Bitmap/Bmp.h"
 	"../Widgets/Button.h"
 	"../Widgets/Checkbox.h"
 	"../Widgets/Alert.h"
 	<vector>
 
-1605091055 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.h
+1605211045 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.h
 	"Widget.h"
 	<string>
 
@@ -77,7 +77,7 @@
 	<unistd.h>
 	<iostream>
 
-1605201889 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.cpp
+1605211019 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.cpp
 	"Button.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
@@ -89,7 +89,7 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1605203420 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
+1605210618 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 	"Controller.h"
@@ -100,15 +100,13 @@
 	"Button.h"
 	<string>
 
-1605206100 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.cpp
+1605214361 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.cpp
 	"Alert.h"
 	"../Canvas/gl_canvas2d.h"
-	"../Controller/Controller.h"
 	"../Utils/Utils.h"
 	<iostream>
 
-1605202810 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.h
+1605214951 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.h
 	"Widget.h"
-	"Button.h"
 	<string>
 
