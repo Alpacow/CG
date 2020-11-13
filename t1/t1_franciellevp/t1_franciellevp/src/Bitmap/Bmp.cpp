@@ -60,7 +60,7 @@ void Bmp::renderBmp(int px, int py)
     int x = 0;
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
-            vector<float> rgb = Utils::RGBtoFloat(data[x], data[x + 1], data[x + 2]);
+            vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
             CV::color(rgb[0], rgb[1], rgb[2]);
             CV::point(px + j, py + height - i); // img certa
             //CV::point(px + i, py + j); // virado p esquerda
@@ -69,6 +69,16 @@ void Bmp::renderBmp(int px, int py)
             x += 3;
         }
     }
+    /*
+    Color(*image)[width] = (Color(*)[width])dt;
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            vector<float> rgb = Utils::RGBtoFloat(image[i][j].r, image[i][j].g, image[i][j].b);
+            CV::color(rgb[0], rgb[1], rgb[2]);
+            CV::point(px + j, py + height - i); // img certa
+        }
+    }
+    */
 }
 
 void Bmp::mirroredX()
@@ -156,16 +166,17 @@ void Bmp::load(const char* fileName)
     width  = info.width;
     height = info.height;
     bits   = info.bits;
+    bytesPerLine =(3 * (width + 1) / 4) * 4;
+    imagesize    = bytesPerLine*height;
+    int delta    = bytesPerLine - (3 * width);
+
     //image = new Color[width * height];
-    cout << "extra bits " <<  (4 - width % 4) % 4 << endl;
-    int extrabytes = (4 - width % 4) % 4;
-    bytesPerLine =(3 * (width + 1) / 4) * 4; // Todo: IMPORTANTE
-    imagesize    = bytesPerLine * height;
-    int delta    = bytesPerLine - (width + 1) * 3;
+    //int extrabytes = (4 - width % 4) % 4;
+    int padding = (4 - (width * sizeof(Color)) % 4) % 4;
 
     cout << "Imagem: " << width << "x" << height << " - Bits: " << bits << endl;
     cout << "bytesPerLine: " << bytesPerLine << endl;
-    cout << "bytesPerLine: " << (width + 1) * 3 << endl;
+    cout << "bytesPerLine: " << width * 3 << endl;
     cout << "delta: " << delta << endl;
     cout << "imagesize: " << imagesize << " " << info.imagesize << endl;
 
@@ -174,7 +185,7 @@ void Bmp::load(const char* fileName)
         getchar();
         exit(0);
     }
-    if( (width + 1)*height*3 != imagesize ) {
+    if( width*height*3 != imagesize ) {
         cout << width*height*3 << " " << imagesize << endl;
         cout << "Warning: Arquivo BMP nao tem largura multipla de 4" << endl;
         //getchar();
@@ -195,40 +206,33 @@ void Bmp::load(const char* fileName)
         return;
     }
     data = new unsigned char[imagesize];
-    //fread(data, sizeof(unsigned char), imagesize, fp);
-    // iterate over infile's scanlines
-    int x = 0;
+    //dt = calloc(height, width * sizeof(Color));
+    dt = new Color*[height];
+    for(int i = 0; i < height; i++)
+        dt[i] = new Color[width];
+
+    Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));
+    // Iterate over infile's scanlines
     for (int i = 0; i < height; i++) {
-        // iterate over pixels in scanline
-        for (int j = 0; j < width; j++) {
-            uchar rgb[3];
-            // read RGB triple from infile
-            fread(&rgb, sizeof(rgb), 1, fp);
-            data[x] = rgb[0];
-            data[x+1] = rgb[1];
-            data[x+2] = rgb[2];
-            x += 3;
-        }
-        // skip over padding, if any
-        fseek(fp, extrabytes, SEEK_CUR);
+        // Read row into pixel array
+        fread(image[i], sizeof(Color), width, fp);
+        // Skip over padding
+        fseek(fp, padding, SEEK_CUR);
     }
+    for(int i = 0; i < height; i++)
+        for(int j = 0; j < width; j++)
+            dt[i][j] = image[i][j];
+
+//    for(int i = 0; i < height; i++) {
+//        for(int j = 0; j < width; j++) {
+//            cout << "(" << (int)image[i][j].r << ", " << (int)image[i][j].g << ", " << (int)image[i][j].b << ")" << " | ";
+//        }
+//        cout << endl << endl;
+//    }
     fclose(fp);
 }
 
 /*
-
-    int x = 0, a = 0;
-    for(int i = 0; i < height; i++) {
-        for(int j = 0; j < width; j++) {
-            image[a].rgb[0] = data[x];
-            image[a].rgb[1] = data[x+1];
-            image[a].rgb[2] = data[x+2];
-            x += 3;
-            a++;
-        }
-    }
-
-
     int x = 0;
     cout << "IMPRIMINDO" << endl;
     for(int i = 0; i < height; i++) {
@@ -237,4 +241,5 @@ void Bmp::load(const char* fileName)
             x += 3;
         }
         cout << endl << endl;
-    }*/
+    }
+    */

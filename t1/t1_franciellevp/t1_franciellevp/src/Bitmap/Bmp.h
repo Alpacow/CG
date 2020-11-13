@@ -43,10 +43,9 @@ public:
 class Bmp
 {
 private:
-    int width, height, imagesize, bytesPerLine, bits, flip = 0;
-    unsigned char *data;
-    Color* image;
-
+    int width = 1, height = 1, imagesize, bytesPerLine, bits, flip = 0;
+    uchar* data;
+    Color** dt;
     BmpHeader header;
     BmpInfoHeader info;
 

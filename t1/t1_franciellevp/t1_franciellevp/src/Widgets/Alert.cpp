@@ -47,7 +47,7 @@ void Alert::Render()
 
 void Alert::RenderWidgets()
 {
-    if (this->isActive)
+    if (isActive)
         alert->Render();
 }
 
@@ -64,8 +64,6 @@ void Alert::CheckState(int state, int x, int y)
 void Alert::Create()
 {
     alert = new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", Utils::WARNING, FALSE);
-
-    this->isActive = 1;
 }
 
 // testa se colidiu com o botao do alert

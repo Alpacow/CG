@@ -26,11 +26,19 @@ public:
     static string getCurrentPath();
 };
 
-
+/*
 class Color
 {
 public:
     unsigned char rgb[3];
 };
+*/
+typedef struct
+{
+    uint8_t  b;
+    uint8_t  g;
+    uint8_t  r;
+} __attribute__((__packed__))
+Color;
 #endif
 

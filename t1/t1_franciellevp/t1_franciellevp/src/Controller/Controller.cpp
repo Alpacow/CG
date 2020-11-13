@@ -36,7 +36,7 @@ void Controller::Render()
 
 void Controller::Keyboard(int key)
 {
-    cout << endl << "Tecla: " << key << endl;
+    cout << "Tecla: " << key << endl;
     opcao = key;
     switch(key) {
         case 27:
@@ -55,7 +55,7 @@ void Controller::Mouse(int x, int y, int state)
 
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getImagePath("teste2.bmp"));
+    img = new Bmp(Utils::getImagePath("img4.bmp"));
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();
