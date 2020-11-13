@@ -3,9 +3,6 @@
 #include "../Utils/Utils.h"
 #include <iostream>
 
-#define FALSE 0
-#define TRUE 1
-
 using namespace std;
 
 Checkbox::Checkbox () : Widget()

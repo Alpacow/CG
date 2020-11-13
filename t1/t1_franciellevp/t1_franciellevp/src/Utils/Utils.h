@@ -14,6 +14,13 @@ using namespace std;
 class Utils
 {
 public:
+    enum
+    {
+        WARNING,
+        ERRO,
+        INFO
+    };
+
     static vector<float> RGBtoFloat(int r, int g, int b);
     static string getImagePath(const char* filename);
     static string getCurrentPath();

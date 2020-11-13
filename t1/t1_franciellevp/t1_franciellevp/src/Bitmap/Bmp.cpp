@@ -6,6 +6,7 @@
 
 #include "Bmp.h"
 #include "../Canvas/gl_canvas2d.h"
+#include "../Controller/Controller.h"
 
 #include <vector>
 #include <algorithm>

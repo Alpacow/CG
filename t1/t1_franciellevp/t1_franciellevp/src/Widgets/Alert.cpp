@@ -13,14 +13,14 @@ Alert::Alert () : Widget()
 
 Alert::~Alert() {}
 
-Alert::Alert(int x, int y, float w, float h, const string txt, int type)
-    : Widget(), txt(txt)
+Alert::Alert(int x, int y, float w, float h, const string txt, int type, int isActive)
+    : Widget(), txt(txt), type(type), isActive(isActive)
 {
     this->x = x;
     this->y = y;
     this->width = w;
     this->height  = h;
-    if (type == 1)
+    if (type == Utils::WARNING)
         this->bgColor = Utils::RGBtoFloat(255,255,0);
     else
         this->bgColor = Utils::RGBtoFloat(255, 250, 250);
@@ -38,8 +38,6 @@ void Alert::Render()
     vector<float> bg = Utils::RGBtoFloat(128,128,128);
     vector<float> co = Utils::RGBtoFloat(255, 250, 250);
     CV::color(bg[0], bg[1], bg[2]);
-    wb = 50;
-    hb = 30;
     int xb = x+width/2 - wb/2;
     int yb = y+height/1.5;
     CV::rectFill(xb, yb, xb+wb, yb+hb);
@@ -49,25 +47,25 @@ void Alert::Render()
 
 void Alert::RenderWidgets()
 {
-    for(vector<Alert>::size_type i = 0; i != alerts.size(); i++)
-        alerts[i]->Render();
+    if (this->isActive)
+        alert->Render();
 }
 
 void Alert::CheckState(int state, int x, int y)
 {
-    for(vector<Alert>::size_type i = 0; i != alerts.size(); i++) {
-        if( state == 0 ) {
-            if(alerts[i]->Colidiu(x, y)) {
-                cout << "Clicou no alert " << i << endl;
-                // como deixar de desenhar o aalert?
-            }
+    if(state == 0) {
+        if(alert->Colidiu(x, y)) {
+            cout << "Clicou no alert " << endl;
+            this->isActive = FALSE;
         }
     }
 }
 
 void Alert::Create()
 {
-    alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", 1));
+    alert = new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", Utils::WARNING, FALSE);
+
+    this->isActive = 1;
 }
 
 // testa se colidiu com o botao do alert

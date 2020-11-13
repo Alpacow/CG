@@ -54,7 +54,7 @@
 		<Unit filename="src/Utils/Utils.h" />
 		<Unit filename="src/Utils/Vector2.h" />
 		<Unit filename="src/Widgets/Alert.cpp" />
-		<Unit filename="src/Widgets/Alert.hpp" />
+		<Unit filename="src/Widgets/Alert.h" />
 		<Unit filename="src/Widgets/Button.cpp" />
 		<Unit filename="src/Widgets/Button.h" />
 		<Unit filename="src/Widgets/Checkbox.cpp" />

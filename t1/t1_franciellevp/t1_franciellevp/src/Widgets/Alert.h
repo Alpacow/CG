@@ -10,16 +10,17 @@ class Alert : public Widget
 {
 public:
     string txt;
-    vector<float> txtColor;
-    vector<Alert*> alerts;
+    int type; // WARNING, ERROR, INFO
+    int isActive;
+    Alert* alert;
     int xb;
     int yb;
-    int wb;
-    int hb;
+    int wb = 50;
+    int hb = 30;
 
     Alert();
     ~Alert();
-    Alert(int x, int y, float w, float h, const string txt, int type);
+    Alert(int x, int y, float w, float h, const string txt, int type, int isActive);
     bool Colidiu(int mx, int my);
     void Render() override;
     void CheckState(int state, int x, int y) override;
