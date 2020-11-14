@@ -17,18 +17,16 @@ using namespace std;
 
 Bmp::Bmp(string fileName)
 {
-    width = height = 0;
-    data = NULL;
+    width = height = direction = 0;
     if(!fileName.empty() && fileName.size() > 0)
         load(fileName.c_str());
     else
         cout << "Error: Invalid BMP filename" << endl;
-    convertBGRtoRGB();
 }
 
-uchar* Bmp::getImage()
+Color** Bmp::getImage()
 {
-    return data;
+    return dt;
 }
 
 int Bmp::getWidth(void)
@@ -41,20 +39,6 @@ int Bmp::getHeight(void)
     return height;
 }
 
-void Bmp::convertBGRtoRGB()
-{
-    unsigned char tmp;
-    if( data != NULL ) {
-        for(int y=0; y<height; y++)
-            for(int x=0; x<width*3; x+=3) {
-                int pos = y*bytesPerLine + x;
-                tmp = data[pos];
-                data[pos] = data[pos+2];
-                data[pos+2] = tmp;
-            }
-    }
-}
-
 void Bmp::renderBmp(int px, int py)
 {
     int x = 0;
@@ -62,54 +46,39 @@ void Bmp::renderBmp(int px, int py)
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
             CV::color(rgb[0], rgb[1], rgb[2]);
-            CV::point(px + j, py + height - i); // img certa
+            //CV::point(px + j, py + height - i); // img certa
             //CV::point(px + i, py + j); // virado p esquerda
             //CV::point(px + j, py + i); // cabeça p baixo
-            //CV::point(px + height - i, py + j); // virado p direita
+            CV::point(px + height - i, py + j); // virado p direita
             x += 3;
         }
     }
-    /*
-    Color(*image)[width] = (Color(*)[width])dt;
+}
+
+void Bmp::mirrorV()
+{
     for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            vector<float> rgb = Utils::RGBtoFloat(image[i][j].r, image[i][j].g, image[i][j].b);
-            CV::color(rgb[0], rgb[1], rgb[2]);
-            CV::point(px + j, py + height - i); // img certa
-        }
-    }
-    */
-}
-
-void Bmp::mirroredX()
-{
-    int x = 0;
-    int y = width - 1;
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            swap(data[x], data[y - 2]);
-            swap(data[x + 1], data[y - 1]);
-            swap(data[x + 2], data[y]);
-            x += 3;
-            y += 3;
-            //swap(data[i * width + j], data[i * width + (width - 1 - j)]);
-            //newdt[(w-1) * (i + 1) - j + i]
+        int y = width - 1;
+        for (int j = 0; j < width/2; j++) {
+            Color c = dt[i][j];
+            dt[i][j] = dt[i][y];
+            dt[i][y] = c;
+            y--;
         }
     }
 }
 
-void Bmp::mirroredY()
+void Bmp::mirrorH()
 {
-    for (int i = 0; i < height / 2; i++) {
-        for (int j = 0; j < width; j++) {
-            swap(data[i * width + j], data[(height - 1 - i) * width + j]);
+    for (int i = 0; i < width; i++) {
+        int y = height - 1;
+        for (int j = 0; j < height/2; j++) {
+            Color c = dt[j][i];
+            dt[j][i] = dt[y][i];
+            dt[y][i] = c;
+            y--;
         }
     }
-}
-
-void Bmp::setFlip(int value)
-{
-    flip = value;
 }
 
 //le o HEADER componente a componente devido ao problema de alinhamento de bytes. Usando
@@ -120,11 +89,6 @@ void Bmp::readHeader(FILE* fp) {
     fread(&header.reserved1, sizeof(unsigned short int), 1, fp);
     fread(&header.reserved2, sizeof(unsigned short int), 1, fp);
     fread(&header.offset,    sizeof(unsigned int),       1, fp);
-    /*fp.read(reinterpret_cast<char*>(&header.type), 2);
-    fp.read(reinterpret_cast<char*>(&header.size), 4);
-    fp.read(reinterpret_cast<char*>(&header.reserved1), 2);
-    fp.read(reinterpret_cast<char*>(&header.reserved2), 2);
-    fp.read(reinterpret_cast<char*>(&header.offset), 4);*/
 }
 
 //le o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
@@ -140,24 +104,13 @@ void Bmp::readInfoHeader(FILE* fp) {
     fread(&info.yresolution, sizeof(int),                1, fp);
     fread(&info.ncolours,    sizeof(unsigned int),       1, fp);
     fread(&info.impcolours,  sizeof(unsigned int),       1, fp);
-    /*fp.read(reinterpret_cast<char*>(&info.size), 4);
-    fp.read(reinterpret_cast<char*>(&info.width), 4);
-    fp.read(reinterpret_cast<char*>(&info.height), 4);
-    fp.read(reinterpret_cast<char*>(&info.planes), 2);
-    fp.read(reinterpret_cast<char*>(&info.bits), 2);
-    fp.read(reinterpret_cast<char*>(&info.compression), 4);
-    fp.read(reinterpret_cast<char*>(&info.imagesize), 4);
-    fp.read(reinterpret_cast<char*>(&info.xresolution), 4);
-    fp.read(reinterpret_cast<char*>(&info.yresolution), 4);
-    fp.read(reinterpret_cast<char*>(&info.ncolours), 4);
-    fp.read(reinterpret_cast<char*>(&info.impcolours), 4);*/
 }
 
 void Bmp::load(const char* fileName)
 {
     FILE *fp = fopen(fileName, "rb");
     if(fp == NULL) {
-        cout << endl << "Erro ao abrir arquivo " << fileName << " para leitura" << endl;
+        cout << "Erro ao abrir arquivo " << fileName << " para leitura" << endl;
         return;
     }
     cout << "\nCarregando arquivo " << fileName << endl;
@@ -169,10 +122,7 @@ void Bmp::load(const char* fileName)
     bytesPerLine =(3 * (width + 1) / 4) * 4;
     imagesize    = bytesPerLine*height;
     int delta    = bytesPerLine - (3 * width);
-
-    //image = new Color[width * height];
-    //int extrabytes = (4 - width % 4) % 4;
-    int padding = (4 - (width * sizeof(Color)) % 4) % 4;
+    int padding  = (4 - (width * sizeof(Color)) % 4) % 4;
 
     cout << "Imagem: " << width << "x" << height << " - Bits: " << bits << endl;
     cout << "bytesPerLine: " << bytesPerLine << endl;
@@ -205,41 +155,17 @@ void Bmp::load(const char* fileName)
         getchar();
         return;
     }
-    data = new unsigned char[imagesize];
-    //dt = calloc(height, width * sizeof(Color));
     dt = new Color*[height];
     for(int i = 0; i < height; i++)
         dt[i] = new Color[width];
 
     Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));
-    // Iterate over infile's scanlines
     for (int i = 0; i < height; i++) {
-        // Read row into pixel array
-        fread(image[i], sizeof(Color), width, fp);
-        // Skip over padding
-        fseek(fp, padding, SEEK_CUR);
+        fread(image[i], sizeof(Color), width, fp); // read all row
+        fseek(fp, padding, SEEK_CUR); // skip padding
     }
-    for(int i = 0; i < height; i++)
+    for(int i = 0; i < height; i++) // fill dt with RGB values of image
         for(int j = 0; j < width; j++)
             dt[i][j] = image[i][j];
-
-//    for(int i = 0; i < height; i++) {
-//        for(int j = 0; j < width; j++) {
-//            cout << "(" << (int)image[i][j].r << ", " << (int)image[i][j].g << ", " << (int)image[i][j].b << ")" << " | ";
-//        }
-//        cout << endl << endl;
-//    }
     fclose(fp);
 }
-
-/*
-    int x = 0;
-    cout << "IMPRIMINDO" << endl;
-    for(int i = 0; i < height; i++) {
-        for(int j = 0; j < width; j++) {
-            cout << "(" << (int)data[x] << ", " << (int)data[x+1] << ", " << (int)data[x+2] << ")" << " | ";
-            x += 3;
-        }
-        cout << endl << endl;
-    }
-    */

@@ -26,13 +26,6 @@ public:
     static string getCurrentPath();
 };
 
-/*
-class Color
-{
-public:
-    unsigned char rgb[3];
-};
-*/
 typedef struct
 {
     uint8_t  b;

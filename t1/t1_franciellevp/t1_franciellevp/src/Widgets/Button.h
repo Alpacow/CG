@@ -2,6 +2,7 @@
 #define __BUTTON_H__
 
 #include "Widget.h"
+#include "../Bitmap/Bmp.h"
 #include <string>
 
 using namespace std;
@@ -12,8 +13,10 @@ public:
     string label;
     vector<float> labelColor;
     vector<Button*> bts;
+    Bmp** imgController;
 
     Button();
+    Button(Bmp** imgController);
     ~Button();
     Button(int x, int y, float w, float h, vector<float> bg, const string label, vector<float> labelColor);
     void Render() override;

@@ -6,8 +6,9 @@
 
 using namespace std;
 
-Button::Button () : Widget()
+Button::Button (Bmp** img) : Widget()
 {
+    this->imgController = img;
     Create();
 }
 
@@ -39,21 +40,21 @@ void Button::RenderWidgets()
 
 void Button::CheckState(int state, int x, int y)
 {
-    for(vector<Button>::size_type i = 0; i != bts.size(); i++) {
-        if( state == 0 ) {
-            if(bts[i]->Colidiu(x, y)) {
-                cout << "Clicou no botao " << i << endl;
-            }
+    if( state == 0 ) {
+        if(bts[1]->Colidiu(x, y)) {
+            cout << "Clicou no botao " << 1 << endl;
+            (*imgController)->mirrorH();
         }
     }
 }
 
 void Button::Create()
 {
-    vector<float> bg = Utils::RGBtoFloat(72,61,139);
+    vector<float> bg = Utils::RGBtoFloat(255,250,250);
     vector<float> labelColor = Utils::RGBtoFloat(28, 28, 28);
-    bts.push_back(new Button(10, 20, 140, 50, bg, "b1", labelColor));
-    bg = Utils::RGBtoFloat(106,90,205);
-    bts.push_back(new Button(180, 20, 140, 50, bg, "b2", labelColor));
+    bts.push_back(new Button(750, 40, 20, 20, bg, "^", labelColor));
+    bts.push_back(new Button(780, 60, 20, 20, bg, ">", labelColor));
+    bts.push_back(new Button(720, 60, 20, 20, bg, "<", labelColor));
+    bts.push_back(new Button(750, 80, 20, 20, bg, "v", labelColor));
 }
 

@@ -6,6 +6,7 @@
 #ifndef __WIDGET_H__
 #define __WIDGET_H__
 
+#include "../Bitmap/Bmp.h"
 #include <vector>
 
 class Widget

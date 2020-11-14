@@ -13,8 +13,10 @@ public:
     string label;
     vector<float> labelColor;
     vector<Checkbox*> check;
+    Bmp** imgController;
 
     Checkbox();
+    Checkbox(Bmp** img);
     ~Checkbox();
     Checkbox(int x, int y, float w, float h, int isChecked, string label, vector<float> labelColor);
     void Render() override;

@@ -43,26 +43,31 @@ public:
 class Bmp
 {
 private:
-    int width = 1, height = 1, imagesize, bytesPerLine, bits, flip = 0;
-    uchar* data;
+    int width = 1, height = 1, imagesize, bytesPerLine, bits;
     Color** dt;
     BmpHeader header;
     BmpInfoHeader info;
-
     void load(const char* fileName);
     void readHeader(FILE* fp);
     void readInfoHeader(FILE* fp);
 
 public:
+    enum imgDirections
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    };
+    int direction;
     Bmp(string fileName);
-    uchar* getImage();
+    Color** getImage();
     int    getWidth(void);
     int    getHeight(void);
     void   convertBGRtoRGB(void);
     void   renderBmp(int px, int py);
-    void  mirroredX();
-    void  mirroredY();
-    void setFlip(int value);
+    void   mirrorV();
+    void   mirrorH();
 };
 
 #endif

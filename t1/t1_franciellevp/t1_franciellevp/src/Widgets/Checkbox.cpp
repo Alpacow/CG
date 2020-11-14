@@ -5,8 +5,9 @@
 
 using namespace std;
 
-Checkbox::Checkbox () : Widget()
+Checkbox::Checkbox (Bmp** img) : Widget()
 {
+    this->imgController = img;
     Create();
 }
 
@@ -48,8 +49,11 @@ void Checkbox::CheckState(int state, int x, int y)
     for(vector<Checkbox>::size_type i = 0; i != check.size(); i++) {
         if( state == 0 ) {
             if(check[i]->Colidiu(x, y)) {
-                cout << "Clicou no checkbox " << i << endl;
                 check[i]->isChecked = (check[i]->isChecked) ? FALSE : TRUE;
+                switch (i) {
+                    case 0: (*imgController)->mirrorH(); break;
+                    case 1: (*imgController)->mirrorV(); break;
+                }
             }
         }
     }
@@ -57,8 +61,8 @@ void Checkbox::CheckState(int state, int x, int y)
 
 void Checkbox::Create()
 {
-    vector<float> labelColor = Utils::RGBtoFloat(65,105,225);
-    check.push_back(new Checkbox(400, 20, 20, 20, FALSE, "Check 1", labelColor));
-    check.push_back(new Checkbox(400, 50, 20, 20, TRUE, "Check 2", labelColor));
+    vector<float> labelColor = Utils::RGBtoFloat(255, 250, 250);
+    check.push_back(new Checkbox(400, 40, 20, 20, FALSE, "Espelhar Horizontalmente", labelColor));
+    check.push_back(new Checkbox(400, 70, 20, 20, FALSE, "Espelhar Verticalmente", labelColor));
 }
 
