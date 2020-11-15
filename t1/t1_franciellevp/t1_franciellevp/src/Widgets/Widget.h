@@ -26,7 +26,6 @@ class Widget
             this->height  = h;
             this->bgColor = bg;
         }
-        // REVER SE DEVE FICAR AQ OU N
         // recebe as coordenadas do mouse para tratar clique ou detectar quando o mouse esta em cima do botao
         bool Colidiu(int mx, int my)
         {

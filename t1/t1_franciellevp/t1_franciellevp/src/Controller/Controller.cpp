@@ -29,6 +29,7 @@ void Controller::Render()
     rgb = Utils::RGBtoFloat(255,250,250);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::text(screenWidth/2 - 80, 20, "T1 - Francielle Vasconcellos Pereira");
+    CV::text(780, 50, "Girar 90 graus:");
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->RenderWidgets();
     img->renderBmp(10, 40);
@@ -56,7 +57,7 @@ void Controller::Mouse(int x, int y, int state)
 
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getImagePath("img1.bmp"));
+    img = new Bmp(Utils::getImagePath("mako.bmp"));
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();

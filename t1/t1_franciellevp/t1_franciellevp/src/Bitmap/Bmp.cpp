@@ -39,6 +39,21 @@ int Bmp::getHeight(void)
     return height;
 }
 
+Color** Bmp::newBitmap(int h, int w)
+{
+    Color** newdt = new Color*[h];
+    for(int i = 0; i < h; i++)
+        newdt[i] = new Color[w];
+    return newdt;
+}
+
+void Bmp::deleteBitmap(Color** dt, int h, int w)
+{
+    for(int i = 0; i < h; i++)
+        delete dt[i];
+    delete dt;
+}
+
 void Bmp::renderBmp(int px, int py)
 {
     int x = 0;
@@ -46,10 +61,14 @@ void Bmp::renderBmp(int px, int py)
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
             CV::color(rgb[0], rgb[1], rgb[2]);
-            //CV::point(px + j, py + height - i); // img certa
-            //CV::point(px + i, py + j); // virado p esquerda
-            //CV::point(px + j, py + i); // cabeça p baixo
-            CV::point(px + height - i, py + j); // virado p direita
+            //if (direction == UP)
+                CV::point(px + j, py + height - i); // img certa
+            /*else if (direction == LEFT)
+                CV::point(px + i, py + j); // virado p esquerda
+            else if (direction == DOWN)
+                CV::point(px + j, py + i); // cabeça p baixo
+            else if (direction == RIGHT)
+                CV::point(px + height - i, py + j); // virado p direita*/
             x += 3;
         }
     }
@@ -60,9 +79,7 @@ void Bmp::mirrorV()
     for (int i = 0; i < height; i++) {
         int y = width - 1;
         for (int j = 0; j < width/2; j++) {
-            Color c = dt[i][j];
-            dt[i][j] = dt[i][y];
-            dt[i][y] = c;
+            swap(dt[i][j], dt[i][y]);
             y--;
         }
     }
@@ -73,10 +90,95 @@ void Bmp::mirrorH()
     for (int i = 0; i < width; i++) {
         int y = height - 1;
         for (int j = 0; j < height/2; j++) {
-            Color c = dt[j][i];
-            dt[j][i] = dt[y][i];
-            dt[y][i] = c;
+            swap(dt[j][i], dt[y][i]);
             y--;
+        }
+    }
+}
+
+void Bmp::rotateLeft ()
+{
+    Color** temp = newBitmap(width, height);
+    int y = height - 1;
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            temp[j][y] = dt[i][j];
+        }
+        y--;
+    }
+    deleteBitmap(dt, height, width);
+    swap(height, width);
+    dt = newBitmap(height, width);
+    dt = temp;
+}
+
+void Bmp::rotateRight ()
+{
+    int n[2][4] =
+    {
+        {3,2,1,0},
+        {4,3,2,1}
+    };
+    int w = 4,h=2;
+    cout << "Original" << endl;
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            cout << n[i][j] << " ";
+        }
+        cout<<endl;
+    }
+    int** temp = new int*[w];
+    for(int i = 0; i < w; i++)
+        temp[i] = new int[h];
+
+    int y = 0;
+    for (int i = 0; i < h; i++) {
+        for (int j = w-1; j >= 0; j--) {
+            cout << i<<"|"<<j<<" <=> " << j<<"|"<<y<<endl;
+            temp[j][y] = n[i][j];
+        }
+        y++;
+    }
+
+    cout << "Transposta" << endl;
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            cout << temp[i][j] << " ";
+        }
+        cout<<endl;
+    }
+}
+
+void Bmp::luminance ()
+{
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            float luminance = .299 * dt[i][j].r + .587 * dt[i][j].g + .114 * dt[i][j].b;
+            dt[i][j].r = luminance;
+            dt[i][j].g = luminance;
+            dt[i][j].b = luminance;
+        }
+    }
+}
+
+void Bmp::sepiaEffect ()
+{
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            int r = dt[i][j].r;
+            int g = dt[i][j].g;
+            int b = dt[i][j].b;
+            float gry = (r + g + b) / 3;
+            b = gry;
+            g = b;
+            r = g;
+            r += 20 * 2; // 20 é a profundidade
+            g += 20;
+            if (r > 255) r = 255;
+            if (g > 255) g = 255;
+            dt[i][j].r = r;
+            dt[i][j].g = g;
+            dt[i][j].b = b;
         }
     }
 }
@@ -138,7 +240,6 @@ void Bmp::load(const char* fileName)
     if( width*height*3 != imagesize ) {
         cout << width*height*3 << " " << imagesize << endl;
         cout << "Warning: Arquivo BMP nao tem largura multipla de 4" << endl;
-        //getchar();
     }
     if( info.compression != 0 ) {
         cout << "Error: Formato BMP comprimido nao suportado" <<  endl;
@@ -155,9 +256,7 @@ void Bmp::load(const char* fileName)
         getchar();
         return;
     }
-    dt = new Color*[height];
-    for(int i = 0; i < height; i++)
-        dt[i] = new Color[width];
+    dt = newBitmap(height, width);
 
     Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));
     for (int i = 0; i < height; i++) {

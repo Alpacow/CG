@@ -50,6 +50,7 @@ private:
     void load(const char* fileName);
     void readHeader(FILE* fp);
     void readInfoHeader(FILE* fp);
+    void treatDirection ();
 
 public:
     enum imgDirections
@@ -62,12 +63,17 @@ public:
     int direction;
     Bmp(string fileName);
     Color** getImage();
+    Color** newBitmap(int h, int w);
+    void   deleteBitmap(Color** dt, int h, int w);
     int    getWidth(void);
     int    getHeight(void);
-    void   convertBGRtoRGB(void);
     void   renderBmp(int px, int py);
     void   mirrorV();
     void   mirrorH();
+    void   rotateLeft();
+    void   rotateRight();
+    void   luminance();
+    void   sepiaEffect();
 };
 
 #endif

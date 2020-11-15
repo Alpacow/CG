@@ -41,10 +41,14 @@ void Button::RenderWidgets()
 void Button::CheckState(int state, int x, int y)
 {
     if( state == 0 ) {
-        if(bts[1]->Colidiu(x, y)) {
-            cout << "Clicou no botao " << 1 << endl;
-            (*imgController)->mirrorH();
-        }
+        if(bts[0]->Colidiu(x, y))
+            (*imgController)->rotateRight();
+        else if(bts[1]->Colidiu(x, y))
+            (*imgController)->rotateLeft();
+        else if(bts[2]->Colidiu(x, y))
+            (*imgController)->sepiaEffect();
+        else if(bts[3]->Colidiu(x, y))
+            (*imgController)->luminance();
     }
 }
 
@@ -52,9 +56,12 @@ void Button::Create()
 {
     vector<float> bg = Utils::RGBtoFloat(255,250,250);
     vector<float> labelColor = Utils::RGBtoFloat(28, 28, 28);
-    bts.push_back(new Button(750, 40, 20, 20, bg, "^", labelColor));
-    bts.push_back(new Button(780, 60, 20, 20, bg, ">", labelColor));
-    bts.push_back(new Button(720, 60, 20, 20, bg, "<", labelColor));
-    bts.push_back(new Button(750, 80, 20, 20, bg, "v", labelColor));
+    bts.push_back(new Button(880, 60, 100, 20, bg, "Horario", labelColor));
+    bts.push_back(new Button(720, 60, 130, 20, bg, "Anti-horario", labelColor));
+
+    bg = Utils::RGBtoFloat(210,180,140);
+    bts.push_back(new Button(420, 100, 130, 20, bg, "Efeito Sepia", labelColor));
+    bg = Utils::RGBtoFloat(169,169,169);
+    bts.push_back(new Button(420, 130, 130, 20, bg, "Luminancia", labelColor));
 }
 

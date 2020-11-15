@@ -62,7 +62,7 @@ void Checkbox::CheckState(int state, int x, int y)
 void Checkbox::Create()
 {
     vector<float> labelColor = Utils::RGBtoFloat(255, 250, 250);
-    check.push_back(new Checkbox(400, 40, 20, 20, FALSE, "Espelhar Horizontalmente", labelColor));
-    check.push_back(new Checkbox(400, 70, 20, 20, FALSE, "Espelhar Verticalmente", labelColor));
+    check.push_back(new Checkbox(420, 40, 20, 20, FALSE, "Espelhar Horizontalmente", labelColor));
+    check.push_back(new Checkbox(420, 70, 20, 20, FALSE, "Espelhar Verticalmente", labelColor));
 }
 
