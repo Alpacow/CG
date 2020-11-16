@@ -1,15 +1,15 @@
 # depslib dependency file v1.0
-1605545402 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
+1605549893 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
 	"Bmp.h"
 	"../Canvas/gl_canvas2d.h"
-	"../Controller/Controller.h"
 	<vector>
 	<algorithm>
 	<iostream>
 	<fstream>
 
-1605545600 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
+1605548797 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
 	"../Utils/Utils.h"
+	"../Widgets/Alert.h"
 	<string>
 
 1605363825 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.h
@@ -54,24 +54,23 @@
 	"Controller/Controller.h"
 	<iostream>
 
-1605363234 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
+1605548763 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
 	"../Bitmap/Bmp.h"
 	"../Widgets/Button.h"
 	"../Widgets/Checkbox.h"
-	"../Widgets/Alert.h"
 	<vector>
 
-1605364520 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.h
+1605548417 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.h
 	"Widget.h"
 	"../Bitmap/Bmp.h"
 	<string>
 
-1605433909 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\widget.h
-	"../Bitmap/Bmp.h"
+1605548650 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\widget.h
 	<vector>
 
-1605364661 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\checkbox.h
+1605548660 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\checkbox.h
 	"Widget.h"
+	"../Bitmap/Bmp.h"
 	<string>
 
 1605088935 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.cpp
@@ -86,15 +85,14 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1605544947 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\checkbox.cpp
+1605546508 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\checkbox.cpp
 	"Checkbox.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 	<iostream>
 
-1605543465 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
+1605550546 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
 	"../Canvas/gl_canvas2d.h"
-	"../Utils/Utils.h"
 	"Controller.h"
 	<iostream>
 
@@ -103,13 +101,13 @@
 	"Button.h"
 	<string>
 
-1605264262 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.cpp
+1605550196 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.cpp
 	"Alert.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 	<iostream>
 
-1605262923 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.h
+1605549704 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.h
 	"Widget.h"
 	<string>
 

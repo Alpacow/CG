@@ -10,7 +10,6 @@
 #include "../Bitmap/Bmp.h"
 #include "../Widgets/Button.h"
 #include "../Widgets/Checkbox.h"
-#include "../Widgets/Alert.h"
 #include <vector>
 
 using namespace std;
@@ -25,6 +24,7 @@ private:
 public:
     Bmp* img;                // imagem a ser manipulada
     int screenWidth = 1200, screenHeight = 1000;
+    Alert* alerts;
     vector<Widget*> wds;    // controla todos os widgets do programa
     Controller();
     ~Controller();

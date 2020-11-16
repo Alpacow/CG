@@ -22,6 +22,8 @@ Alert::Alert(int x, int y, float w, float h, const string txt, int type, int isA
     this->height  = h;
     if (type == Utils::WARNING)
         this->bgColor = Utils::RGBtoFloat(255,255,0);
+    if (type == Utils::ERRO)
+        this->bgColor = Utils::RGBtoFloat(255,99,71);
     else
         this->bgColor = Utils::RGBtoFloat(255, 250, 250);
 }
@@ -47,23 +49,26 @@ void Alert::Render()
 
 void Alert::RenderWidgets()
 {
-    if (isActive)
-        alert->Render();
+    for(vector<Alert>::size_type i = 0; i != alerts.size(); i++)
+        if (alerts[i]->isActive)
+            alerts[i]->Render();
 }
 
 void Alert::CheckState(int state, int x, int y)
 {
     if(state == 0) {
-        if(alert->Colidiu(x, y)) {
-            cout << "Clicou no alert " << endl;
-            this->isActive = FALSE;
+        for(vector<Alert>::size_type i = 0; i != alerts.size(); i++){
+            if(alerts[i]->Colidiu(x, y)) {
+                if (alerts[i]->type ==  Utils::ERRO) exit(-1);
+                alerts[i]->isActive = FALSE;
+            }
         }
     }
 }
 
 void Alert::Create()
 {
-    alert = new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", Utils::WARNING, FALSE);
+     //alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", Utils::WARNING, TRUE));
 }
 
 // testa se colidiu com o botao do alert

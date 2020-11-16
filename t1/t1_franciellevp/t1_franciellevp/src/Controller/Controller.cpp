@@ -5,7 +5,6 @@
 //****************************************************************
 
 #include "../Canvas/gl_canvas2d.h"
-#include "../Utils/Utils.h"
 #include "Controller.h"
 #include <iostream>
 
@@ -13,9 +12,10 @@ using namespace std;
 
 Controller::Controller()
 {
+    alerts = new Alert();
     wds.push_back(new Button(&img));
     wds.push_back(new Checkbox(&img));
-    wds.push_back(new Alert());
+    wds.push_back(alerts);
 }
 
 Controller::~Controller() {}
@@ -58,7 +58,7 @@ void Controller::Mouse(int x, int y, int state)
 
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getImagePath("mako.bmp"));
+    img = new Bmp(Utils::getImagePath("mako.bmp"), &alerts);
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();

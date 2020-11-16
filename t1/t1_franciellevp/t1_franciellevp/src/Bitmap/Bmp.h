@@ -7,6 +7,7 @@
 #define ___BMP__H___
 
 #include "../Utils/Utils.h"
+#include "../Widgets/Alert.h"
 #include <string>
 
 #define HEADER_SIZE      14 //sizeof(HEADER) vai dar 16 devido ao alinhamento de bytes
@@ -47,6 +48,7 @@ private:
     Color** dt;
     BmpHeader header;
     BmpInfoHeader info;
+    Alert** alert;
 
     void load(const char* fileName);
     void readHeader(FILE* fp);
@@ -57,7 +59,7 @@ private:
 public:
     vector<int> channel; // controla visualizacao de cada componente
 
-    Bmp(string fileName);
+    Bmp(string fileName, Alert** alerts);
     Color** getImage();
     Color** newBitmap(int h, int w);
     int    getWidth(void);

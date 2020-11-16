@@ -12,7 +12,7 @@ public:
     string txt;
     int type; // WARNING, ERROR, INFO
     int isActive;
-    Alert* alert;
+     vector<Alert*> alerts;
     int xb;
     int yb;
     int wb = 50;

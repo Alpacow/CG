@@ -2,6 +2,7 @@
 #define __CHECKBOX_H__
 
 #include "Widget.h"
+#include "../Bitmap/Bmp.h"
 #include <string>
 
 using namespace std;

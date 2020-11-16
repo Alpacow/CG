@@ -6,7 +6,6 @@
 
 #include "Bmp.h"
 #include "../Canvas/gl_canvas2d.h"
-#include "../Controller/Controller.h"
 
 #include <vector>
 #include <algorithm>
@@ -15,13 +14,15 @@
 
 using namespace std;
 
-Bmp::Bmp(string fileName)
+Bmp::Bmp(string fileName, Alert** alerts)
 {
     width = height = 0;
     channel = {1,1,1};
+    alert = alerts;
     if(!fileName.empty() && fileName.size() > 0)
         load(fileName.c_str());
     else
+        //(*alert)->alert = new Alert(350, 300, 500, 200, "Nome do arquivo BMP inválido", Utils::ERRO, TRUE);
         cout << "Error: Invalid BMP filename" << endl;
 }
 
@@ -61,6 +62,7 @@ void Bmp::renderBmp(int px, int py)
     for(int i = 0; i < height; i++)
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
+            // cores sao multiplicadas por channel para visualizacao dos canais
             CV::color(rgb[0] * channel[0], rgb[1] * channel[1], rgb[2] * channel[2]);
             CV::point(px + j, py + height - i);
             x += 3;
@@ -185,10 +187,8 @@ void Bmp::load(const char* fileName)
 {
     FILE *fp = fopen(fileName, "rb");
     if(fp == NULL) {
-        cout << "Erro ao abrir arquivo " << fileName << " para leitura" << endl;
-        return;
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Erro ao abrir arquivo", Utils::ERRO, TRUE));
     }
-    cout << "\nCarregando arquivo " << fileName << endl;
     readHeader(fp);
     readInfoHeader(fp);
     width  = info.width;
@@ -205,30 +205,16 @@ void Bmp::load(const char* fileName)
     cout << "delta: " << delta << endl;
     cout << "imagesize: " << imagesize << " " << info.imagesize << endl;
 
-    if( header.type != 19778 ) {
-        cout << "Error: Arquivo BMP invalido" << endl;
-        getchar();
-        exit(0);
-    }
-    if( width*height*3 != imagesize ) {
-        cout << width*height*3 << " " << imagesize << endl;
-        cout << "Warning: Arquivo BMP nao tem largura multipla de 4" << endl;
-    }
-    if( info.compression != 0 ) {
-        cout << "Error: Formato BMP comprimido nao suportado" <<  endl;
-        getchar();
-        return;
-    }
-    if( bits != 24 ) {
-        cout << "Error: Formato BMP com %d bits/pixel nao suportado" << endl;
-        getchar();
-        return;
-    }
-    if( info.planes != 1 ) {
-        cout << "Error: Numero de Planes nao suportado: " << info.planes << endl;
-        getchar();
-        return;
-    }
+    if( header.type != 19778 )
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP invalido ", Utils::ERRO, TRUE));
+    if( width*height*3 != imagesize )
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", Utils::WARNING, TRUE));
+    if( info.compression != 0 )
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Formato BMP comprimido nao suportado", Utils::ERRO, TRUE));
+    if( bits != 24 )
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Formato BMP nao suporta esse numero de bits", Utils::ERRO, TRUE));
+    if( info.planes != 1 )
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Numero de Planes nao suportado: ", Utils::ERRO, TRUE));
     dt = newBitmap(height, width);
 
     Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));

@@ -2,8 +2,8 @@
 
 - girar 90 graus
 - visualizar a img em tons de cinza
-
 - visualizar componentes de cor separadamente
+
 - reduzir pela metade (escala)
 
 # extras 
@@ -14,5 +14,4 @@
 - escala genérica
 - histograma
 - aumentar e diminiur brilho (???)
-- reescalar a imagem (???)
 - salvar imagem com alterações no disco
