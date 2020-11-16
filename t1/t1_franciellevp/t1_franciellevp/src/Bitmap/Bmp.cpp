@@ -17,7 +17,8 @@ using namespace std;
 
 Bmp::Bmp(string fileName)
 {
-    width = height = direction = 0;
+    width = height = 0;
+    channel = {1,1,1};
     if(!fileName.empty() && fileName.size() > 0)
         load(fileName.c_str());
     else
@@ -60,13 +61,13 @@ void Bmp::renderBmp(int px, int py)
     for(int i = 0; i < height; i++)
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
-            CV::color(rgb[0], rgb[1], rgb[2]);
+            CV::color(rgb[0] * channel[0], rgb[1] * channel[1], rgb[2] * channel[2]);
             CV::point(px + j, py + height - i);
             x += 3;
         }
 }
 
-void Bmp::mirrorV()
+void Bmp::mirrorH()
 {
     for (int i = 0; i < height; i++) {
         int y = width - 1;
@@ -77,7 +78,7 @@ void Bmp::mirrorV()
     }
 }
 
-void Bmp::mirrorH()
+void Bmp::mirrorV()
 {
     for (int i = 0; i < width; i++) {
         int y = height - 1;
@@ -92,7 +93,7 @@ void Bmp::rotate90 (int clockwise)
 {
     Color** temp = newBitmap(width, height);
     if (clockwise) rotateRight(temp);
-    else rotateLeft();
+    else rotateLeft(temp);
     deleteBitmap(dt, height, width);
     swap(height, width);
     dt = newBitmap(height, width);
@@ -110,7 +111,7 @@ void Bmp::rotateRight (Color** temp)
     }
 }
 
-void rotateLeft(Color** temp)
+void Bmp::rotateLeft(Color** temp)
 {
     int y = height - 1;
     for (int i = 0; i < height; i++) {

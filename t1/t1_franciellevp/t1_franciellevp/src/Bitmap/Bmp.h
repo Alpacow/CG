@@ -47,6 +47,7 @@ private:
     Color** dt;
     BmpHeader header;
     BmpInfoHeader info;
+
     void load(const char* fileName);
     void readHeader(FILE* fp);
     void readInfoHeader(FILE* fp);
@@ -54,17 +55,18 @@ private:
     void rotateLeft (Color** temp);
 
 public:
-    int direction;
+    vector<int> channel; // controla visualizacao de cada componente
+
     Bmp(string fileName);
     Color** getImage();
     Color** newBitmap(int h, int w);
-    void   deleteBitmap(Color** dt, int h, int w);
     int    getWidth(void);
     int    getHeight(void);
+    void   deleteBitmap(Color** dt, int h, int w);
     void   renderBmp(int px, int py);
     void   mirrorV();
     void   mirrorH();
-    void   rotate90();
+    void   rotate90(int clockwise);
     void   luminance();
     void   sepiaEffect();
 };

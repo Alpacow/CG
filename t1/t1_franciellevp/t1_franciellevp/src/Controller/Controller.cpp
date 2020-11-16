@@ -30,6 +30,7 @@ void Controller::Render()
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::text(screenWidth/2 - 80, 20, "T1 - Francielle Vasconcellos Pereira");
     CV::text(780, 50, "Girar 90 graus:");
+    CV::text(660, 120, "Canais:");
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->RenderWidgets();
     img->renderBmp(10, 40);

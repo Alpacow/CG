@@ -3,8 +3,8 @@
 - girar 90 graus
 - visualizar a img em tons de cinza
 
-- reduzir pela metade (escala)
 - visualizar componentes de cor separadamente
+- reduzir pela metade (escala)
 
 # extras 
 - espelhar a imagem vertical e horizontalmente
