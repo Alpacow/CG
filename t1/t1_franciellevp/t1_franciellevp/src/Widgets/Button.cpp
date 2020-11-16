@@ -42,9 +42,9 @@ void Button::CheckState(int state, int x, int y)
 {
     if( state == 0 ) {
         if(bts[0]->Colidiu(x, y))
-            (*imgController)->rotateRight();
+            (*imgController)->rotate90();
         else if(bts[1]->Colidiu(x, y))
-            (*imgController)->rotateLeft();
+            (*imgController)->rotate90();
         else if(bts[2]->Colidiu(x, y))
             (*imgController)->sepiaEffect();
         else if(bts[3]->Colidiu(x, y))

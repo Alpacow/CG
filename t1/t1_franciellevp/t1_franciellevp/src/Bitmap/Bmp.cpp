@@ -57,21 +57,13 @@ void Bmp::deleteBitmap(Color** dt, int h, int w)
 void Bmp::renderBmp(int px, int py)
 {
     int x = 0;
-    for(int i = 0; i < height; i++) {
+    for(int i = 0; i < height; i++)
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
             CV::color(rgb[0], rgb[1], rgb[2]);
-            //if (direction == UP)
-                CV::point(px + j, py + height - i); // img certa
-            /*else if (direction == LEFT)
-                CV::point(px + i, py + j); // virado p esquerda
-            else if (direction == DOWN)
-                CV::point(px + j, py + i); // cabeça p baixo
-            else if (direction == RIGHT)
-                CV::point(px + height - i, py + j); // virado p direita*/
+            CV::point(px + j, py + height - i);
             x += 3;
         }
-    }
 }
 
 void Bmp::mirrorV()
@@ -96,56 +88,36 @@ void Bmp::mirrorH()
     }
 }
 
-void Bmp::rotateLeft ()
+void Bmp::rotate90 (int clockwise)
 {
     Color** temp = newBitmap(width, height);
-    int y = height - 1;
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            temp[j][y] = dt[i][j];
-        }
-        y--;
-    }
+    if (clockwise) rotateRight(temp);
+    else rotateLeft();
     deleteBitmap(dt, height, width);
     swap(height, width);
     dt = newBitmap(height, width);
     dt = temp;
 }
 
-void Bmp::rotateRight ()
+void Bmp::rotateRight (Color** temp)
 {
-    int n[2][4] =
-    {
-        {3,2,1,0},
-        {4,3,2,1}
-    };
-    int w = 4,h=2;
-    cout << "Original" << endl;
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < w; j++) {
-            cout << n[i][j] << " ";
+    for (int i = 0; i < height; i++) {
+        int y = 0;
+        for (int j = width-1; j >= 0; j--) {
+            temp[y][i] = dt[i][j];
+            y++;
         }
-        cout<<endl;
     }
-    int** temp = new int*[w];
-    for(int i = 0; i < w; i++)
-        temp[i] = new int[h];
+}
 
-    int y = 0;
-    for (int i = 0; i < h; i++) {
-        for (int j = w-1; j >= 0; j--) {
-            cout << i<<"|"<<j<<" <=> " << j<<"|"<<y<<endl;
-            temp[j][y] = n[i][j];
+void rotateLeft(Color** temp)
+{
+    int y = height - 1;
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            temp[j][y] = dt[i][j];
         }
-        y++;
-    }
-
-    cout << "Transposta" << endl;
-    for (int i = 0; i < w; i++) {
-        for (int j = 0; j < h; j++) {
-            cout << temp[i][j] << " ";
-        }
-        cout<<endl;
+        y--;
     }
 }
 
@@ -260,10 +232,10 @@ void Bmp::load(const char* fileName)
 
     Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));
     for (int i = 0; i < height; i++) {
-        fread(image[i], sizeof(Color), width, fp); // read all row
-        fseek(fp, padding, SEEK_CUR); // skip padding
+        fread(image[i], sizeof(Color), width, fp); // le todas a linha
+        fseek(fp, padding, SEEK_CUR); // pula bytes extras, se houver
     }
-    for(int i = 0; i < height; i++) // fill dt with RGB values of image
+    for(int i = 0; i < height; i++) // preenche o dt com as cores RGB da imagem
         for(int j = 0; j < width; j++)
             dt[i][j] = image[i][j];
     fclose(fp);

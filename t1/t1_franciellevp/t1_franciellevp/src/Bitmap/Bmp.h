@@ -50,16 +50,10 @@ private:
     void load(const char* fileName);
     void readHeader(FILE* fp);
     void readInfoHeader(FILE* fp);
-    void treatDirection ();
+    void rotateRight (Color** temp);
+    void rotateLeft (Color** temp);
 
 public:
-    enum imgDirections
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    };
     int direction;
     Bmp(string fileName);
     Color** getImage();
@@ -70,8 +64,7 @@ public:
     void   renderBmp(int px, int py);
     void   mirrorV();
     void   mirrorH();
-    void   rotateLeft();
-    void   rotateRight();
+    void   rotate90();
     void   luminance();
     void   sepiaEffect();
 };
