@@ -6,12 +6,11 @@
 
 using namespace std;
 
-Alert::Alert () : Widget()
-{
-    Create();
-}
+Alert::Alert () : Widget() {}
 
 Alert::~Alert() {}
+
+void Alert::Create() {}
 
 Alert::Alert(int x, int y, float w, float h, const string txt, int type, int isActive)
     : Widget(), txt(txt), type(type), isActive(isActive)
@@ -64,11 +63,6 @@ void Alert::CheckState(int state, int x, int y)
             }
         }
     }
-}
-
-void Alert::Create()
-{
-     //alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", Utils::WARNING, TRUE));
 }
 
 // testa se colidiu com o botao do alert

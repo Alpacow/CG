@@ -49,6 +49,8 @@ void Button::CheckState(int state, int x, int y)
             (*imgController)->sepiaEffect();
         else if(bts[3]->Colidiu(x, y))
             (*imgController)->luminance();
+        else if(bts[4]->Colidiu(x, y))
+            (*imgController)->blurEffect();
     }
 }
 
@@ -60,8 +62,10 @@ void Button::Create()
     bts.push_back(new Button(720, 60, 130, 20, bg, "Anti-horario", labelColor));
 
     bg = Utils::RGBtoFloat(210,180,140);
-    bts.push_back(new Button(420, 100, 130, 20, bg, "Efeito Sepia", labelColor));
+    bts.push_back(new Button(420, 100, 140, 20, bg, "Efeito Sepia", labelColor));
     bg = Utils::RGBtoFloat(169,169,169);
-    bts.push_back(new Button(420, 130, 130, 20, bg, "Luminancia", labelColor));
+    bts.push_back(new Button(420, 130, 140, 20, bg, "Luminancia", labelColor));
+    bg = Utils::RGBtoFloat(147,112,219);
+    bts.push_back(new Button(420, 160, 140, 20, bg, "Borrar Imagem", labelColor));
 }
 

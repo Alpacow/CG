@@ -158,6 +158,41 @@ void Bmp::sepiaEffect ()
     }
 }
 
+/* utiliza o método "blur box", para cada pixel, faz uma média(AVG) de todos seus vizinhos, incluindo a si proprio */
+void Bmp::blurEffect()
+{
+    int sumBlue, sumGreen, sumRed;
+    float countColor;
+    Color temp[height][width];
+
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            sumBlue = sumGreen = sumRed = 0;
+            countColor = 0.00;
+            // sums values of the pixel and 8 neighboring ones, skips iteration if it goes outside the pic
+            for (int k = -1; k < 2; k++) {
+                if (j + k < 0 || j + k > height - 1) continue; // se  vizinho sai da imagem
+                for (int h = -1; h < 2; h++) {
+                    if (i + h < 0 || i + h > width - 1) continue;// se vizinho sai da imagem
+                    sumBlue += dt[j+k][i+h].r;
+                    sumGreen += dt[j+k][i+h].g;
+                    sumRed += dt[j+k][i+h].b;
+                    countColor++;
+                }
+            }
+            temp[j][i].r = round(sumBlue / countColor);
+            temp[j][i].g = round(sumGreen / countColor);
+            temp[j][i].b = round(sumRed / countColor);
+        }
+    }
+    for (int i = 0; i < width; i++)
+        for (int j = 0; j < height; j++) {
+            dt[j][i].r = temp[j][i].r;
+            dt[j][i].g = temp[j][i].g;
+            dt[j][i].b = temp[j][i].b;
+        }
+}
+
 //le o HEADER componente a componente devido ao problema de alinhamento de bytes. Usando
 //o comando fread(header, sizeof(HEADER),1,fp) sao lidos 16 bytes ao inves de 14
 void Bmp::readHeader(FILE* fp) {

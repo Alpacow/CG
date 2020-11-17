@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1605549893 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
+1605620375 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
 	"Bmp.h"
 	"../Canvas/gl_canvas2d.h"
 	<vector>
@@ -7,7 +7,7 @@
 	<iostream>
 	<fstream>
 
-1605548797 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
+1605601444 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
 	"../Utils/Utils.h"
 	"../Widgets/Alert.h"
 	<string>
@@ -54,10 +54,8 @@
 	"Controller/Controller.h"
 	<iostream>
 
-1605548763 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
+1605562253 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
 	"../Bitmap/Bmp.h"
-	"../Widgets/Button.h"
-	"../Widgets/Checkbox.h"
 	<vector>
 
 1605548417 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.h
@@ -79,7 +77,7 @@
 	<unistd.h>
 	<iostream>
 
-1605542981 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.cpp
+1605601760 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.cpp
 	"Button.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
@@ -91,9 +89,12 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1605550546 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
+1605601582 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
 	"../Canvas/gl_canvas2d.h"
 	"Controller.h"
+	"../Widgets/Button.h"
+	"../Widgets/Checkbox.h"
+	"../Widgets/Slider.h"
 	<iostream>
 
 1605202810 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.hpp
@@ -101,7 +102,7 @@
 	"Button.h"
 	<string>
 
-1605550196 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.cpp
+1605561357 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.cpp
 	"Alert.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
@@ -109,5 +110,16 @@
 
 1605549704 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.h
 	"Widget.h"
+	<string>
+
+1605564177 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\slider.cpp
+	"Slider.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605561992 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\slider.h
+	"Widget.h"
+	"../Bitmap/Bmp.h"
 	<string>
 

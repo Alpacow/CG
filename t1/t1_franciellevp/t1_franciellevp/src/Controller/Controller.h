@@ -8,8 +8,6 @@
 #define ___CONTROLLER__H___
 
 #include "../Bitmap/Bmp.h"
-#include "../Widgets/Button.h"
-#include "../Widgets/Checkbox.h"
 #include <vector>
 
 using namespace std;

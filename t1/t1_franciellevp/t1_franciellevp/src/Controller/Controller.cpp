@@ -3,9 +3,11 @@
 // classe para desenhar e controlar o layout inicial do programa
 //
 //****************************************************************
-
 #include "../Canvas/gl_canvas2d.h"
 #include "Controller.h"
+#include "../Widgets/Button.h"
+#include "../Widgets/Checkbox.h"
+#include "../Widgets/Slider.h"
 #include <iostream>
 
 using namespace std;
@@ -13,9 +15,10 @@ using namespace std;
 Controller::Controller()
 {
     alerts = new Alert();
+    wds.push_back(alerts);
     wds.push_back(new Button(&img));
     wds.push_back(new Checkbox(&img));
-    wds.push_back(alerts);
+    wds.push_back(new Slider(&img));
 }
 
 Controller::~Controller() {}
@@ -58,7 +61,7 @@ void Controller::Mouse(int x, int y, int state)
 
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getImagePath("mako.bmp"), &alerts);
+    img = new Bmp(Utils::getImagePath("img3.bmp"), &alerts);
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();

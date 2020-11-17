@@ -9,9 +9,9 @@
 # extras 
 - espelhar a imagem vertical e horizontalmente
 - imagem com efeito sépia
-- converter RGB para luminância
+- aplicar blur
 
-- escala genérica
 - histograma
-- aumentar e diminiur brilho (???)
 - salvar imagem com alterações no disco
+- aumentar e diminiur brilho (???)
+- escala genérica

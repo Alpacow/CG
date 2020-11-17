@@ -44,7 +44,7 @@ public:
 class Bmp
 {
 private:
-    int width = 1, height = 1, imagesize, bytesPerLine, bits;
+    int width, height, imagesize, bytesPerLine, bits;
     Color** dt;
     BmpHeader header;
     BmpInfoHeader info;
@@ -62,15 +62,16 @@ public:
     Bmp(string fileName, Alert** alerts);
     Color** getImage();
     Color** newBitmap(int h, int w);
-    int    getWidth(void);
-    int    getHeight(void);
-    void   deleteBitmap(Color** dt, int h, int w);
-    void   renderBmp(int px, int py);
-    void   mirrorV();
-    void   mirrorH();
-    void   rotate90(int clockwise);
-    void   luminance();
-    void   sepiaEffect();
+    int     getWidth(void);
+    int     getHeight(void);
+    void    deleteBitmap(Color** dt, int h, int w);
+    void    renderBmp(int px, int py);
+    void    mirrorV();
+    void    mirrorH();
+    void    rotate90(int clockwise);
+    void    luminance();
+    void    sepiaEffect();
+    void    blurEffect();
 };
 
 #endif
