@@ -58,14 +58,12 @@ void Bmp::deleteBitmap(Color** dt, int h, int w)
 
 void Bmp::renderBmp(int px, int py)
 {
-    int x = 0;
     for(int i = 0; i < height; i++)
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
             // cores sao multiplicadas por channel para visualizacao dos canais
             CV::color(rgb[0] * channel[0], rgb[1] * channel[1], rgb[2] * channel[2]);
             CV::point(px + j, py + height - i);
-            x += 3;
         }
 }
 
@@ -169,7 +167,6 @@ void Bmp::blurEffect()
         for (int j = 0; j < height; j++) {
             sumBlue = sumGreen = sumRed = 0;
             countColor = 0.00;
-            // sums values of the pixel and 8 neighboring ones, skips iteration if it goes outside the pic
             for (int k = -1; k < 2; k++) {
                 if (j + k < 0 || j + k > height - 1) continue; // se  vizinho sai da imagem
                 for (int h = -1; h < 2; h++) {
@@ -193,9 +190,80 @@ void Bmp::blurEffect()
         }
 }
 
+void Bmp::scale()
+{
+    int h = height/2;
+    int w = width/2;
+    Color** temp = newBitmap(h, w);
+
+    int ix = 0;
+    for (int i = 0; ix < h; i += 2) {
+        int jx = 0;
+        for (int j = 0; jx < w; j += 2) {
+             temp[ix][jx] = dt[i][j];
+             jx++;
+        }
+        ix++;
+    }
+    deleteBitmap(dt, height, width);
+    dt = newBitmap(h, w);
+    dt = temp;
+    height = h;
+    width = w;
+}
+
+/**
+ */
+void Bmp::resizeBilinear(int newW, int newH)
+{
+    Color** temp = newBitmap(width, height);
+    Color a, b, c, d;
+    int x, y;
+    float xRatio = ((float)(width-1))/newW;
+    float yRatio = ((float)(height-1))/newH;
+    float xDiff, yDiff, blue, red, green;
+    for (int i = 0; i < newH; i++) {
+        for (int j = 0; j < newW; j++) {
+            x = (int)(xRatio * j);
+            y = (int)(yRatio * i);
+            cout << x << " " << y << endl;
+            xDiff = (xRatio * j) - x;
+            yDiff = (yRatio * i) - y;
+            a = temp[y][j];
+            b = temp[y+1][j];
+            c = temp[y][j+1];
+            d = temp[y+1][j+1];
+
+            // blue element
+            // Yb = Ab(1-w)(1-h) + Bb(w)(1-h) + Cb(h)(1-w) + Db(wh)
+            blue = a.b*(1-xDiff)*(1-yDiff) + b.b*(xDiff)*(1-yDiff) +
+                   c.b*(yDiff)*(1-xDiff)   + d.b*(xDiff*yDiff);
+            // green element
+            // Yg = Ag(1-w)(1-h) + Bg(w)(1-h) + Cg(h)(1-w) + Dg(wh)
+            green = a.g*(1-xDiff)*(1-yDiff) + b.g*(xDiff)*(1-yDiff) +
+                    c.g*(yDiff)*(1-xDiff)   + d.g*(xDiff*yDiff);
+            // red element
+            // Yr = Ar(1-w)(1-h) + Br(w)(1-h) + Cr(h)(1-w) + Dr(wh)
+            red = a.r*(1-xDiff)*(1-yDiff) + b.r*(xDiff)*(1-yDiff) +
+                  c.r*(yDiff)*(1-xDiff)   + d.r*(xDiff*yDiff);
+            cout << "CORES " << red << " " << green << " " << blue << endl;
+
+            temp[i][j].b = blue;
+            temp[i][j].g = green;
+            temp[i][j].r = red;
+        }
+    }
+    deleteBitmap(dt, height, width);
+    dt = newBitmap(newH, newW);
+    dt = temp;
+    height = newH;
+    width = newW;
+}
+
 //le o HEADER componente a componente devido ao problema de alinhamento de bytes. Usando
 //o comando fread(header, sizeof(HEADER),1,fp) sao lidos 16 bytes ao inves de 14
-void Bmp::readHeader(FILE* fp) {
+void Bmp::readHeader(FILE* fp)
+{
     fread(&header.type,      sizeof(unsigned short int), 1, fp);
     fread(&header.size,      sizeof(unsigned int),       1, fp);
     fread(&header.reserved1, sizeof(unsigned short int), 1, fp);
@@ -204,7 +272,8 @@ void Bmp::readHeader(FILE* fp) {
 }
 
 //le o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
-void Bmp::readInfoHeader(FILE* fp) {
+void Bmp::readInfoHeader(FILE* fp)
+{
     fread(&info.size,        sizeof(unsigned int),       1, fp);
     fread(&info.width,       sizeof(int),                1, fp);
     fread(&info.height,      sizeof(int),                1, fp);

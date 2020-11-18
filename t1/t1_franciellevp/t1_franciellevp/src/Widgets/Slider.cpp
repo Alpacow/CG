@@ -50,6 +50,6 @@ void Slider::CheckState(int state, int x, int y)
 void Slider::Create()
 {
     vector<float> bg = Utils::RGBtoFloat(255,250,250);
-    sliders.push_back(new Slider(820, 140, 200, 2, bg, 10, 100, 1));
+    sliders.push_back(new Slider(820, 110, 200, 2, bg, 10, 100, 1));
 }
 

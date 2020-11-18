@@ -51,6 +51,9 @@ void Button::CheckState(int state, int x, int y)
             (*imgController)->luminance();
         else if(bts[4]->Colidiu(x, y))
             (*imgController)->blurEffect();
+        else if(bts[5]->Colidiu(x, y))
+            (*imgController)->scale();
+            //resizeBilinear((*imgController)->getWidth()*2, (*imgController)->getHeight()*2);
     }
 }
 
@@ -67,5 +70,7 @@ void Button::Create()
     bts.push_back(new Button(420, 130, 140, 20, bg, "Luminancia", labelColor));
     bg = Utils::RGBtoFloat(147,112,219);
     bts.push_back(new Button(420, 160, 140, 20, bg, "Borrar Imagem", labelColor));
+    bg = Utils::RGBtoFloat(143,188,143);
+    bts.push_back(new Button(820, 130, 210, 20, bg, "Diminuir pela metade", labelColor));
 }
 

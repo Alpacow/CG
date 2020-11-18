@@ -72,6 +72,8 @@ public:
     void    luminance();
     void    sepiaEffect();
     void    blurEffect();
+    void    resizeBilinear(int newW, int newH);
+    void    scale();
 };
 
 #endif

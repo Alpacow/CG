@@ -20,8 +20,8 @@ Alert::Alert(int x, int y, float w, float h, const string txt, int type, int isA
     this->width = w;
     this->height  = h;
     if (type == Utils::WARNING)
-        this->bgColor = Utils::RGBtoFloat(255,255,0);
-    if (type == Utils::ERRO)
+        this->bgColor = Utils::RGBtoFloat(255,215,0);
+    else if (type == Utils::ERRO)
         this->bgColor = Utils::RGBtoFloat(255,99,71);
     else
         this->bgColor = Utils::RGBtoFloat(255, 250, 250);
