@@ -49,10 +49,13 @@ private:
     BmpHeader header;
     BmpInfoHeader info;
     Alert** alert;
+    string fileName;
 
     void load(const char* fileName);
     void readHeader(FILE* fp);
+    void writeHeader(FILE* fp);
     void readInfoHeader(FILE* fp);
+    void writeInfoHeader(FILE* fp);
     void rotateRight (Color** temp);
     void rotateLeft (Color** temp);
 
@@ -62,6 +65,7 @@ public:
     Bmp(string fileName, Alert** alerts);
     Color** getImage();
     Color** newBitmap(int h, int w);
+    void    write();
     int     getWidth(void);
     int     getHeight(void);
     void    deleteBitmap(Color** dt, int h, int w);
@@ -72,7 +76,7 @@ public:
     void    luminance();
     void    sepiaEffect();
     void    blurEffect();
-    void    resizeBilinear(int newW, int newH);
+    //void    resizeBilinear(int newW, int newH);
     void    scale();
 };
 
