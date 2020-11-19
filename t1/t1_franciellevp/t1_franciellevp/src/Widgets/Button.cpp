@@ -47,15 +47,15 @@ void Button::CheckState(int state, int x, int y)
             (*imgController)->rotate90(FALSE);
         else if(bts[2]->Colidiu(x, y))
             (*imgController)->sepiaEffect();
-        else if(bts[3]->Colidiu(x, y))
+        else if(bts[3]->Colidiu(x, y)) {
             (*imgController)->luminance();
-        else if(bts[4]->Colidiu(x, y))
+            (*imgController)->channel[3] = 1;
+        } else if(bts[4]->Colidiu(x, y))
             (*imgController)->blurEffect();
         else if(bts[5]->Colidiu(x, y))
             (*imgController)->scale();
         else if(bts[6]->Colidiu(x, y))
             (*imgController)->write();
-            //resizeBilinear((*imgController)->getWidth()*2, (*imgController)->getHeight()*2);
     }
 }
 

@@ -14,17 +14,18 @@
 
 using namespace std;
 
+Bmp::Bmp(){}
+
 Bmp::Bmp(string _fileName, Alert** alerts)
 {
     width = height = 0;
-    channel = {1,1,1};
+    channel = {1,1,1,0};
     alert = alerts;
     fileName = _fileName;
     if(!fileName.empty() && fileName.size() > 0)
         load(fileName.c_str());
     else
-        //(*alert)->alert = new Alert(350, 300, 500, 200, "Nome do arquivo BMP inválido", Utils::ERRO, TRUE);
-        cout << "Error: Invalid BMP filename" << endl;
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Nome do arquivo BMP inválido", Utils::ERRO, TRUE));
 }
 
 Color** Bmp::getImage()
@@ -296,8 +297,8 @@ void Bmp::load(const char* fileName)
         (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Formato BMP nao suporta esse numero de bits", Utils::ERRO, TRUE));
     if( info.planes != 1 )
         (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Numero de Planes nao suportado: ", Utils::ERRO, TRUE));
-    dt = newBitmap(height, width);
 
+    dt = newBitmap(height, width);
     Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));
     for (int i = 0; i < height; i++) {
         fread(image[i], sizeof(Color), width, fp); // le toda a linha
@@ -311,9 +312,9 @@ void Bmp::load(const char* fileName)
 
 void Bmp::write()
 {
+    (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Salvando imagem", Utils::INFO, TRUE));
     fileName = fileName.substr(0, fileName.find(".bmp")) + "Save.bmp";
     const char* name = fileName.c_str();
-    cout << "SALVANDO " << name << endl;
     FILE *fp = fopen(name, "wb");
     info.width = width;
     info.height = height;
@@ -328,8 +329,11 @@ void Bmp::write()
 
     Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));
     for(int i = 0; i < height; i++) // preenche o dt com as cores RGB da imagem
-        for(int j = 0; j < width; j++)
-            image[i][j] = dt[i][j];
+        for(int j = 0; j < width; j++) {
+            image[i][j].r = dt[i][j].r * channel[0];
+            image[i][j].g = dt[i][j].g * channel[1];
+            image[i][j].b = dt[i][j].b * channel[2];
+        }
 
     for (int i = 0; i < height; i++) {
         fwrite(image[i], sizeof(Color), width, fp); // escreve toda a linha
@@ -339,51 +343,3 @@ void Bmp::write()
             fputc(0x00, fp);
     fclose(fp);
 }
-
-/**
-void Bmp::resizeBilinear(int newW, int newH)
-{
-    Color** temp = newBitmap(width, height);
-    Color a, b, c, d;
-    int x, y;
-    float xRatio = ((float)(width-1))/newW;
-    float yRatio = ((float)(height-1))/newH;
-    float xDiff, yDiff, blue, red, green;
-    for (int i = 0; i < newH; i++) {
-        for (int j = 0; j < newW; j++) {
-            x = (int)(xRatio * j);
-            y = (int)(yRatio * i);
-            cout << x << " " << y << endl;
-            xDiff = (xRatio * j) - x;
-            yDiff = (yRatio * i) - y;
-            a = temp[y][j];
-            b = temp[y+1][j];
-            c = temp[y][j+1];
-            d = temp[y+1][j+1];
-
-            // blue element
-            // Yb = Ab(1-w)(1-h) + Bb(w)(1-h) + Cb(h)(1-w) + Db(wh)
-            blue = a.b*(1-xDiff)*(1-yDiff) + b.b*(xDiff)*(1-yDiff) +
-                   c.b*(yDiff)*(1-xDiff)   + d.b*(xDiff*yDiff);
-            // green element
-            // Yg = Ag(1-w)(1-h) + Bg(w)(1-h) + Cg(h)(1-w) + Dg(wh)
-            green = a.g*(1-xDiff)*(1-yDiff) + b.g*(xDiff)*(1-yDiff) +
-                    c.g*(yDiff)*(1-xDiff)   + d.g*(xDiff*yDiff);
-            // red element
-            // Yr = Ar(1-w)(1-h) + Br(w)(1-h) + Cr(h)(1-w) + Dr(wh)
-            red = a.r*(1-xDiff)*(1-yDiff) + b.r*(xDiff)*(1-yDiff) +
-                  c.r*(yDiff)*(1-xDiff)   + d.r*(xDiff*yDiff);
-            cout << "CORES " << red << " " << green << " " << blue << endl;
-
-            temp[i][j].b = blue;
-            temp[i][j].g = green;
-            temp[i][j].r = red;
-        }
-    }
-    deleteBitmap(dt, height, width);
-    dt = newBitmap(newH, newW);
-    dt = temp;
-    height = newH;
-    width = newW;
-}
-*/

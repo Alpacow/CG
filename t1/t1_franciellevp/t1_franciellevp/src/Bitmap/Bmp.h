@@ -62,6 +62,7 @@ private:
 public:
     vector<int> channel; // controla visualizacao de cada componente
 
+    Bmp();
     Bmp(string fileName, Alert** alerts);
     Color** getImage();
     Color** newBitmap(int h, int w);
@@ -76,7 +77,6 @@ public:
     void    luminance();
     void    sepiaEffect();
     void    blurEffect();
-    //void    resizeBilinear(int newW, int newH);
     void    scale();
 };
 

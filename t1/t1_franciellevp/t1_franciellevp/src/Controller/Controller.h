@@ -7,7 +7,7 @@
 #ifndef ___CONTROLLER__H___
 #define ___CONTROLLER__H___
 
-#include "../Bitmap/Bmp.h"
+#include "../Histogram/Histogram.h"
 #include <vector>
 
 using namespace std;
@@ -21,6 +21,7 @@ private:
 
 public:
     Bmp* img;                // imagem a ser manipulada
+    Histogram* hist;
     int screenWidth = 1200, screenHeight = 1000;
     Alert* alerts;
     vector<Widget*> wds;    // controla todos os widgets do programa

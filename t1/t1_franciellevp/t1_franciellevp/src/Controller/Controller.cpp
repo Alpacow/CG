@@ -7,7 +7,6 @@
 #include "Controller.h"
 #include "../Widgets/Button.h"
 #include "../Widgets/Checkbox.h"
-#include "../Widgets/Slider.h"
 #include <iostream>
 
 using namespace std;
@@ -18,7 +17,6 @@ Controller::Controller()
     wds.push_back(alerts);
     wds.push_back(new Button(&img));
     wds.push_back(new Checkbox(&img));
-    wds.push_back(new Slider(&img));
 }
 
 Controller::~Controller() {}
@@ -34,9 +32,10 @@ void Controller::Render()
     CV::text(screenWidth/2 - 80, 20, "T1 - Francielle Vasconcellos Pereira");
     CV::text(780, 50, "Girar 90 graus:");
     CV::text(660, 120, "Canais:");
+    img->renderBmp(10, 40);
+    hist->drawHistogramGraph();
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->RenderWidgets();
-    img->renderBmp(10, 40);
 }
 
 void Controller::Keyboard(int key)
@@ -61,7 +60,8 @@ void Controller::Mouse(int x, int y, int state)
 
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getImagePath("mako.bmp"), &alerts);
+    img = new Bmp(Utils::getImagePath("normal_1.bmp"), &alerts);
+    hist = new Histogram(img, 520, 550, 600, 300);
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();

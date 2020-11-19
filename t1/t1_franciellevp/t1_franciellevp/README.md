@@ -8,9 +8,9 @@
 # extras 
 - espelhar a imagem vertical e horizontalmente
 - imagem com efeito sépia
-- aplicar blur
+- imagem borrada
 - salvar imagem com alterações no disco
-
 - histograma
-- aumentar e diminiur brilho (???)
+
+
 - escala genérica

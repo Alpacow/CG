@@ -24,7 +24,7 @@ Alert::Alert(int x, int y, float w, float h, const string txt, int type, int isA
     else if (type == Utils::ERRO)
         this->bgColor = Utils::RGBtoFloat(255,99,71);
     else
-        this->bgColor = Utils::RGBtoFloat(255, 250, 250);
+        this->bgColor = Utils::RGBtoFloat(176,196,222);
 }
 
 void Alert::Render()
