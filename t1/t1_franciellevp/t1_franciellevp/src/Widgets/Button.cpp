@@ -1,11 +1,18 @@
+//****************************************************************
+//
+// classe derivada de Widget que controla os botoes da aplicacao
+//
+//****************************************************************
 #include "Button.h"
-
 #include "../Canvas/gl_canvas2d.h"
 #include "../Utils/Utils.h"
 #include <iostream>
 
 using namespace std;
 
+/* Inicia todos os atributos necessarios
+   @param img: instancia da classe Bmp para controlar as acoes dos botoes na imagem
+*/
 Button::Button (Bmp** img) : Widget()
 {
     this->imgController = img;
@@ -14,6 +21,15 @@ Button::Button (Bmp** img) : Widget()
 
 Button::~Button() {}
 
+/* Inicia todos os atributos necessarios
+   @param x: coordenada x do canto superior esquerdo que o alert comeca a ser desenhado
+   @param y: coordenada y do canto superior esquerdo que o alert comeca a ser desenhado
+   @param w: largura da janela
+   @param h: altura da janela
+   @param bg: array contendo a cor RGB do fundo do botao
+   @param label: texto contido dentro do botao
+   @param labelColor: array contendo a cor RGB do texto do botao
+*/
 Button::Button(int x, int y, float w, float h, vector<float> bg, const string label, vector<float> labelColor)
     : Widget(), label(label), labelColor(labelColor)
 {
@@ -24,6 +40,8 @@ Button::Button(int x, int y, float w, float h, vector<float> bg, const string la
     this->bgColor = bg;
 }
 
+/* Renderiza/desenha o botao na tela
+*/
 void Button::Render()
 {
     CV::color(bgColor[0], bgColor[1], bgColor[2]);
@@ -32,12 +50,19 @@ void Button::Render()
     CV::text(x+5, y+height/2, label.c_str()); //escreve o label do botao mais ou menos ao centro.
 }
 
+/* Percorre um array contendo todos os botoes para desenha-los na tela
+*/
 void Button::RenderWidgets()
 {
     for(vector<Button>::size_type i = 0; i != bts.size(); i++)
         bts[i]->Render();
 }
 
+/* Verifica a colisao com cada botao criado, realizando as operacoes necessarias quando colide
+   @param state: verifica se botao do mouse foi clicado
+   @param x: coordenada x do mouse
+   @param y: coordenada y do mouse
+*/
 void Button::CheckState(int state, int x, int y)
 {
     if( state == 0 ) {
@@ -59,6 +84,8 @@ void Button::CheckState(int state, int x, int y)
     }
 }
 
+/* Cria todos os botoes da aplicacao
+*/
 void Button::Create()
 {
     vector<float> bg = Utils::RGBtoFloat(255,250,250);

@@ -1,3 +1,8 @@
+//****************************************************************
+//
+// classe derivada de Widget que controla os checkbox da aplicacao
+//
+//****************************************************************
 #include "Checkbox.h"
 #include "../Canvas/gl_canvas2d.h"
 #include "../Utils/Utils.h"
@@ -5,6 +10,9 @@
 
 using namespace std;
 
+/* Inicia todos os atributos necessarios
+   @param img: instancia da classe Bmp para controlar as acoes dos checkbox na imagem
+*/
 Checkbox::Checkbox (Bmp** img) : Widget()
 {
     this->imgController = img;
@@ -13,6 +21,16 @@ Checkbox::Checkbox (Bmp** img) : Widget()
 
 Checkbox::~Checkbox() {}
 
+/* Inicia todos os atributos necessarios
+   @param x: coordenada x do canto superior esquerdo que o alert comeca a ser desenhado
+   @param y: coordenada y do canto superior esquerdo que o alert comeca a ser desenhado
+   @param w: largura da janela
+   @param h: altura da janela
+   @param isChecked: 0 ou 1, indica se o checkbox esta com Check ou nao
+   @param label: texto contido dentro do botao
+   @param labelColor: array contendo a cor RGB do texto do botao
+   @param bg: array contendo a cor RGB do fundo do botao
+*/
 Checkbox::Checkbox(int x, int y, float w, float h, int isChecked, string label, vector<float> labelColor, vector<float> bg)
     : Widget(), isChecked(isChecked), label(label), labelColor(labelColor)
 {
@@ -23,6 +41,8 @@ Checkbox::Checkbox(int x, int y, float w, float h, int isChecked, string label, 
     this->bgColor = bg;
 }
 
+/* Renderiza/desenha o checkbox na tela
+*/
 void Checkbox::Render()
 {
     CV::color(bgColor[0], bgColor[1], bgColor[2]);
@@ -38,12 +58,19 @@ void Checkbox::Render()
     }
 }
 
+/* Percorre um array contendo todos os checkboxes para desenha-los na tela
+*/
 void Checkbox::RenderWidgets()
 {
     for(vector<Checkbox>::size_type i = 0; i != check.size(); i++)
         check[i]->Render();
 }
 
+/* Verifica a colisao com cada checkbox criado, realizando as operacoes necessarias quando colide
+   @param state: verifica se botao do mouse foi clicado
+   @param x: coordenada x do mouse
+   @param y: coordenada y do mouse
+*/
 void Checkbox::CheckState(int state, int x, int y)
 {
     for(vector<Checkbox>::size_type i = 0; i != check.size(); i++) {
@@ -70,6 +97,8 @@ void Checkbox::CheckState(int state, int x, int y)
     }
 }
 
+/* Cria todos os botoes da aplicacao
+*/
 void Checkbox::Create()
 {
     vector<float> labelColor = Utils::RGBtoFloat(255, 250, 250);

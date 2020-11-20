@@ -1,3 +1,8 @@
+//******************************************************************************
+//
+// classe derivada de Widget que controla as janelas de mensagem da aplicacao
+//
+//******************************************************************************
 #ifndef __ALERT_H__
 #define __ALERT_H__
 

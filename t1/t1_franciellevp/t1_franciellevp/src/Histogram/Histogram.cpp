@@ -1,5 +1,10 @@
+//**************************************************************
+//
+// classe que controla o desenho e funcionalidade do histograma
+// de ocorrencia de cada canal da imagem BMP
+//
+//**************************************************************
 #include "Histogram.h"
-
 #include "../Canvas/gl_canvas2d.h"
 #include "../Utils/Utils.h"
 #include <iostream>
@@ -9,6 +14,13 @@ using namespace std;
 
 Histogram::~Histogram() {}
 
+/* Inicia os atributos necessarios
+   @param img: ponteiro da instancia de Bmp para acessar os dados da imagem
+   @param x: coordenada x onde inicia-se o desenho das linhas dos eixos do histograma
+   @param y: coordenada y onde inicia-se o desenho das linhas dos eixos do histograma
+   @param xWidth: largura do eixo X
+   @param yHeight: altura do eixo Y
+*/
 Histogram::Histogram(Bmp*img, int x, int y, int xWidth, int yHeight)
 {
     this->xWidth = xWidth;
@@ -19,6 +31,8 @@ Histogram::Histogram(Bmp*img, int x, int y, int xWidth, int yHeight)
     this->maxColor = 0;
 }
 
+/* Desenha os eixos, dados e valores do histograma
+*/
 void Histogram::drawHistogramGraph()
 {
     offsetX = xWidth/256;
@@ -29,7 +43,6 @@ void Histogram::drawHistogramGraph()
     drawXaxis();
     drawYaxis();
     countColors();
-
     for (int i = 0; i < 256; i++) {
         if (img->channel[0]) {
             CV::color(1, 0, 0);
@@ -50,7 +63,10 @@ void Histogram::drawHistogramGraph()
     }
 }
 
-int Histogram::textOffset(int x)
+/* Retorna o espaco necessario na coordenada X para escrever o texto no eixoY do histograma
+   @param x: o valor medio do eixoY do histograma (entre 0 e maxColor)
+*/
+int Histogram::textOffsetX(int x)
 {
     if (x/100 < 1) return 25;
     else if (x/100 < 10) return 35;
@@ -60,6 +76,8 @@ int Histogram::textOffset(int x)
     return 0;
 }
 
+/* Conta os tons das cores de cada componente RGB da imagem
+*/
 void Histogram::countColors()
 {
     maxR = 0;
@@ -85,6 +103,8 @@ void Histogram::countColors()
     maxColor = max(maxColor, *maxB);
 }
 
+/* Desenha a linha, as divisoes da linha e os valores principais do eixoX do histograma
+*/
 void Histogram::drawXaxis()
 {
     rgb = Utils::RGBtoFloat(28,28,28);
@@ -103,6 +123,8 @@ void Histogram::drawXaxis()
     }
 }
 
+/* Desenha a linha, as divisoes da linha e os valores principais do eixoY do histograma
+*/
 void Histogram::drawYaxis()
 {
     rgb = Utils::RGBtoFloat(28,28,28);
@@ -111,14 +133,12 @@ void Histogram::drawYaxis()
     CV::line(x, y - yHeight, x + 10, y - yHeight + 20); // flechinha
     CV::line(x, y - yHeight, x - 10, y - yHeight + 20);
     CV::text(x - 15, y - 4, "0"); // valores principais
-    CV::text(x + (127 * offsetX) - 14, y + 16, "127");
-    CV::text(x + (255 * offsetX) - 14, y + 16, "255");
     char buffer[7];
     int mid = maxColor/2;
     sprintf(buffer, "%d", mid);
-    CV::text(x - textOffset(mid), y - (50 * offsetY) - 4, buffer);
+    CV::text(x - textOffsetX(mid), y - (50 * offsetY) - 4, buffer);
     sprintf(buffer, "%d", maxColor);
-    CV::text(x - textOffset(mid), y - (100 * offsetY) - 4, buffer);
+    CV::text(x - textOffsetX(mid), y - (100 * offsetY) - 4, buffer);
     for(int i = 0; i < 100; i++) { // linhas do eixo Y
         if (i == 0 || i == 50 || i == 100)
             CV::line(x - 6, y - (i * offsetY), x + 6, y - (i * offsetY));
@@ -127,9 +147,15 @@ void Histogram::drawYaxis()
     }
 }
 
+/* Desenha os retangulos que representam os valores dos dados da imagem no histograma
+   @param counter: array que contem a contagem de cada tom do componente RGB
+   @param i: posicao do array que contem o valor a ser desenhada
+*/
 void Histogram::drawHistogramRects(int* counter, int i)
 {
-    int pos = (int)((counter[i] * 100) / maxColor); // regra de 3 p saber pos de y
-    CV::rectFill(x + (i * offsetX), y, x + (i * offsetX) + offsetX, y - (pos * offsetY));
+    if (maxColor != 0) { // maxColor = 0 quando ha problema ao carregar/abrir a imagem
+        int value = (int)((counter[i] * 100) / maxColor); // regra de 3 p saber pos de y
+        CV::rectFill(x + (i * offsetX), y, x + (i * offsetX) + offsetX, y - (value * offsetY));
+    }
 }
 

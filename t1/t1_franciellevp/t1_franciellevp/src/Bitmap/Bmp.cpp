@@ -3,7 +3,6 @@
 // classe para fazer o carregamento de arquivos no formato BMP
 //
 //************************************************************
-
 #include "Bmp.h"
 #include "../Canvas/gl_canvas2d.h"
 
@@ -16,33 +15,53 @@ using namespace std;
 
 Bmp::Bmp(){}
 
-Bmp::Bmp(string _fileName, Alert** alerts)
+/* Inicializa atributos necessarios
+   @param _fileName: nome da imagem bmp
+   @param alerts: instancia da classe Alert para manipular janelas de mensagem
+*/
+Bmp::Bmp(string _path, Alert** alerts)
 {
     width = height = 0;
     channel = {1,1,1,0};
     alert = alerts;
-    fileName = _fileName;
-    if(!fileName.empty() && fileName.size() > 0)
-        load(fileName.c_str());
-    else
-        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Nome do arquivo BMP inválido", Utils::ERRO, TRUE));
+    path = _path;
+    if(!path.empty() && path.size() > 0)
+        load(path.c_str());
+    else {
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Nome do arquivo BMP invalido", Utils::ERRO, TRUE));
+        return;
+    }
 }
 
+/* Retorna a matriz que contem os dados da imagem bmp
+   @return dt: matriz do tipo Color
+*/
 Color** Bmp::getImage()
 {
     return dt;
 }
 
+/* Retorna a largura da imagem
+   @return width: inteiro referente a largura do bmp
+*/
 int Bmp::getWidth(void)
 {
     return width;
 }
 
+/* Retorna a altura da imagem
+   @return height: inteiro referente a altura do bmp
+*/
 int Bmp::getHeight(void)
 {
     return height;
 }
 
+/* Cria espaco em memoria para uma nova matriz de Color
+   @param h: altura do bmp, ou numero de linhas da matriz
+   @param w: largura do bmp, ou numero de colunas da matriz
+   @return newdt: matriz do tipo Color
+*/
 Color** Bmp::newBitmap(int h, int w)
 {
     Color** newdt = new Color*[h];
@@ -51,6 +70,10 @@ Color** Bmp::newBitmap(int h, int w)
     return newdt;
 }
 
+/* Libera a matriz Color da memoria
+   @param h: altura do bmp, ou numero de linhas da matriz
+   @param w: largura do bmp, ou numero de colunas da matriz
+*/
 void Bmp::deleteBitmap(Color** dt, int h, int w)
 {
     for(int i = 0; i < h; i++)
@@ -58,6 +81,10 @@ void Bmp::deleteBitmap(Color** dt, int h, int w)
     delete dt;
 }
 
+/* Renderiza/desenha a imagem bmp
+   @param px: coordenada x onde o bmp comeca a ser desenhado
+   @param py: coordenada y onde o bmp comeca a ser desenhado
+*/
 void Bmp::renderBmp(int px, int py)
 {
     for(int i = 0; i < height; i++)
@@ -69,6 +96,8 @@ void Bmp::renderBmp(int px, int py)
         }
 }
 
+/* Espelha a imagem bmp horizontalmente, trocando as colunas da matriz de lugar
+*/
 void Bmp::mirrorH()
 {
     for (int i = 0; i < height; i++) {
@@ -80,6 +109,8 @@ void Bmp::mirrorH()
     }
 }
 
+/* Espelha a imagem bmp verticalmente, trocando as linhas da matriz de lugar
+*/
 void Bmp::mirrorV()
 {
     for (int i = 0; i < width; i++) {
@@ -91,6 +122,9 @@ void Bmp::mirrorV()
     }
 }
 
+/* Rotaciona a imagem bmp 90 graus no sentido horario ou antihorario
+   @param clockwise: inteiro 0 ou 1, indica em qual sentido girar a imagem
+*/
 void Bmp::rotate90 (int clockwise)
 {
     Color** temp = newBitmap(width, height);
@@ -102,6 +136,9 @@ void Bmp::rotate90 (int clockwise)
     dt = temp;
 }
 
+/* Rotaciona a imagem bmp 90 graus no sentido horario
+   @param temp: matriz com altura e largura trocados
+*/
 void Bmp::rotateRight (Color** temp)
 {
     for (int i = 0; i < height; i++) {
@@ -113,6 +150,9 @@ void Bmp::rotateRight (Color** temp)
     }
 }
 
+/* Rotaciona a imagem bmp 90 graus no sentido antihorario
+   @param temp: matriz com altura e largura trocados
+*/
 void Bmp::rotateLeft(Color** temp)
 {
     int y = height - 1;
@@ -124,21 +164,24 @@ void Bmp::rotateLeft(Color** temp)
     }
 }
 
+/* Aplica luminancia na imagem bmp
+*/
 void Bmp::luminance ()
 {
-    for (int i = 0; i < height; i++) {
+    for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++) {
             float luminance = .299 * dt[i][j].r + .587 * dt[i][j].g + .114 * dt[i][j].b;
             dt[i][j].r = luminance;
             dt[i][j].g = luminance;
             dt[i][j].b = luminance;
         }
-    }
 }
 
+/* Aplica o efeito sepia (envelhecimento) na imagem
+*/
 void Bmp::sepiaEffect ()
 {
-    for (int i = 0; i < height; i++) {
+    for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++) {
             int r = dt[i][j].r;
             int g = dt[i][j].g;
@@ -155,24 +198,25 @@ void Bmp::sepiaEffect ()
             dt[i][j].g = g;
             dt[i][j].b = b;
         }
-    }
 }
 
-/* utiliza o método "blur box", para cada pixel, faz uma média(AVG) de todos seus vizinhos, incluindo a si proprio */
+/* Utiliza o metodo "blur box" para borrar a imagem
+*  Para cada pixel faz uma media de todos seus vizinhos, incluindo a si proprio
+*/
 void Bmp::blurEffect()
 {
     int sumBlue, sumGreen, sumRed;
     float countColor;
-    Color temp[height][width];
+    Color temp[height][width]; // para nao ir alterando os valores de dt no loop
 
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             sumBlue = sumGreen = sumRed = 0;
             countColor = 0.00;
             for (int k = -1; k < 2; k++) {
-                if (j + k < 0 || j + k > height - 1) continue; // se  vizinho sai da imagem
+                if (j + k < 0 || j + k > height - 1) continue; // se  vizinho "sai" da imagem
                 for (int h = -1; h < 2; h++) {
-                    if (i + h < 0 || i + h > width - 1) continue;// se vizinho sai da imagem
+                    if (i + h < 0 || i + h > width - 1) continue;// se vizinho "sai" da imagem
                     sumBlue += dt[j+k][i+h].r;
                     sumGreen += dt[j+k][i+h].g;
                     sumRed += dt[j+k][i+h].b;
@@ -192,6 +236,8 @@ void Bmp::blurEffect()
         }
 }
 
+/* Diminui a escala da imagem pela metade
+*/
 void Bmp::scale()
 {
     int h = height/2;
@@ -214,8 +260,10 @@ void Bmp::scale()
     width = w;
 }
 
-//le o HEADER componente a componente devido ao problema de alinhamento de bytes. Usando
-//o comando fread(header, sizeof(HEADER),1,fp) sao lidos 16 bytes ao inves de 14
+/* Le o HEADER componente a componente devido ao problema de alinhamento de bytes
+   Usando o comando fread sao lidos 16 bytes ao inves de 14
+   @param fp: ponteiro para o arquivo a ser lido
+*/
 void Bmp::readHeader(FILE* fp)
 {
     fread(&header.type,      sizeof(unsigned short int), 1, fp);
@@ -225,6 +273,9 @@ void Bmp::readHeader(FILE* fp)
     fread(&header.offset,    sizeof(unsigned int),       1, fp);
 }
 
+/* Escreve o HEADER componente a componente com as informacoes do novo bmp gerado
+   @param fp: ponteiro para o arquivo a ser escrito
+*/
 void Bmp::writeHeader(FILE* fp)
 {
     fwrite(&header.type,      sizeof(unsigned short int), 1, fp);
@@ -234,7 +285,9 @@ void Bmp::writeHeader(FILE* fp)
     fwrite(&header.offset,    sizeof(unsigned int),       1, fp);
 }
 
-//le o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
+/* Le o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
+   @param fp: ponteiro para o arquivo a ser lido
+*/
 void Bmp::readInfoHeader(FILE* fp)
 {
     fread(&info.size,        sizeof(unsigned int),       1, fp);
@@ -250,6 +303,9 @@ void Bmp::readInfoHeader(FILE* fp)
     fread(&info.impcolours,  sizeof(unsigned int),       1, fp);
 }
 
+/* Escreve o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
+   @param fp: ponteiro para o arquivo a ser escrito
+*/
 void Bmp::writeInfoHeader(FILE* fp)
 {
     fwrite(&info.size,        sizeof(unsigned int),       1, fp);
@@ -265,11 +321,15 @@ void Bmp::writeInfoHeader(FILE* fp)
     fwrite(&info.impcolours,  sizeof(unsigned int),       1, fp);
 }
 
-void Bmp::load(const char* fileName)
+/* Carrega todas as informacoes do arquivo bmp nas estruturas da classe
+   @param path: caminho que a imagem se encontra
+*/
+void Bmp::load(const char* path)
 {
-    FILE *fp = fopen(fileName, "rb");
+    FILE *fp = fopen(path, "rb");
     if(fp == NULL) {
         (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Erro ao abrir arquivo", Utils::ERRO, TRUE));
+        return;
     }
     readHeader(fp);
     readInfoHeader(fp);
@@ -287,16 +347,24 @@ void Bmp::load(const char* fileName)
     cout << "delta: " << delta << endl;
     cout << "imagesize: " << imagesize << " " << info.imagesize << endl;
 
-    if( header.type != 19778 )
+    if( header.type != 19778 ) {
         (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP invalido ", Utils::ERRO, TRUE));
+        return;
+    }
     if( width*height*3 != imagesize )
         (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP nao tem largura multipla de 4", Utils::WARNING, TRUE));
-    if( info.compression != 0 )
+    if( info.compression != 0 ) {
         (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Formato BMP comprimido nao suportado", Utils::ERRO, TRUE));
-    if( bits != 24 )
+        return;
+    }
+    if( bits != 24 ) {
         (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Formato BMP nao suporta esse numero de bits", Utils::ERRO, TRUE));
-    if( info.planes != 1 )
-        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Numero de Planes nao suportado: ", Utils::ERRO, TRUE));
+        return;
+    }
+    if( info.planes != 1 ) {
+        (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Numero de Planes nao suportado ", Utils::ERRO, TRUE));
+        return;
+    }
 
     dt = newBitmap(height, width);
     Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));
@@ -310,11 +378,13 @@ void Bmp::load(const char* fileName)
     fclose(fp);
 }
 
+/* Escreve os dados alterados (ou nao) da imagem em um novo bmp, adicionando "Save" ao nome
+*/
 void Bmp::write()
 {
     (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Salvando imagem", Utils::INFO, TRUE));
-    fileName = fileName.substr(0, fileName.find(".bmp")) + "Save.bmp";
-    const char* name = fileName.c_str();
+    path = path.substr(0, path.find(".bmp")) + "Save.bmp";
+    const char* name = path.c_str();
     FILE *fp = fopen(name, "wb");
     info.width = width;
     info.height = height;

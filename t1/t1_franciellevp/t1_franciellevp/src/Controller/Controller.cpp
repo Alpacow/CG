@@ -1,18 +1,22 @@
-//****************************************************************
+//*******************************************************************************
 //
-// classe para desenhar e controlar o layout inicial do programa
+// classe para fazer o controle e comunicacao necessaria entre as demais classes
 //
-//****************************************************************
-#include "../Canvas/gl_canvas2d.h"
+//*******************************************************************************
 #include "Controller.h"
+#include "../Canvas/gl_canvas2d.h"
 #include "../Widgets/Button.h"
 #include "../Widgets/Checkbox.h"
 #include <iostream>
 
 using namespace std;
 
+/* Inicia os atributos necessarios
+*/
 Controller::Controller()
 {
+    screenWidth = 1200;
+    screenHeight = 1000;
     alerts = new Alert();
     wds.push_back(alerts);
     wds.push_back(new Button(&img));
@@ -21,12 +25,13 @@ Controller::Controller()
 
 Controller::~Controller() {}
 
+/* Renderiza/desenha tudo que sera necessario na tela
+*/
 void Controller::Render()
 {
     rgb = Utils::RGBtoFloat(28,28,28);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::rectFill(0, 0, screenWidth, 30);
-
     rgb = Utils::RGBtoFloat(255,250,250);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::text(screenWidth/2 - 80, 20, "T1 - Francielle Vasconcellos Pereira");
@@ -38,6 +43,9 @@ void Controller::Render()
         wds[i]->RenderWidgets();
 }
 
+/* Controla as teclas apertadas durante a execucao
+   @param key: inteiro equivalente a tecla apertada
+*/
 void Controller::Keyboard(int key)
 {
     cout << "Tecla: " << key << endl;
@@ -49,6 +57,11 @@ void Controller::Keyboard(int key)
     }
 }
 
+/* Controla a posicao do mouse e se houve clique ou nao
+   @param x: coordenada x do mouse
+   @param y: coordenada y do mouse
+   @param state: estado do mouse (clicado ou nao)
+*/
 void Controller::Mouse(int x, int y, int state)
 {
     mx = x; //guarda as coordenadas do mouse para exibir dentro da render()
@@ -58,9 +71,11 @@ void Controller::Mouse(int x, int y, int state)
         wds[i]->CheckState(state, x, y);
 }
 
+/* Inicia a canvas
+*/
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getImagePath("normal_1.bmp"), &alerts);
+    img = new Bmp(Utils::getImagePath("img1.bmp"), &alerts);
     hist = new Histogram(img, 520, 550, 600, 300);
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);

@@ -25,13 +25,18 @@ class Widget
             this->height  = h;
             this->bgColor = bg;
         }
-        // recebe as coordenadas do mouse para tratar clique ou detectar quando o mouse esta em cima do botao
+        /* Detecta se o ouse esta em cima do widget
+           @param mx: coordenada x do mouse
+           @param my: coordenada y do mouse
+        */
         bool Colidiu(int mx, int my)
         {
             if(mx >= x && mx <= (x + width) && my >= y && my <= (y + height))
                 return true;
             return false;
         }
+        /* Metodos que devem ser implementados pelas classes derivadas
+        */
         virtual void RenderWidgets() = 0;
         virtual void CheckState (int state, int _x, int _y) = 0;
         virtual void Render() = 0;

@@ -1,9 +1,8 @@
-
-//*********************************************************
+//*******************************************************************************
 //
-// classe para fazer o carregamento de arquivos no formato BMP
+// classe para fazer o controle e comunicacao necessaria entre as demais classes
 //
-//**********************************************************
+//*******************************************************************************
 #ifndef ___CONTROLLER__H___
 #define ___CONTROLLER__H___
 
@@ -22,7 +21,7 @@ private:
 public:
     Bmp* img;                // imagem a ser manipulada
     Histogram* hist;
-    int screenWidth = 1200, screenHeight = 1000;
+    int screenWidth, screenHeight;
     Alert* alerts;
     vector<Widget*> wds;    // controla todos os widgets do programa
     Controller();
