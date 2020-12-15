@@ -19,8 +19,8 @@ Controller::Controller()
     screenHeight = 1000;
     alerts = new Alert();
     wds.push_back(alerts);
-    wds.push_back(new Button(&img));
-    wds.push_back(new Checkbox(&img));
+    wds.push_back(new Button(&img, &hist));
+    wds.push_back(new Checkbox(&img, &hist));
 }
 
 Controller::~Controller() {}
@@ -75,7 +75,7 @@ void Controller::Mouse(int x, int y, int state)
 */
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T1 - Visualizador de Imagens");
-    img = new Bmp(Utils::getImagePath("img1.bmp"), &alerts);
+    img = new Bmp(Utils::getImagePath("mako.bmp"), &alerts);
     hist = new Histogram(img, 520, 550, 600, 300);
     rgb = Utils::RGBtoFloat(54,54,54);
     CV::clear(rgb[0], rgb[1], rgb[2]);

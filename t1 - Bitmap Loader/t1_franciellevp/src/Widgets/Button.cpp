@@ -13,9 +13,10 @@ using namespace std;
 /* Inicia todos os atributos necessarios
    @param img: instancia da classe Bmp para controlar as acoes dos botoes na imagem
 */
-Button::Button (Bmp** img) : Widget()
+Button::Button (Bmp** img, Histogram** hist) : Widget()
 {
     this->imgController = img;
+    this->histController = hist;
     Create();
 }
 
@@ -74,7 +75,7 @@ void Button::CheckState(int state, int x, int y)
             (*imgController)->sepiaEffect();
         else if(bts[3]->Colidiu(x, y)) {
             (*imgController)->luminance();
-            (*imgController)->channel[3] = 1;
+            (*histController)->isLuminance = 1;
         } else if(bts[4]->Colidiu(x, y))
             (*imgController)->blurEffect();
         else if(bts[5]->Colidiu(x, y))

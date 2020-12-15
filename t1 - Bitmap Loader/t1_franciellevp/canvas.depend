@@ -1,0 +1,268 @@
+# depslib dependency file v1.0
+1605880999 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.cpp
+	"Bmp.h"
+	"../Canvas/gl_canvas2d.h"
+	<vector>
+	<algorithm>
+	<iostream>
+	<fstream>
+
+1605863438 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\bitmap\bmp.h
+	"../Utils/Utils.h"
+	"../Widgets/Alert.h"
+	<string>
+
+1605870680 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.h
+	<vector>
+	<string>
+
+1605087457 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\canvas\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"../Utils/Vector2.h"
+
+1426372440 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\include\gl\glut.h
+	"freeglut_std.h"
+
+1437579942 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426372440 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1589217858 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\vector2.h
+
+1605094231 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\canvas\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1605095490 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\main.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Controller/Controller.h"
+	<iostream>
+
+1605870303 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.h
+	"../Histogram/Histogram.h"
+	<vector>
+
+1605880034 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.h
+	"Widget.h"
+	"../Bitmap/Bmp.h"
+	"../Histogram/Histogram.h"
+	<string>
+
+1605878338 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\widget.h
+	<vector>
+
+1605881702 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\checkbox.h
+	"Widget.h"
+	"../Bitmap/Bmp.h"
+	"../Histogram/Histogram.h"
+	<string>
+
+1605870706 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\utils\utils.cpp
+	"../Canvas/gl_canvas2d.h"
+	"Utils.h"
+	<unistd.h>
+	<iostream>
+
+1605880157 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\button.cpp
+	"Button.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605881772 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\checkbox.cpp
+	"Checkbox.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605881710 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\controller\controller.cpp
+	"Controller.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Widgets/Button.h"
+	"../Widgets/Checkbox.h"
+	<iostream>
+
+1605202810 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.hpp
+	"Widget.h"
+	"Button.h"
+	<string>
+
+1605877847 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.cpp
+	"Alert.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605877102 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\alert.h
+	"Widget.h"
+	<string>
+
+1605728413 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\slider.cpp
+	"Slider.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605561992 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\widgets\slider.h
+	"Widget.h"
+	"../Bitmap/Bmp.h"
+	<string>
+
+1605881855 source:c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\histogram\histogram.cpp
+	"Histogram.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+	<algorithm>
+
+1605880062 c:\users\flan\desktop\cg\t1\t1_franciellevp\t1_franciellevp\src\histogram\histogram.h
+	"../Bitmap/Bmp.h"
+	<string>
+
+1605880999 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\bitmap\bmp.cpp
+	"Bmp.h"
+	"../Canvas/gl_canvas2d.h"
+	<vector>
+	<algorithm>
+	<iostream>
+	<fstream>
+
+1605863438 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\bitmap\bmp.h
+	"../Utils/Utils.h"
+	"../Widgets/Alert.h"
+	<string>
+
+1605870680 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\utils\utils.h
+	<vector>
+	<string>
+
+1605877102 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\alert.h
+	"Widget.h"
+	<string>
+
+1605878338 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\widget.h
+	<vector>
+
+1605087457 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\canvas\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"../Utils/Vector2.h"
+
+1426372440 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\include\gl\glut.h
+	"freeglut_std.h"
+
+1437579942 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426372440 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1589217858 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\utils\vector2.h
+
+1605094231 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\canvas\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1605881710 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\controller\controller.cpp
+	"Controller.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Widgets/Button.h"
+	"../Widgets/Checkbox.h"
+	<iostream>
+
+1605870303 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\controller\controller.h
+	"../Histogram/Histogram.h"
+	<vector>
+
+1605880062 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\histogram\histogram.h
+	"../Bitmap/Bmp.h"
+	<string>
+
+1605880034 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\button.h
+	"Widget.h"
+	"../Bitmap/Bmp.h"
+	"../Histogram/Histogram.h"
+	<string>
+
+1605881702 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\checkbox.h
+	"Widget.h"
+	"../Bitmap/Bmp.h"
+	"../Histogram/Histogram.h"
+	<string>
+
+1607042331 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\histogram\histogram.cpp
+	"Histogram.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+	<algorithm>
+
+1605095490 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\main.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Controller/Controller.h"
+	<iostream>
+
+1605870706 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\utils\utils.cpp
+	"../Canvas/gl_canvas2d.h"
+	"Utils.h"
+	<unistd.h>
+	<iostream>
+
+1605877847 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\alert.cpp
+	"Alert.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605880157 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\button.cpp
+	"Button.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605881772 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\checkbox.cpp
+	"Checkbox.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605728413 source:c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\slider.cpp
+	"Slider.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+	<iostream>
+
+1605561992 c:\users\flan\desktop\cg\t1 - bitmap loader\t1_franciellevp\src\widgets\slider.h
+	"Widget.h"
+	"../Bitmap/Bmp.h"
+	<string>
+

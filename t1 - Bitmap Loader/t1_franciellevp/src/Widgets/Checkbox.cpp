@@ -13,9 +13,10 @@ using namespace std;
 /* Inicia todos os atributos necessarios
    @param img: instancia da classe Bmp para controlar as acoes dos checkbox na imagem
 */
-Checkbox::Checkbox (Bmp** img) : Widget()
+Checkbox::Checkbox (Bmp** img, Histogram** hist) : Widget()
 {
     this->imgController = img;
+    this->histController = hist;
     Create();
 }
 
@@ -80,8 +81,12 @@ void Checkbox::CheckState(int state, int x, int y)
                 if (i == 0) (*imgController)->mirrorH();
                 else if (i == 1) (*imgController)->mirrorV();
                 else if (i == 2 || i == 3 || i == 4) {
-                    if (!check[2]->isChecked && !check[3]->isChecked && !check[4]->isChecked)
-                        (*imgController)->channel = {1, 1, 1, 0};
+                    if (check[2]->isChecked || check[3]->isChecked || check[4]->isChecked)
+                        (*histController)->isLuminance = 0;
+                    if (!check[2]->isChecked && !check[3]->isChecked && !check[4]->isChecked) {
+                        (*imgController)->channel = {1, 1, 1};
+                        (*histController)->isLuminance = 1;
+                    }
                     else {
                         (*imgController)->channel = {0, 0, 0};
                         if (check[2]->isChecked) (*imgController)->channel[0] = 1;

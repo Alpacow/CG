@@ -22,7 +22,7 @@ Bmp::Bmp(){}
 Bmp::Bmp(string _path, Alert** alerts)
 {
     width = height = 0;
-    channel = {1,1,1,0};
+    channel = {1,1,1};
     alert = alerts;
     path = _path;
     if(!path.empty() && path.size() > 0)
@@ -382,7 +382,6 @@ void Bmp::load(const char* path)
 */
 void Bmp::write()
 {
-    (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Salvando imagem", Utils::INFO, TRUE));
     path = path.substr(0, path.find(".bmp")) + "Save.bmp";
     const char* name = path.c_str();
     FILE *fp = fopen(name, "wb");
@@ -412,4 +411,5 @@ void Bmp::write()
     for (int k = 0; k < padding; k++)
             fputc(0x00, fp);
     fclose(fp);
+    (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Imagem salva em 'resources'", Utils::INFO, TRUE));
 }

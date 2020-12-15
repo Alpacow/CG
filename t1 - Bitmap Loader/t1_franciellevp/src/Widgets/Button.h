@@ -8,6 +8,7 @@
 
 #include "Widget.h"
 #include "../Bitmap/Bmp.h"
+#include "../Histogram/Histogram.h"
 #include <string>
 
 using namespace std;
@@ -19,9 +20,10 @@ public:
     vector<float> labelColor;
     vector<Button*> bts;
     Bmp** imgController;
+    Histogram** histController;
 
     Button();
-    Button(Bmp** imgController);
+    Button(Bmp** img, Histogram** hist);
     ~Button();
     Button(int x, int y, float w, float h, vector<float> bg, const string label, vector<float> labelColor);
     void Render() override;

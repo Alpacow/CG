@@ -19,7 +19,7 @@ public:
     Histogram** histController;
 
     Checkbox();
-    Checkbox(Bmp** img);
+    Checkbox(Bmp** img, Histogram** hist);
     ~Checkbox();
     Checkbox(int x, int y, float w, float h, int isChecked, string label, vector<float> labelColor, vector<float> bg);
     void Render() override;

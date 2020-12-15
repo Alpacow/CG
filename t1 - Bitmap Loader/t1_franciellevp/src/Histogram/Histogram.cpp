@@ -29,6 +29,7 @@ Histogram::Histogram(Bmp*img, int x, int y, int xWidth, int yHeight)
     this->y = y;
     this->img = img;
     this->maxColor = 0;
+    this->isLuminance = 1;
 }
 
 /* Desenha os eixos, dados e valores do histograma
@@ -56,9 +57,9 @@ void Histogram::drawHistogramGraph()
             CV::color(0, 0, 1);
             drawHistogramRects(countB, i);
         }
-        if (img->channel[3]) {
+        if (isLuminance) {
             CV::color(0, 0, 0);
-            drawHistogramRects(countB, i); // reaproveita o vetor de Blue para a luminancia
+            drawHistogramRects(countL, i);
         }
     }
 }
@@ -80,13 +81,12 @@ int Histogram::textOffsetX(int x)
 */
 void Histogram::countColors()
 {
-    maxR = 0;
-    maxG = 0;
-    maxB = 0;
+    maxR = maxG = maxB = maxL = 0;
     for(int i = 0; i < 256; i++) {
         countR[i] = 0;
         countG[i] = 0;
         countB[i] = 0;
+        countL[i] = 0;
     }
     Color** dt = img->getImage();
     for(int i = 0; i < img->getHeight(); i++)
@@ -95,10 +95,13 @@ void Histogram::countColors()
             countR[(int)c.r]++;
             countG[(int)c.g]++;
             countB[(int)c.b]++;
+            int lum = (c.r * .299) + (c.g * .587) + (c.b * .114);
+            countL[lum]++;
         }
     maxR = max_element(begin(countR), end(countR));
     maxG = max_element(begin(countG), end(countG));
     maxB = max_element(begin(countB), end(countB));
+    maxL = max_element(begin(countL), end(countL));
     maxColor = max(*maxR, *maxG);
     maxColor = max(maxColor, *maxB);
 }
