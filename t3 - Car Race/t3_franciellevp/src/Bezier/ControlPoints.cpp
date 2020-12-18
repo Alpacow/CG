@@ -36,7 +36,7 @@ void ControlPoints::render()
         CV::color(0, 0, 0);
     CV::text(point.x - 14 * strlen(label), point.y - R, label);
     CV::circleFill(point.x, point.y, R, 20);
-    //drawDragPoints();
+    drawDragPoints();
 }
 
 Vector2 ControlPoints::getPoint()
@@ -58,30 +58,26 @@ void ControlPoints::drawDragPoints()
 {
     vector<float> rgb = Utils::RGBtoFloat(70,130,180);
     CV::color(rgb[0], rgb[1], rgb[2]);
-    CV::circleFill(point.x - DRAG_DIST, point.y - DRAG_DIST, R, 20);
+    CV::circleFill(point.x - DRAG_DIST, point.y - DRAG_DIST, 2*R, 20);
     CV::line(point.x, point.y, point.x - DRAG_DIST, point.y - DRAG_DIST);
 }
 
-void ControlPoints::dragPoint(int mx, int my)
-{
-    if (canDragPoint) {
-        cout << "drag point" << endl;
-        point.x = mx;
-        point.y = my;
-    }
-}
-
-int ControlPoints::checkCollisionAll(int x, int y)
+ControlPoints* ControlPoints::checkCollisionAll(int x, int y)
 {
     for(vector<ControlPoints>::size_type i = 0; i != points.size(); i++)
         if (i != 0 && Utils::checkCircleCollision(x, y, points[i]->point, R))
-            return i;
-    return -1;
+            return points[i];
+    return nullptr;
+}
+
+bool ControlPoints::checkControlPointArea(int x, int y)
+{
+    return (y > DRAW_Y_VALID && x < DRAW_X_VALID);
 }
 
 void ControlPoints::addPoint(int x, int y)
 {
-    if (y > DRAW_Y_VALID && x < DRAW_X_VALID) {
+    if (checkControlPointArea(x, y)) {
         if (points.size() > 0) points[points.size()-1]->setIsSelect(false); // ultimo ponto deixa de ser o selecionado
         ControlPoints* p = new ControlPoints(x, y, points.size() + 1);
         points.push_back(p);
@@ -116,4 +112,17 @@ void ControlPoints::clearControlPoints()
 void ControlPoints::setCanDragPoint(bool value)
 {
     canDragPoint = value;
+}
+
+bool ControlPoints::getCanDragPoint()
+{
+    return canDragPoint;
+}
+
+void ControlPoints::dragPoint(int mx, int my)
+{
+    if (canDragPoint) {
+        point.x = mx;
+        point.y = my;
+    }
 }

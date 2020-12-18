@@ -29,7 +29,7 @@ public:
     ControlPoints(int x, int y, int pn);
     ControlPoints();
     ~ControlPoints();
-    int checkCollisionAll(int x, int y);
+    ControlPoints* checkCollisionAll(int x, int y);
     Vector2 getPoint();
     Vector2 getFirstPoint();
     void render();
@@ -40,6 +40,8 @@ public:
     void drawControlGraph();
     void clearControlPoints();
     void setCanDragPoint(bool value);
+    bool getCanDragPoint();
+    bool checkControlPointArea(int x, int y);
 };
 
 #endif

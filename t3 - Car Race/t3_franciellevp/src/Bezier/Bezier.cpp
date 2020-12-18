@@ -38,21 +38,26 @@ void Bezier::render()
 */
 void Bezier::checkMouseStates(int button, int x, int y, int state)
 {
-    if (button == 0 && state == 0) { // clicou no botao esquerdo
-        int pPosition = cp->checkCollisionAll(x, y);
-        if (pPosition < 0) { // se nao colide com nenhum outro ponto
-            cp->addPoint(x, y);
-        } else {
-            cp->unsetAllPoints();
-            cp->points[pPosition]->setIsSelect(true);
-            cp->setCanDragPoint(true);
-        }
-        if (cp->points.size() > 1 && Utils::checkCircleCollision(x, y, cp->getFirstPoint(), R)) {
-            cout << "finalizar pista" << endl; // TODO: parar de permitir pontos e desenhar pista
-            return;
-        }
-    } else if (button == 0 && state == 1) { // soltou o mouse
-        cp->setCanDragPoint(true);
+    ControlPoints* cPoint = cp->checkCollisionAll(x, y);
+    if (button == 0) {
+        if (state == 0) { // clicou no botao esquerdo
+            if (cPoint == nullptr) { // se nao colide com nenhum outro ponto
+                cp->addPoint(x, y);
+            } else {
+                cp->unsetAllPoints();
+                cPoint->setIsSelect(true);
+                cPoint->setCanDragPoint(true);
+            }
+            if (cp->points.size() > 1 && Utils::checkCircleCollision(x, y, cp->getFirstPoint(), R)) {
+                cout << "finalizar pista" << endl; // TODO: parar de permitir pontos e desenhar pista
+                return;
+            }
+        } else if (state == 1 && cPoint != nullptr)// soltou o mouse
+            cPoint->setCanDragPoint(false);
+    } else if(button == -2 && cPoint != nullptr) {
+        cout << cPoint->getCanDragPoint() << cp->checkControlPointArea(x, y) << endl;
+        if(cPoint->getCanDragPoint() && cp->checkControlPointArea(x, y))
+           cPoint->dragPoint(x, y);
     }
     //cout << "AQ " << button << state << endl;
     /*for(vector<ControlPoints>::size_type i = 0; i != cp.size(); i++) {
