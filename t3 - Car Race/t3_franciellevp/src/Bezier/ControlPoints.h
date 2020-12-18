@@ -16,10 +16,10 @@ class ControlPoints
 {
 private:
     Vector2 point;
+    Vector2 dragPoint;
     Vector2 fstPoint;
     int nPoint;
     char* label;
-    bool isSelect;
     bool canDragPoint;
     void drawDragPoints();
 
@@ -31,11 +31,10 @@ public:
     ~ControlPoints();
     ControlPoints* checkCollisionAll(int x, int y);
     Vector2 getPoint();
+    Vector2 getDragPoint();
     Vector2 getFirstPoint();
     void render();
-    void setIsSelect(bool value);
-    void dragPoint(int mx, int my);
-    void unsetAllPoints();
+    void dragSelectPoint(int mx, int my);
     void addPoint(int x, int y);
     void drawControlGraph();
     void clearControlPoints();

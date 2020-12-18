@@ -41,13 +41,10 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
     ControlPoints* cPoint = cp->checkCollisionAll(x, y);
     if (button == 0) {
         if (state == 0) { // clicou no botao esquerdo
-            if (cPoint == nullptr) { // se nao colide com nenhum outro ponto
+            if (cPoint == nullptr) // se nao colide com nenhum outro ponto
                 cp->addPoint(x, y);
-            } else {
-                cp->unsetAllPoints();
-                cPoint->setIsSelect(true);
+            else
                 cPoint->setCanDragPoint(true);
-            }
             if (cp->points.size() > 1 && Utils::checkCircleCollision(x, y, cp->getFirstPoint(), R)) {
                 cout << "finalizar pista" << endl; // TODO: parar de permitir pontos e desenhar pista
                 return;
@@ -55,25 +52,9 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
         } else if (state == 1 && cPoint != nullptr)// soltou o mouse
             cPoint->setCanDragPoint(false);
     } else if(button == -2 && cPoint != nullptr) {
-        cout << cPoint->getCanDragPoint() << cp->checkControlPointArea(x, y) << endl;
         if(cPoint->getCanDragPoint() && cp->checkControlPointArea(x, y))
-           cPoint->dragPoint(x, y);
+           cPoint->dragSelectPoint(x, y);
     }
-    //cout << "AQ " << button << state << endl;
-    /*for(vector<ControlPoints>::size_type i = 0; i != cp.size(); i++) {
-        if (button == 0 && state == 0) {
-            if (Utils::checkCircleCollision(x, y, cp[i]->getPoint(), R)) { // se colidir com outro ponto
-                unsetAllPoints();
-                cp[i]->setIsSelect(true);
-                cp[i]->dragPoint(x, y);
-            }
-        }
-        Vector2 pDrag = cp[i]->getPoint();
-        pDrag.x -= DRAG_DIST;
-        pDrag.y -= DRAG_DIST;
-        if (cp[i]->checkCollision(x, y, pDrag) && state != -2) // se colidir com o botao de mover o ponto
-            cp[i]->dragPoint(x, y);
-    }*/
 }
 
 void Bezier::drawBezierCurve(float maxValue)
