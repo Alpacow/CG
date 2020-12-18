@@ -5,6 +5,7 @@
 //
 //*******************************************************************************
 #include "Bezier.h"
+#include "../Utils/Utils.h"
 #include "../Canvas/gl_canvas2d.h"
 #include <iostream>
 
@@ -14,6 +15,7 @@ using namespace std;
 */
 Bezier::Bezier()
 {
+    this->cp = new ControlPoints();
 }
 
 Bezier::~Bezier() {}
@@ -22,9 +24,11 @@ Bezier::~Bezier() {}
 */
 void Bezier::render()
 {
-    for(vector<ControlPoints>::size_type i = 0; i != cp.size(); i++)
-        cp[i]->render();
-    drawControlGraph();
+    for(vector<ControlPoints>::size_type i = 0; i != cp->points.size(); i++)
+        cp->points[i]->render();
+    cp->drawControlGraph();
+    if (cp->points.size() > 1)
+        drawBezierCurve(1);
 }
 
 /* Controla a posicao do mouse e se houve clique ou nao
@@ -35,56 +39,67 @@ void Bezier::render()
 void Bezier::checkMouseStates(int button, int x, int y, int state)
 {
     if (button == 0 && state == 0) { // clicou no botao esquerdo
-        if (cp.size() > 0) cp[cp.size()-1]->setIsSelect(false); // ultimo ponto deixa de ser o selecionado
-        if (!checkCollisionAll(x, y)) { // se nao colide com nenhum outro ponto
-            ControlPoints* p = new ControlPoints(x, y, cp.size() + 1);
-            cp.push_back(p);
-            if (cp.size() == 1) fstPoint = p; // guarda pos do primeiro ponto para fechar a pista
+        int pPosition = cp->checkCollisionAll(x, y);
+        if (pPosition < 0) { // se nao colide com nenhum outro ponto
+            cp->addPoint(x, y);
+        } else {
+            cp->unsetAllPoints();
+            cp->points[pPosition]->setIsSelect(true);
+            cp->setCanDragPoint(true);
         }
+        if (cp->points.size() > 1 && Utils::checkCircleCollision(x, y, cp->getFirstPoint(), R)) {
+            cout << "finalizar pista" << endl; // TODO: parar de permitir pontos e desenhar pista
+            return;
+        }
+    } else if (button == 0 && state == 1) { // soltou o mouse
+        cp->setCanDragPoint(true);
     }
-    cout << button << state << endl;
-    for(vector<ControlPoints>::size_type i = 0; i != cp.size(); i++) {
+    //cout << "AQ " << button << state << endl;
+    /*for(vector<ControlPoints>::size_type i = 0; i != cp.size(); i++) {
         if (button == 0 && state == 0) {
-            if (i != 0 && cp[i]->checkCollision(x, y, fstPoint->getPoint())) {
-                cout << "finalizar pista" << endl; // TODO: parar de permitir pontos e desenhar pista
-                return;
-            }
-            if (cp[i]->checkCollision(x, y, cp[i]->getPoint())) { // se colidir com outro ponto
+            if (Utils::checkCircleCollision(x, y, cp[i]->getPoint(), R)) { // se colidir com outro ponto
                 unsetAllPoints();
                 cp[i]->setIsSelect(true);
                 cp[i]->dragPoint(x, y);
             }
         }
-        /*Vector2 pDrag = cp[i]->getPoint();
+        Vector2 pDrag = cp[i]->getPoint();
         pDrag.x -= DRAG_DIST;
         pDrag.y -= DRAG_DIST;
         if (cp[i]->checkCollision(x, y, pDrag) && state != -2) // se colidir com o botao de mover o ponto
-            cp[i]->dragPoint(x, y);*/
-    }
+            cp[i]->dragPoint(x, y);
+    }*/
 }
 
-void Bezier::drawControlGraph()
+void Bezier::drawBezierCurve(float maxValue)
 {
-    CV::color(0, 0, 0);
-    if (cp.size() > 1) {
-        for (unsigned int i = 0; i < cp.size() - 1; i++) {
-            Vector2 p1 = cp[i]->getPoint();
-            Vector2 p2 = cp[i+1]->getPoint();
-            CV::line(p1.x, p1.y, p2.x, p2.y);
+    double lastX = 0, lastY = 0;
+    for(float t = 0; t <= maxValue; t += 0.01) {
+        double x = 0, y = 0;
+        double lastP = cp->points.size() - 1;
+        for(unsigned int i = 0; i < cp->points.size(); i++) {
+            x += bernstein(lastP, i) * pow(1 - t, lastP - i) * pow(t, i) * cp->points[i]->getPoint().x;
+            y += bernstein(lastP, i) * pow(1 - t, lastP - i) * pow(t, i) * cp->points[i]->getPoint().y;
         }
+        CV::color(1, 0, 0);
+        if(t != 0)
+            CV::line(lastX, lastY, x, y);
+        lastX = x;
+        lastY = y;
     }
 }
 
-bool Bezier::checkCollisionAll(int x, int y)
+ControlPoints* Bezier::getControlPoints()
 {
-    for(vector<ControlPoints>::size_type i = 0; i != cp.size(); i++)
-        if (i != 0 && cp[i]->checkCollision(x, y, cp[i]->getPoint()))
-            return true;
-    return false;
+    return cp;
 }
 
-void Bezier::unsetAllPoints()
+double Bezier::bernstein(float n, float i)
 {
-     for(vector<ControlPoints>::size_type i = 0; i != cp.size(); i++)
-        cp[i]->setIsSelect(false);
+    return (factorial(n) / (factorial(i) * factorial(n - i)));
+}
+
+double Bezier::factorial(int n)
+{
+    return (n == 0) ? 1 : n * factorial(n - 1);
 }

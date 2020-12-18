@@ -17,18 +17,19 @@ class Bezier
 private:
     vector<float> rgb;           // controla cores passadas em RGB
     float t; // t da equação de bezier (TODO: verificar se sera preciso)
-    vector<ControlPoints*> cp;  // vetor com todos os pontos de controle
-    ControlPoints* fstPoint;
-
-    bool checkCollisionAll(int x, int y);
-    void unsetAllPoints();
+    ControlPoints* cp;
 public:
     Bezier();
     ~Bezier();
+    ControlPoints* getControlPoints();
     void Keyboard(int key);
     void checkMouseStates(int button, int x, int y, int state);
     void drawControlGraph();
     void render();
+    void clearControlPoints();
+    void drawBezierCurve(float maxValue);
+    double bernstein(float n, float i);
+    double factorial(int n);
 };
 
 #endif

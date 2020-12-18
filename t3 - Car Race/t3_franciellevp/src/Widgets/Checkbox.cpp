@@ -77,20 +77,6 @@ void Checkbox::checkState(int state, int x, int y)
         if( state == 0 ) {
             if(check[i]->checkCollision(x, y)) {
                 check[i]->isChecked = (check[i]->isChecked) ? FALSE : TRUE;
-                if (i == 0 || i == 1 || i == 2) {
-                    if (!check[0]->isChecked && !check[1]->isChecked && !check[2]->isChecked) {
-                        (*imgController)->channel = {1, 1, 1};
-                    }
-                    else {
-                        (*imgController)->channel = {0, 0, 0};
-                        if (check[0]->isChecked) (*imgController)->channel[0] = 1;
-                        else (*imgController)->channel[0] = 0;
-                        if (check[1]->isChecked) (*imgController)->channel[1] = 1;
-                        else (*imgController)->channel[1] = 0;
-                        if (check[2]->isChecked) (*imgController)->channel[2] = 1;
-                        else (*imgController)->channel[2] = 0;
-                    }
-                }
             }
         }
     }

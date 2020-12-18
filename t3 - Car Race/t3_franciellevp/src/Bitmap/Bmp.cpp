@@ -22,7 +22,6 @@ Bmp::Bmp(){}
 Bmp::Bmp(string _path, Alert** alerts)
 {
     width = height = 0;
-    channel = {1,1,1};
     alert = alerts;
     path = _path;
     if(!path.empty() && path.size() > 0)
@@ -91,15 +90,17 @@ void Bmp::renderBmp(int px, int py)
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
             // cores sao multiplicadas por channel para visualizacao dos canais
-            CV::color(rgb[0] * channel[0], rgb[1] * channel[1], rgb[2] * channel[2], 0.2);
-            CV::point(px + j, py + height - i);
+            if (rgb[0] != 1 && rgb[1] != 1 && rgb[2] != 1) { // branco, cor de fundo
+                CV::color(rgb[0], rgb[1], rgb[2]);
+                CV::point(px + j, py + height - i);
+            }
         }
 }
 
 /* Rotaciona a imagem bmp 90 graus no sentido horario ou antihorario
    @param clockwise: inteiro 0 ou 1, indica em qual sentido girar a imagem
 */
-void Bmp::rotate90 (int clockwise)
+void Bmp::rotateImage (int clockwise)
 {
     Color** temp = newBitmap(width, height);
     if (clockwise) rotateRight(temp);

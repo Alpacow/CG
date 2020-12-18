@@ -61,3 +61,8 @@ string Utils::getImagePath (const char* filename) {
     path += filename;
     return path;
 }
+
+bool Utils::checkCircleCollision(int mx, int my, Vector2 p, int r)
+{
+    return (mx >= (p.x - r) && mx <= (p.x + r) && my >= (p.y - r) && my <= (p.y + r));
+}

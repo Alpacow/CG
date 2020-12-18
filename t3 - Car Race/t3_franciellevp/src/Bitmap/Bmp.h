@@ -60,8 +60,6 @@ private:
     void rotateLeft (Color** temp);
 
 public:
-    vector<int> channel; // controla visualizacao de cada componente
-
     Bmp();
     Bmp(string path, Alert** alerts);
     Color** getImage();
@@ -71,9 +69,7 @@ public:
     int     getHeight(void);
     void    deleteBitmap(Color** dt, int h, int w);
     void    renderBmp(int px, int py);
-    void    mirrorV();
-    void    mirrorH();
-    void    rotate90(int clockwise);
+    void    rotateImage(int clockwise);
 };
 
 #endif

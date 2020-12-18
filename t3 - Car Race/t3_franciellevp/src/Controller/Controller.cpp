@@ -35,7 +35,19 @@ void Controller::Render()
     rgb = Utils::RGBtoFloat(255,250,250);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::text(screenWidth/2 - 180, 20, "T3 - Francielle Vasconcellos Pereira");
-    //img->renderBmp(10, 40);
+
+    rgb = Utils::RGBtoFloat(211,211,211);
+    CV::color(rgb[0], rgb[1], rgb[2]);
+    CV::rectFill(0, 30, screenWidth, 60);
+
+    rgb = Utils::RGBtoFloat(220,220,220);
+    CV::color(rgb[0], rgb[1], rgb[2]);
+    CV::rectFill(1030, 60, screenWidth, screenHeight);
+
+    rgb = Utils::RGBtoFloat(28,28,28);
+    CV::color(rgb[0], rgb[1], rgb[2]);
+    CV::text(1040, 150, "Cor do carrinho:");
+    img->renderBmp(1100, 80);
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
     bezier->render();
@@ -49,8 +61,11 @@ void Controller::Keyboard(int key)
     cout << "Tecla: " << key << endl;
     opcao = key;
     switch(key) {
-        case 27:
+        case Utils::Esc:
             exit(0);
+            break;
+        case Utils::Delete:
+            bezier->getControlPoints()->clearControlPoints();
             break;
     }
 }
@@ -67,6 +82,7 @@ void Controller::Mouse(int button, int x, int y, int state)
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->checkState(state, x, y);
     //cout << button << state << endl;
+    //cout << mx << " " << my << endl;
     bezier->checkMouseStates(button, x, y, state);
 }
 

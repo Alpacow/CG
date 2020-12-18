@@ -67,9 +67,9 @@ void Button::checkState(int state, int x, int y)
 {
     if( state == 0 ) {
         if(bts[0]->checkCollision(x, y))
-            (*imgController)->rotate90(TRUE);
+            (*imgController)->rotateImage(TRUE);
         else if(bts[1]->checkCollision(x, y))
-            (*imgController)->rotate90(FALSE);
+            (*imgController)->rotateImage(FALSE);
     }
 }
 
