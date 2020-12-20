@@ -9,7 +9,14 @@
 #include "../Widgets/Checkbox.h"
 #include <iostream>
 
+#define DEGREES 10
+
 using namespace std;
+
+Vector2 p1 {400, 200};
+Vector2 p2 {500, 200};
+Vector2 p3 {400, 400};
+Vector2 p4 {500, 400};
 
 /* Inicia os atributos necessarios
 */
@@ -50,7 +57,27 @@ void Controller::Render()
     img->renderBmp(1100, 80);
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
-    bezier->render();
+    //bezier->render();
+
+    CV::color(0,1,0);
+    CV::rectFill(p1, p2, p3, p4);
+}
+
+Vector2 Controller::rotatePoint(Vector2 p, Vector2 mid, float rad) {
+    float a = p.x - mid.x;
+    float b = p.y - mid.y;
+    float xx = +a * cos(rad) - b * sin(rad) + mid.x;
+    float yy = +a * sin(rad) + b * cos(rad) + mid.y;
+    return Vector2{xx, yy};
+}
+
+// Valores positivos de theta geram uma rotacaoo no sentido anti-horario
+void Controller::rotateRect(float rad) {
+    Vector2 mid = p1 + ((p4-p1)/2);
+    p1 = rotatePoint(p1, mid, rad);
+    p2 = rotatePoint(p2, mid, rad);
+    p3 = rotatePoint(p3, mid, rad);
+    p4 = rotatePoint(p4, mid, rad);
 }
 
 /* Controla as teclas apertadas durante a execucao
@@ -66,6 +93,12 @@ void Controller::Keyboard(int key)
             break;
         case Utils::Delete:
             bezier->getControlPoints()->clearControlPoints();
+            break;
+        case Utils::RightArrow:
+            rotateRect(DEGREES * PI / 180);
+            break;
+        case Utils::LeftArrow:
+            rotateRect(-DEGREES * PI / 180);
             break;
     }
 }

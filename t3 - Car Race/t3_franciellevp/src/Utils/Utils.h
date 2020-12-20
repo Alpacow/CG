@@ -25,6 +25,8 @@ public:
     {
         Esc = 27,
         Delete = 127,
+        LeftArrow = 200,
+        RightArrow = 202,
     };
 
     static vector<float> RGBtoFloat(int r, int g, int b);

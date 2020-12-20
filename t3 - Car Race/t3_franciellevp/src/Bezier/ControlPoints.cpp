@@ -55,11 +55,7 @@ Vector2 ControlPoints::getFirstPoint()
 */
 void ControlPoints::render()
 {
-    //if(isSelect) {
-       // CV::color(1, 0, 0);
-        //CV::circle(point.x, point.y, R * 2, 20);
-    //} else
-        CV::color(0, 0, 0);
+    CV::color(0, 0, 0);
     CV::text(point.x - 14 * strlen(label), point.y - R, label);
     CV::circleFill(point.x, point.y, R, 20);
     drawDragPoints();

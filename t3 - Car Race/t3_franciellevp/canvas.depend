@@ -283,7 +283,7 @@
 	"ControlPoints.h"
 	<iostream>
 
-1608330653 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.cpp
+1608330800 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.cpp
 	"Bezier.h"
 	"../Utils/Utils.h"
 	"../Canvas/gl_canvas2d.h"
@@ -298,7 +298,7 @@
 	<math.h>
 	<vector>
 
-1605087457 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\canvas\gl_canvas2d.h
+1608425503 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\canvas\gl_canvas2d.h
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -324,11 +324,11 @@
 1426372440 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\include\gl\freeglut_ext.h
 	<stdarg.h>
 
-1608053863 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\utils\vector2.h
+1608420287 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\utils\vector2.h
 	<math.h>
 	<iostream>
 
-1608330503 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.cpp
+1608331063 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.cpp
 	"ControlPoints.h"
 	"../Utils/Utils.h"
 	<iostream>
@@ -346,7 +346,7 @@
 	"../Widgets/Alert.h"
 	<string>
 
-1608053917 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\utils\utils.h
+1608420557 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\utils\utils.h
 	"Vector2.h"
 	<vector>
 	<string>
@@ -358,18 +358,18 @@
 1607993635 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\widget.h
 	<vector>
 
-1607922293 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\canvas\gl_canvas2d.cpp
+1608426290 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\canvas\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1608327616 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.cpp
+1608428464 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.cpp
 	"Controller.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Widgets/Button.h"
 	"../Widgets/Checkbox.h"
 	<iostream>
 
-1607992712 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.h
+1608428099 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.h
 	"../Bezier/Bezier.h"
 	"../Bitmap/Bmp.h"
 	"../Widgets/Alert.h"

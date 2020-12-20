@@ -32,6 +32,9 @@ public:
     void Render();
     void Keyboard(int key);
     void Mouse(int button, int x, int y, int state);
+
+    void rotateRect(float degrees);
+    Vector2 rotatePoint(Vector2 p, Vector2 mid, float rad);
 };
 
 #endif

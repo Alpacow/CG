@@ -2,19 +2,19 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src\Widgets\Checkbox.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Bitmap\Bmp.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2210" topLine="55" />
+			<Cursor1 position="554" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="src\Canvas\gl_canvas2d.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Widgets\Button.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1366" topLine="21" />
+			<Cursor1 position="2356" topLine="65" />
 		</Cursor>
 	</File>
-	<File name="src\Utils\Utils.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Utils\Utils.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="605" topLine="11" />
+			<Cursor1 position="600" topLine="16" />
 		</Cursor>
 	</File>
 	<File name="src\main.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
@@ -22,62 +22,9 @@
 			<Cursor1 position="880" topLine="19" />
 		</Cursor>
 	</File>
-	<File name="src\Bezier\Bezier.cpp" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="948" topLine="22" />
-		</Cursor>
-	</File>
-	<File name="src\Bezier\ControlPoints.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="920" topLine="23" />
-		</Cursor>
-	</File>
-	<File name="src\Bitmap\Bmp.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8023" topLine="122" />
-		</Cursor>
-		<Folding>
-			<Collapse line="22" />
-			<Collapse line="39" />
-			<Collapse line="47" />
-			<Collapse line="55" />
-			<Collapse line="65" />
-			<Collapse line="77" />
-		</Folding>
-	</File>
-	<File name="src\Bezier\Bezier.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="600" topLine="14" />
-		</Cursor>
-	</File>
-	<File name="src\Bezier\ControlPoints.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2010" topLine="56" />
-		</Cursor>
-	</File>
-	<File name="src\Widgets\Button.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2428" topLine="65" />
-		</Cursor>
-	</File>
-	<File name="src\Bitmap\Bmp.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2214" topLine="58" />
-		</Cursor>
-	</File>
-	<File name="src\Canvas\gl_canvas2d.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3977" topLine="154" />
-		</Cursor>
-	</File>
 	<File name="src\Utils\Vector2.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="5" />
-		</Cursor>
-	</File>
-	<File name="src\Utils\Utils.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1506" topLine="48" />
+			<Cursor1 position="1028" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src\Widgets\Button.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -85,24 +32,31 @@
 			<Cursor1 position="785" topLine="14" />
 		</Cursor>
 	</File>
-	<File name="src\Controller\Controller.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Widgets\Alert.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="480" topLine="17" />
+			<Cursor1 position="852" topLine="17" />
 		</Cursor>
+	</File>
+	<File name="src\Bitmap\Bmp.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2578" topLine="47" />
+		</Cursor>
+		<Folding>
+			<Collapse line="38" />
+			<Collapse line="46" />
+			<Collapse line="54" />
+			<Collapse line="64" />
+			<Collapse line="76" />
+		</Folding>
 	</File>
 	<File name="src\Widgets\Alert.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2870" topLine="71" />
 		</Cursor>
 	</File>
-	<File name="src\Controller\Controller.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+	<File name="src\Widgets\Checkbox.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1572" topLine="45" />
-		</Cursor>
-	</File>
-	<File name="src\Widgets\Alert.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="852" topLine="17" />
+			<Cursor1 position="2792" topLine="66" />
 		</Cursor>
 	</File>
 	<File name="src\Widgets\Widget.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -110,9 +64,54 @@
 			<Cursor1 position="944" topLine="23" />
 		</Cursor>
 	</File>
+	<File name="src\Utils\Utils.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1506" topLine="48" />
+		</Cursor>
+	</File>
 	<File name="src\Widgets\Checkbox.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="622" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="src\Bezier\Bezier.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1418" topLine="44" />
+		</Cursor>
+	</File>
+	<File name="src\Canvas\gl_canvas2d.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1261" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="src\Canvas\gl_canvas2d.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2777" topLine="105" />
+		</Cursor>
+	</File>
+	<File name="src\Controller\Controller.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="279" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Bezier\Bezier.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="554" topLine="14" />
+		</Cursor>
+	</File>
+	<File name="src\Controller\Controller.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1249" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="src\Bezier\ControlPoints.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2706" topLine="100" />
+		</Cursor>
+	</File>
+	<File name="src\Bezier\ControlPoints.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="383" topLine="14" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

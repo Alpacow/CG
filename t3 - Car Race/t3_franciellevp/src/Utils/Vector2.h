@@ -53,6 +53,15 @@ public:
        return( aux );
    }
 
+   Vector2 operator / (const float v)
+   {
+       if (v != 0) {
+          Vector2 aux( x / v, y / v);
+          return( aux );
+       }
+       return {x, y};
+   }
+
    //Adicionem os demais overloads de operadores aqui.
 
 
