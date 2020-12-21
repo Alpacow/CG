@@ -66,3 +66,8 @@ bool Utils::checkCircleCollision(int mx, int my, Vector2 p, int r)
 {
     return (mx >= (p.x - r) && mx <= (p.x + r) && my >= (p.y - r) && my <= (p.y + r));
 }
+
+bool Utils::checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRight)
+{
+    return (mx >= topLeft.x && mx <= bottomRight.x && my >= topLeft.y && my <= bottomRight.y);
+}

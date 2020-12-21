@@ -26,13 +26,16 @@ public:
         Esc = 27,
         Delete = 127,
         LeftArrow = 200,
+        UpArrow = 201,
         RightArrow = 202,
+        DownArrow = 203,
     };
 
     static vector<float> RGBtoFloat(int r, int g, int b);
     static string getImagePath(const char* filename);
     static string getCurrentPath();
     static bool checkCircleCollision(int mx, int my, Vector2 p, int r);
+    static bool checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRight);
 };
 
 typedef struct // estrutura que guarda a cor de um pyxel

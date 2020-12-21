@@ -6,12 +6,14 @@
 #ifndef __WIDGET_H__
 #define __WIDGET_H__
 
+#include "../Utils/Vector2.h"
+#include "../Utils/Utils.h"
 #include <vector>
 
 class Widget
 {
     public:
-        int x, y;
+        Vector2 p;
         float height, width;
         std::vector<float> bgColor;
 
@@ -19,21 +21,28 @@ class Widget
         ~Widget() {}
         Widget(int x, int y, float w, float h, std::vector<float> bg)
         {
-            this->x = x;
-            this->y = y;
+            this->p.x = x;
+            this->p.y = y;
             this->width = w;
             this->height  = h;
             this->bgColor = bg;
         }
+
+        Widget(Vector2 p, float w, float h, std::vector<float> bg)
+        {
+            this->p = p;
+            this->width = w;
+            this->height  = h;
+            this->bgColor = bg;
+        }
+
         /* Detecta se o ouse esta em cima do widget
            @param mx: coordenada x do mouse
            @param my: coordenada y do mouse
         */
         bool checkCollision(int mx, int my)
         {
-            if(mx >= x && mx <= (x + width) && my >= y && my <= (y + height))
-                return true;
-            return false;
+            return Utils::checkRectCollision(mx, my, p, Vector2{p.x + width, p.y + height});
         }
         /* Metodos que devem ser implementados pelas classes derivadas
         */

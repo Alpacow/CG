@@ -28,8 +28,8 @@ void Alert::create() {}
 Alert::Alert(int x, int y, float w, float h, const string txt, int type, int isActive)
     : Widget(), txt(txt), type(type), isActive(isActive)
 {
-    this->x = x;
-    this->y = y;
+    this->p.x = x;
+    this->p.y = y;
     this->width = w;
     this->height  = h;
     if (type == Utils::WARNING)
@@ -45,17 +45,17 @@ Alert::Alert(int x, int y, float w, float h, const string txt, int type, int isA
 void Alert::render()
 {
     CV::color(bgColor[0], bgColor[1], bgColor[2]);
-    CV::rectFill(x, y, x + width, y + height);
+    CV::rectFill(p.x, p.y, p.x + width, p.y + height);
     vector<float> color = Utils::RGBtoFloat(28, 28, 28);;
     CV::color(color[0], color[1], color[2]);
     int c = 5 * txt.size();
-    CV::text(x-c+width/2, y+height/2, txt.c_str()); //escreve o label do botao mais ou menos ao centro.
+    CV::text(p.x - c + width/2, p.y + height/2, txt.c_str()); //escreve o label do botao mais ou menos ao centro.
 
     vector<float> bg = Utils::RGBtoFloat(128,128,128);
     color = Utils::RGBtoFloat(255, 250, 250);
     CV::color(bg[0], bg[1], bg[2]);
-    int xb = x+width/2 - wb/2;
-    int yb = y+height/1.5;
+    int xb = p.x + width/2 - wb/2;
+    int yb = p.y + height/1.5;
     CV::rectFill(xb, yb, xb+wb, yb+hb);
     CV::color(color[0], color[1], color[2]);
     CV::text(xb+18, yb+15, "OK");
@@ -98,9 +98,9 @@ bool Alert::checkCollision(int mx, int my)
 {
     wb = 50;
     hb = 30;
-    int xb = x+width/2 - wb/2;
-    int yb = y+height/1.5;
-    if(mx >= xb && mx <= (xb + wb) && my >= y && my <= (yb + hb))
+    int xb = p.x + width / 2 - wb/2;
+    int yb = p.y + height / 1.5;
+    if(mx >= xb && mx <= (xb + wb) && my >= p.y && my <= (yb + hb))
         return true;
     return false;
 }

@@ -34,8 +34,8 @@ Checkbox::~Checkbox() {}
 Checkbox::Checkbox(int x, int y, float w, float h, int isChecked, string label, vector<float> labelColor, vector<float> bg)
     : Widget(), isChecked(isChecked), label(label), labelColor(labelColor)
 {
-    this->x = x;
-    this->y = y;
+    this->p.x = x;
+    this->p.y = y;
     this->width = w;
     this->height  = h;
     this->bgColor = bg;
@@ -46,15 +46,15 @@ Checkbox::Checkbox(int x, int y, float w, float h, int isChecked, string label, 
 void Checkbox::render()
 {
     CV::color(bgColor[0], bgColor[1], bgColor[2]);
-    CV::rectFill(x, y, x + width, y + height);
+    CV::rectFill(p.x, p.y, p.x + width, p.y + height);
     vector<float> c = Utils::RGBtoFloat(65,105,225);
     CV::color(c[0], c[1], c[2]);
-    CV::circle(x + width/2, y + height/2, width/3, 100);
+    CV::circle(p.x + width/2, p.y + height/2, width/3, 100);
     CV::color(labelColor[0], labelColor[1], labelColor[2]);
-    CV::text(x+width+5, y+5+height/2, label.c_str());
+    CV::text(p.x + width + 5, p.y + 5 + height/2, label.c_str());
     if (isChecked) {
         CV::color(c[0], c[1], c[2]);
-        CV::circleFill(x + width/2, y + height/2, width/3, 100);
+        CV::circleFill(p.x + width/2, p.y + height/2, width/3, 100);
     }
 }
 

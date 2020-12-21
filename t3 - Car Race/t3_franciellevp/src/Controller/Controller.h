@@ -7,7 +7,7 @@
 #define ___CONTROLLER__H___
 
 #include "../Bezier/Bezier.h"
-#include "../Bitmap/Bmp.h"
+#include "../Car/Car.h"
 #include "../Widgets/Alert.h"
 #include <vector>
 
@@ -21,10 +21,10 @@ private:
     int mx, my;                //variaveis do mouse para poder exibir dentro da render().
 
 public:
-    Bmp* img;                // imagem a ser manipulada
+    Car* car;                // imagem a ser manipulada
     Bezier* bezier;                // imagem a ser manipulada
-    int screenWidth, screenHeight;
     Alert* alerts;
+    int screenWidth, screenHeight;
     vector<Widget*> wds;    // controla todos os widgets do programa
     Controller();
     ~Controller();
@@ -32,9 +32,6 @@ public:
     void Render();
     void Keyboard(int key);
     void Mouse(int button, int x, int y, int state);
-
-    void rotateRect(float degrees);
-    Vector2 rotatePoint(Vector2 p, Vector2 mid, float rad);
 };
 
 #endif

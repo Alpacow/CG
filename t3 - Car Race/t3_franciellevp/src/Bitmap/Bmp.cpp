@@ -31,7 +31,6 @@ Bmp::Bmp(string _path, Alert** alerts)
         return;
     }
 }
-
 /* Retorna a matriz que contem os dados da imagem bmp
    @return dt: matriz do tipo Color
 */

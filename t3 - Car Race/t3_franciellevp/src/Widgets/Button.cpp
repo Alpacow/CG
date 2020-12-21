@@ -33,8 +33,8 @@ Button::~Button() {}
 Button::Button(int x, int y, float w, float h, vector<float> bg, const string label, vector<float> labelColor)
     : Widget(), label(label), labelColor(labelColor)
 {
-    this->x = x;
-    this->y = y;
+    this->p.x = x;
+    this->p.y = y;
     this->width = w;
     this->height  = h;
     this->bgColor = bg;
@@ -45,9 +45,9 @@ Button::Button(int x, int y, float w, float h, vector<float> bg, const string la
 void Button::render()
 {
     CV::color(bgColor[0], bgColor[1], bgColor[2]);
-    CV::rectFill(x, y, x + width, y + height);
+    CV::rectFill(p.x, p.y, p.x + width, p.y + height);
     CV::color(labelColor[0], labelColor[1], labelColor[2]);
-    CV::text(x+5, y+height/2, label.c_str()); //escreve o label do botao mais ou menos ao centro.
+    CV::text(p.x + 5, p.y + height/2, label.c_str()); //escreve o label do botao mais ou menos ao centro.
 }
 
 /* Percorre um array contendo todos os botoes para desenha-los na tela

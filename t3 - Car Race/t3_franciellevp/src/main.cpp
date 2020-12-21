@@ -25,7 +25,7 @@ void keyboard(int key)
 //funcao chamada toda vez que uma tecla for liberada
 void keyboardUp(int key)
 {
-   cout << "\nLiberou: " << key << endl;
+   //cout << "\nLiberou: " << key << endl;
 }
 
 //funcao para tratamento de mouse: cliques, movimentos e arrastos
