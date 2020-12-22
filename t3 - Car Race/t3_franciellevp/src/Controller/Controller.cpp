@@ -5,8 +5,6 @@
 //*******************************************************************************
 #include "Controller.h"
 #include "../Canvas/gl_canvas2d.h"
-#include "../Widgets/Button.h"
-#include "../Widgets/Checkbox.h"
 #include <iostream>
 
 using namespace std;
@@ -23,6 +21,7 @@ Controller::Controller()
     car = new Car(&alerts);
     bezier = new Bezier();
     wds.push_back(alerts);
+    wds.push_back(new Input());
 }
 
 Controller::~Controller() {}
@@ -57,6 +56,8 @@ void Controller::Render()
 */
 void Controller::Keyboard(int key)
 {
+    for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
+        wds[i]->keyboardCheck(key);
     //cout << "Tecla: " << key << endl;
     opcao = key;
     switch(key) {

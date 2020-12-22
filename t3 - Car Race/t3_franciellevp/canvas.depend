@@ -352,11 +352,11 @@
 	<vector>
 	<string>
 
-1607993655 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\alert.h
+1608674744 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\alert.h
 	"Widget.h"
 	<string>
 
-1608579992 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\widget.h
+1608674724 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\widget.h
 	"../Utils/Vector2.h"
 	"../Utils/Utils.h"
 	<vector>
@@ -365,26 +365,25 @@
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1608668594 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.cpp
+1608674798 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.cpp
 	"Controller.h"
 	"../Canvas/gl_canvas2d.h"
-	"../Widgets/Button.h"
-	"../Widgets/Checkbox.h"
 	<iostream>
 
-1608599202 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.h
+1608674584 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.h
 	"../Bezier/Bezier.h"
 	"../Car/Car.h"
 	"../Widgets/Alert.h"
+	"../Widgets/Input.h"
 	"../Utils/Fps.h"
 	<vector>
 
-1607993685 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\button.h
+1608674300 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\button.h
 	"Widget.h"
 	"../Bitmap/Bmp.h"
 	<string>
 
-1607993710 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\checkbox.h
+1608674305 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\checkbox.h
 	"Widget.h"
 	"../Bitmap/Bmp.h"
 	<string>
@@ -401,19 +400,18 @@
 	<unistd.h>
 	<iostream>
 
-1608579935 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\alert.cpp
+1608674764 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\alert.cpp
 	"Alert.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 	<iostream>
 
-1608593104 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\button.cpp
+1608674884 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\button.cpp
 	"Button.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
-	<iostream>
 
-1608579912 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\checkbox.cpp
+1608674781 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\checkbox.cpp
 	"Checkbox.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
@@ -432,4 +430,13 @@
 1531759395 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\utils\fps.h
 	<stdio.h>
 	<time.h>
+
+1608675549 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\input.cpp
+	"Input.h"
+	"../Canvas/gl_canvas2d.h"
+	"../Utils/Utils.h"
+
+1608675657 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\widgets\input.h
+	"Widget.h"
+	<string>
 

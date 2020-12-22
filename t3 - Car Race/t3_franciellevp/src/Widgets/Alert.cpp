@@ -104,3 +104,5 @@ bool Alert::checkCollision(int mx, int my)
         return true;
     return false;
 }
+
+void Alert::keyboardCheck(int key) {}

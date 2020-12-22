@@ -6,7 +6,6 @@
 #include "Button.h"
 #include "../Canvas/gl_canvas2d.h"
 #include "../Utils/Utils.h"
-#include <iostream>
 
 using namespace std;
 
@@ -84,4 +83,6 @@ void Button::create()
     bts.push_back(new Button(0, 30, 130, 30, bg, "Editar pista", labelColor));
     bts.push_back(new Button(132, 30, 160, 30, bg, "Iniciar corrida", labelColor));
 }
+
+void Button::keyboardCheck(int key) {}
 

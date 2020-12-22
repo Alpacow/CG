@@ -95,3 +95,5 @@ void Checkbox::create()
     */
 }
 
+void Checkbox::keyboardCheck(int key) {}
+

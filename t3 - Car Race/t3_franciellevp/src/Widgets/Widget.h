@@ -50,6 +50,7 @@ class Widget
         virtual void checkState (int state, int _x, int _y) = 0;
         virtual void render() = 0;
         virtual void create() = 0;
+        virtual void keyboardCheck(int key) = 0;
 };
 
 #endif

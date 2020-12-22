@@ -66,6 +66,8 @@
 		<Unit filename="src/Widgets/Button.h" />
 		<Unit filename="src/Widgets/Checkbox.cpp" />
 		<Unit filename="src/Widgets/Checkbox.h" />
+		<Unit filename="src/Widgets/Input.cpp" />
+		<Unit filename="src/Widgets/Input.h" />
 		<Unit filename="src/Widgets/Widget.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
