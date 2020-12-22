@@ -9,6 +9,7 @@
 #include "../Bezier/Bezier.h"
 #include "../Car/Car.h"
 #include "../Widgets/Alert.h"
+#include "../Utils/Fps.h"
 #include <vector>
 
 using namespace std;
@@ -19,6 +20,8 @@ private:
     vector<float> rgb;           // controla cores passadas em RGB
     int opcao = 50;             // variavel para selecao do que sera exibido na canvas.
     int mx, my;                //variaveis do mouse para poder exibir dentro da render().
+    float fps;
+    Frames  * frames;
 
 public:
     Car* car;                // imagem a ser manipulada

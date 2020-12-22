@@ -53,6 +53,22 @@ public:
        return( aux );
    }
 
+   Vector2 operator += (const float v)
+   {
+       x += v;
+       y += v;
+       Vector2 aux(x, y);
+       return( aux );
+   }
+
+   Vector2 operator -= (const float v)
+   {
+       x -= v;
+       y -= v;
+       Vector2 aux(x, y);
+       return( aux );
+   }
+
    Vector2 operator / (const float v)
    {
        if (v != 0) {

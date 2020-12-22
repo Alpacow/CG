@@ -16,7 +16,9 @@ using namespace std;
 Controller::Controller()
 {
     screenWidth = 1200;
-    screenHeight = 1000;
+    screenHeight = 620;
+    fps = 100.0;
+    frames  = new Frames();
     alerts = new Alert();
     car = new Car(&alerts);
     bezier = new Bezier();
@@ -49,8 +51,12 @@ void Controller::Render()
     CV::text(1040, 150, "Cor do carrinho:");
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
+    fps = frames->getFrames();
+    char* text = (char*)malloc(sizeof(char) * 30);
+    sprintf(text, "FPS: %.0f", fps);
+    CV::text(10, screenHeight - 10, text);
     bezier->render();
-    car->render();
+    car->render(fps);
 }
 
 /* Controla as teclas apertadas durante a execucao
@@ -69,19 +75,19 @@ void Controller::Keyboard(int key)
             break;
         case Utils::RightArrow:
             car->checkRotation(car->RightArrow);
-            car->rotateRect();
+            car->rotateCar();
             break;
         case Utils::LeftArrow:
             car->checkRotation(car->LeftArrow);
-            car->rotateRect();
+            car->rotateCar();
             break;
         case Utils::DownArrow:
             car->checkRotation(car->DownArrow);
-            car->rotateRect();
+            car->rotateCar();
             break;
         case Utils::UpArrow:
             car->checkRotation(car->UpArrow);
-            car->rotateRect();
+            car->rotateCar();
             break;
     }
 }

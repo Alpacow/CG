@@ -65,12 +65,14 @@ void Button::renderWidgets()
 */
 void Button::checkState(int state, int x, int y)
 {
+    /*
     if( state == 0 ) {
         if(bts[0]->checkCollision(x, y))
             (*imgController)->rotateImage(TRUE);
         else if(bts[1]->checkCollision(x, y))
             (*imgController)->rotateImage(FALSE);
     }
+    */
 }
 
 /* Cria todos os botoes da aplicacao

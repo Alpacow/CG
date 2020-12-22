@@ -11,7 +11,7 @@
 
 #define CAR_WIDTH 22
 #define CAR_HEIGHT 35
-#define DEGREES 10
+#define DEGREES 5
 
 using namespace std;
 
@@ -23,9 +23,9 @@ Car::Car(Alert** alerts)
     p2 = {p1.x + CAR_WIDTH, p1.y};
     p3 = Vector2{p1.x, p1.y + CAR_HEIGHT};
     p4 = Vector2{p1.x + CAR_WIDTH, p1.y + CAR_HEIGHT};
-    img = new Bmp(Utils::getImagePath("car.bmp"), alerts);
+    img = new Bmp(1100, 80, Utils::getImagePath("car.bmp"), alerts);
     sumRotation = 90; // inicia virado para cima
-    speed = 10;
+    speed = 20;
     degrees = 10;
 }
 
@@ -33,10 +33,57 @@ Car::~Car() {}
 
 /* Renderiza/desenha tudo que sera necessario na tela
 */
-void Car::render()
+void Car::render(float fps)
 {
-    img->renderBmp(1100, 80);
+    //moveCar(fps);
+    //CV::color(245,245,220);
     CV::rectFill(p1, p2, p3, p4);
+    //img->renderBmp();
+}
+
+void Car::moveCar(float fps)
+{
+    if (sumRotation == 0 || sumRotation == 360) {
+        p1.x += 1/fps * speed;
+        p2.x += 1/fps * speed;;
+        p3.x += 1/fps * speed;;
+        p4.x += 1/fps * speed;;
+    } else if (sumRotation == 90) {
+        p1.y -= 1/fps * speed;;
+        p2.y -= 1/fps * speed;;
+        p3.y -= 1/fps * speed;;
+        p4.y -= 1/fps * speed;;
+    } else if (sumRotation == 180) {
+        p1.x -= 1/fps * speed;;
+        p2.x -= 1/fps * speed;;
+        p3.x -= 1/fps * speed;;
+        p4.x -= 1/fps * speed;;
+    } else if (sumRotation == 270) {
+        p1.y += 1/fps * speed;;
+        p2.y += 1/fps * speed;;
+        p3.y += 1/fps * speed;;
+        p4.y += 1/fps * speed;;
+    } else if (sumRotation > 0 && sumRotation < 90) {
+        p1.x += 1/fps * speed;; p1.y -= 1/fps * speed;;
+        p2.x += 1/fps * speed;; p2.y -= 1/fps * speed;;
+        p3.x += 1/fps * speed;; p3.y -= 1/fps * speed;;
+        p4.x += 1/fps * speed;; p4.y -= 1/fps * speed;;
+    } else if (sumRotation > 90 && sumRotation < 180) {
+        p1.x -= 1/fps * speed;; p1.y -= 1/fps * speed;;
+        p2.x -= 1/fps * speed;; p2.y -= 1/fps * speed;;
+        p3.x -= 1/fps * speed;; p3.y -= 1/fps * speed;;
+        p4.x -= 1/fps * speed;; p4.y -= 1/fps * speed;;
+    } else if (sumRotation > 180 && sumRotation < 270) {
+        p1.x -= 1/fps * speed;; p1.y += 1/fps * speed;;
+        p2.x -= 1/fps * speed;; p2.y += 1/fps * speed;;
+        p3.x -= 1/fps * speed;; p3.y += 1/fps * speed;;
+        p4.x -= 1/fps * speed;; p4.y += 1/fps * speed;;
+    } else if (sumRotation > 270 && sumRotation < 360) {
+        p1.x += 1/fps * speed;; p1.y += 1/fps * speed;;
+        p2.x += 1/fps * speed;; p2.y += 1/fps * speed;;
+        p3.x += 1/fps * speed;; p3.y += 1/fps * speed;;
+        p4.x += 1/fps * speed;; p4.y += 1/fps * speed;;
+    }
 }
 
 Vector2 Car::rotatePoint(Vector2 p, Vector2 mid, float rad) {
@@ -47,19 +94,20 @@ Vector2 Car::rotatePoint(Vector2 p, Vector2 mid, float rad) {
     return Vector2{xx, yy};
 }
 
-void Car::rotateRect() {
+void Car::rotateCar() {
     float rad = degrees * PI / 180; // transforma graus para radianos
     Vector2 mid = p1 + ((p4 - p1) / 2);
     p1 = rotatePoint(p1, mid, rad);
     p2 = rotatePoint(p2, mid, rad);
     p3 = rotatePoint(p3, mid, rad);
     p4 = rotatePoint(p4, mid, rad);
+    rad = sumRotation * PI / 180;
+    img->rotateImage(rad, 1);
 }
 
 void Car::checkRotation(float maxDegrees)
 {
     float validDegrees = 0;
-    cout << "Angulo atual = " << sumRotation << endl;
     if (maxDegrees == RightArrow) {
         if (sumRotation > 0 && sumRotation <= 90) { // 1 quadrante
             sumRotation -= DEGREES; // pra direita horario
@@ -103,6 +151,5 @@ void Car::checkRotation(float maxDegrees)
             else validDegrees = DEGREES;
         }
     }
-    cout << sumRotation << " andou " << validDegrees << endl;
     degrees = validDegrees;
 }

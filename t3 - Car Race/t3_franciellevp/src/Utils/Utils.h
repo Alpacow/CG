@@ -36,6 +36,7 @@ public:
     static string getCurrentPath();
     static bool checkCircleCollision(int mx, int my, Vector2 p, int r);
     static bool checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRight);
+    static Vector2 rotatePoint(Vector2 p, Vector2 mid, float rad);
 };
 
 typedef struct // estrutura que guarda a cor de um pyxel

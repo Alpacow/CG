@@ -33,9 +33,10 @@ public:
     Car();
     Car(Alert** alerts);
     ~Car();
-    void render();
-    void rotateRect();
+    void render(float fps);
+    void rotateCar();
     void checkRotation(float maxDegrees);
+    void moveCar(float fps);
     Vector2 rotatePoint(Vector2 p, Vector2 mid, float rad);
 };
 

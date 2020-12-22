@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <math.h>
 
 using namespace std;
 
@@ -19,11 +20,14 @@ Bmp::Bmp(){}
    @param _fileName: nome da imagem bmp
    @param alerts: instancia da classe Alert para manipular janelas de mensagem
 */
-Bmp::Bmp(string _path, Alert** alerts)
+Bmp::Bmp(float x, float y, string _path, Alert** alerts)
 {
+    position.x = x;
+    position.y = y;
     width = height = 0;
     alert = alerts;
     path = _path;
+    rad = 0;
     if(!path.empty() && path.size() > 0)
         load(path.c_str());
     else {
@@ -83,15 +87,30 @@ void Bmp::deleteBitmap(Color** dt, int h, int w)
    @param px: coordenada x onde o bmp comeca a ser desenhado
    @param py: coordenada y onde o bmp comeca a ser desenhado
 */
-void Bmp::renderBmp(int px, int py)
+void Bmp::renderBmp()
 {
+    Vector2 mid = position / 2;
+    Vector2 oldP = position;
     for(int i = 0; i < height; i++)
         for(int j = 0; j < width; j++) {
             vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
+            // rotacao se houver
+            double oldX = j / mid.x;
+            double oldY = i / mid.y;
+            //Calcula os novos pontos pos rotacao da imagem
+            int newY = round(-oldX * sin(rad) + oldY * cos(rad));
+            int newX = round(oldX * cos(rad) + oldY * sin(rad));
+            //Recentralia a imagem ja rotacionada
+            newY = mid.y - newY;
+            newX = mid.x - newX;
+
             // cores sao multiplicadas por channel para visualizacao dos canais
             if (rgb[0] != 1 && rgb[1] != 1 && rgb[2] != 1) { // branco, cor de fundo
+                Vector2 p = Utils::rotatePoint(oldP, mid, rad);
                 CV::color(rgb[0], rgb[1], rgb[2]);
-                CV::point(px + j, py + height - i);
+                CV::point(position.x + j, position.y + height - i);
+                oldP = p;
+                //CV::point(newX + position.x, newY + position.y);
             }
         }
 }
@@ -99,22 +118,17 @@ void Bmp::renderBmp(int px, int py)
 /* Rotaciona a imagem bmp 90 graus no sentido horario ou antihorario
    @param clockwise: inteiro 0 ou 1, indica em qual sentido girar a imagem
 */
-void Bmp::rotateImage (int clockwise)
+void Bmp::rotateImage (float rad, int clockwise)
 {
-    Color** temp = newBitmap(width, height);
-    if (clockwise) rotateRight(temp);
-    else rotateLeft(temp);
-    deleteBitmap(dt, height, width);
-    swap(height, width);
-    dt = newBitmap(height, width);
-    dt = temp;
+    this->rad = rad;
 }
 
 /* Rotaciona a imagem bmp 90 graus no sentido horario
    @param temp: matriz com altura e largura trocados
 */
-void Bmp::rotateRight (Color** temp)
+void Bmp::rotateRight (float rad, Color** temp)
 {
+    Vector2 mid = position / 2;
     for (int i = 0; i < height; i++) {
         int y = 0;
         for (int j = width-1; j >= 0; j--) {
@@ -122,12 +136,13 @@ void Bmp::rotateRight (Color** temp)
             y++;
         }
     }
+    position = Utils::rotatePoint(position, mid, rad);
 }
 
 /* Rotaciona a imagem bmp 90 graus no sentido antihorario
    @param temp: matriz com altura e largura trocados
 */
-void Bmp::rotateLeft(Color** temp)
+void Bmp::rotateLeft(float rad, Color** temp)
 {
     int y = height - 1;
     for (int i = 0; i < height; i++) {

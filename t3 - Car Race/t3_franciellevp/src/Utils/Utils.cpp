@@ -71,3 +71,11 @@ bool Utils::checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRi
 {
     return (mx >= topLeft.x && mx <= bottomRight.x && my >= topLeft.y && my <= bottomRight.y);
 }
+
+Vector2 Utils::rotatePoint(Vector2 p, Vector2 mid, float rad) {
+    float a = p.x - mid.x;
+    float b = p.y - mid.y;
+    float xx = +a * cos(rad) - b * sin(rad) + mid.x;
+    float yy = +a * sin(rad) + b * cos(rad) + mid.y;
+    return Vector2{xx, yy};
+}

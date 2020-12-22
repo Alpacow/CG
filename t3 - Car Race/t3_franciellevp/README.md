@@ -14,4 +14,5 @@ Funções obrigatórias
 - escala da pista
 
 # funções extras
+- Controle de FPS
 - Determinação se o veículo está andando em cima da pista e respectiva contagem de pontos
