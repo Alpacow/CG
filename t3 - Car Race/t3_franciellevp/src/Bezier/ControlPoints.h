@@ -7,7 +7,7 @@
 
 #define R 4
 #define DRAG_DIST 20
-#define DRAW_Y_VALID 60
+#define DRAW_Y_VALID 30
 #define DRAW_X_VALID 1030
 
 using namespace std;
@@ -20,16 +20,17 @@ private:
     Vector2 fstPoint;
     int nPoint;
     char* label;
-    bool canDragPoint;
     void drawDragPoints();
 
 public:
     vector<ControlPoints*> points;  // vetor com todos os pontos de controle
+    bool canDragPoint;
+    bool isSelect;
 
     ControlPoints(int x, int y, int pn);
     ControlPoints();
     ~ControlPoints();
-    ControlPoints* checkCollisionAll(int x, int y);
+    ControlPoints* checkCollisionDragPoints(int x, int y);
     Vector2 getPoint();
     Vector2 getDragPoint();
     Vector2 getFirstPoint();
@@ -38,9 +39,9 @@ public:
     void addPoint(int x, int y);
     void drawControlGraph();
     void clearControlPoints();
-    void setCanDragPoint(bool value);
-    bool getCanDragPoint();
     bool checkControlPointArea(int x, int y);
+    bool checkCollisionFirstPoint();
+    void unsetAllPoints();
 };
 
 #endif

@@ -31,24 +31,17 @@ Controller::~Controller() {}
 */
 void Controller::Render()
 {
-    rgb = Utils::RGBtoFloat(28,28,28);
-    CV::color(rgb[0], rgb[1], rgb[2]);
-    CV::rectFill(0, 0, screenWidth, 30);
-    rgb = Utils::RGBtoFloat(255,250,250);
-    CV::color(rgb[0], rgb[1], rgb[2]);
-    CV::text(screenWidth/2 - 180, 20, "T3 - Francielle Vasconcellos Pereira");
-
     rgb = Utils::RGBtoFloat(211,211,211);
     CV::color(rgb[0], rgb[1], rgb[2]);
-    CV::rectFill(0, 30, screenWidth, 60);
+    CV::rectFill(0, 0, screenWidth, 30);
 
     rgb = Utils::RGBtoFloat(220,220,220);
     CV::color(rgb[0], rgb[1], rgb[2]);
-    CV::rectFill(1030, 60, screenWidth, screenHeight);
-
+    CV::rectFill(screenWidth - 180, 30, screenWidth, screenHeight);
     rgb = Utils::RGBtoFloat(28,28,28);
     CV::color(rgb[0], rgb[1], rgb[2]);
-    CV::text(1040, 150, "Cor do carrinho:");
+    CV::text(screenWidth - 170, 150, "Cor do carrinho:");
+
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
     fps = frames->getFrames();
@@ -72,22 +65,19 @@ void Controller::Keyboard(int key)
             break;
         case Utils::Delete:
             bezier->getControlPoints()->clearControlPoints();
+            bezier->setCanDragSpeedWay(false);
             break;
         case Utils::RightArrow:
             car->checkRotation(car->RightArrow);
-            car->rotateCar();
             break;
         case Utils::LeftArrow:
             car->checkRotation(car->LeftArrow);
-            car->rotateCar();
             break;
         case Utils::DownArrow:
             car->checkRotation(car->DownArrow);
-            car->rotateCar();
             break;
         case Utils::UpArrow:
             car->checkRotation(car->UpArrow);
-            car->rotateCar();
             break;
     }
 }

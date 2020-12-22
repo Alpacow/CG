@@ -36,9 +36,9 @@ Car::~Car() {}
 void Car::render(float fps)
 {
     //moveCar(fps);
-    //CV::color(245,245,220);
+    CV::color(245,245,220);
     CV::rectFill(p1, p2, p3, p4);
-    //img->renderBmp();
+    img->renderBmp();
 }
 
 void Car::moveCar(float fps)
@@ -86,21 +86,13 @@ void Car::moveCar(float fps)
     }
 }
 
-Vector2 Car::rotatePoint(Vector2 p, Vector2 mid, float rad) {
-    float a = p.x - mid.x;
-    float b = p.y - mid.y;
-    float xx = +a * cos(rad) - b * sin(rad) + mid.x;
-    float yy = +a * sin(rad) + b * cos(rad) + mid.y;
-    return Vector2{xx, yy};
-}
-
 void Car::rotateCar() {
     float rad = degrees * PI / 180; // transforma graus para radianos
     Vector2 mid = p1 + ((p4 - p1) / 2);
-    p1 = rotatePoint(p1, mid, rad);
-    p2 = rotatePoint(p2, mid, rad);
-    p3 = rotatePoint(p3, mid, rad);
-    p4 = rotatePoint(p4, mid, rad);
+    p1 = Utils::rotatePoint(p1, mid, rad);
+    p2 = Utils::rotatePoint(p2, mid, rad);
+    p3 = Utils::rotatePoint(p3, mid, rad);
+    p4 = Utils::rotatePoint(p4, mid, rad);
     rad = sumRotation * PI / 180;
     img->rotateImage(rad, 1);
 }
@@ -152,4 +144,5 @@ void Car::checkRotation(float maxDegrees)
         }
     }
     degrees = validDegrees;
+    rotateCar();
 }

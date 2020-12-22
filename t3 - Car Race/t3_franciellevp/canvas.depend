@@ -283,17 +283,17 @@
 	"ControlPoints.h"
 	<iostream>
 
-1608330800 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.cpp
+1608669912 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.cpp
 	"Bezier.h"
 	"../Utils/Utils.h"
 	"../Canvas/gl_canvas2d.h"
 	<iostream>
 
-1608322328 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.h
+1608668479 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.h
 	"ControlPoints.h"
 	<vector>
 
-1608330686 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.h
+1608669443 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.h
 	"../Canvas/gl_canvas2d.h"
 	<math.h>
 	<vector>
@@ -328,12 +328,12 @@
 	<math.h>
 	<iostream>
 
-1608331063 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.cpp
+1608669435 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.cpp
 	"ControlPoints.h"
 	"../Utils/Utils.h"
 	<iostream>
 
-1608596097 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bitmap\bmp.cpp
+1608658788 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bitmap\bmp.cpp
 	"Bmp.h"
 	"../Canvas/gl_canvas2d.h"
 	<vector>
@@ -361,11 +361,11 @@
 	"../Utils/Utils.h"
 	<vector>
 
-1608426290 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\canvas\gl_canvas2d.cpp
+1608660272 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\canvas\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1608599853 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.cpp
+1608668594 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.cpp
 	"Controller.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Widgets/Button.h"
@@ -419,10 +419,10 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1608599872 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\car\car.h
+1608658689 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\car\car.h
 	"../Bitmap/Bmp.h"
 
-1608598493 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\car\car.cpp
+1608659055 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\car\car.cpp
 	"Car.h"
 	"../Utils/Utils.h"
 	"../Canvas/gl_canvas2d.h"

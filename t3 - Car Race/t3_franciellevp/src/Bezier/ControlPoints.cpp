@@ -16,25 +16,17 @@ ControlPoints::ControlPoints(int x, int y, int pn)
     this->nPoint = pn;
     this->point.x = x;
     this->point.y = y;
-    this->dragPoint.x = x - DRAG_DIST;
-    this->dragPoint.y = y - DRAG_DIST;
+    this->dragPoint.x = x + DRAG_DIST;
+    this->dragPoint.y = y + DRAG_DIST;
     this->label = (char*)malloc(sizeof(char) * 2);
     sprintf(label, "P%d", nPoint);
+    this->isSelect = true;
+    this->canDragPoint = false;
 }
 
 ControlPoints::ControlPoints() {}
 
 ControlPoints::~ControlPoints() {}
-
-void ControlPoints::setCanDragPoint(bool value)
-{
-    canDragPoint = value;
-}
-
-bool ControlPoints::getCanDragPoint()
-{
-    return canDragPoint;
-}
 
 Vector2 ControlPoints::getPoint()
 {
@@ -67,12 +59,14 @@ void ControlPoints::drawDragPoints()
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::circleFill(dragPoint.x, dragPoint.y, 2*R, 20);
     CV::line(point.x, point.y, dragPoint.x, dragPoint.y);
+    if (isSelect)
+        CV::circle(dragPoint.x, dragPoint.y, 2.5*R, 20);
 }
 
-ControlPoints* ControlPoints::checkCollisionAll(int x, int y)
+ControlPoints* ControlPoints::checkCollisionDragPoints(int x, int y)
 {
     for(vector<ControlPoints>::size_type i = 0; i != points.size(); i++)
-        if (i != 0 && Utils::checkCircleCollision(x, y, points[i]->dragPoint, R))
+        if (Utils::checkCircleCollision(x, y, points[i]->dragPoint, R))
             return points[i];
     return nullptr;
 }
@@ -87,6 +81,8 @@ void ControlPoints::addPoint(int x, int y)
     if (checkControlPointArea(x, y)) {
         ControlPoints* p = new ControlPoints(x, y, points.size() + 1);
         points.push_back(p);
+        if (points.size() > 1)
+            points[points.size() - 2]->isSelect = false;
         if (points.size() == 1)
             fstPoint = p->point; // guarda ponteiro do primeiro ponto para fechar a pista depois
     }
@@ -114,7 +110,21 @@ void ControlPoints::dragSelectPoint(int mx, int my)
     if (canDragPoint) {
         dragPoint.x = mx;
         dragPoint.y = my;
-        point.x = mx + DRAG_DIST;
-        point.y = my + DRAG_DIST;
+        point.x = mx - DRAG_DIST;
+        point.y = my - DRAG_DIST;
     }
+}
+
+void ControlPoints::unsetAllPoints()
+{
+    for (unsigned int i = 0; i < points.size(); i++)
+        points[i]->isSelect = false;
+}
+
+bool ControlPoints::checkCollisionFirstPoint()
+{
+    for(vector<ControlPoints>::size_type i = 0; i != points.size(); i++)
+        if (i != 0 && Utils::checkCircleCollision(points[i]->point.x, points[i]->point.y, fstPoint, R))
+            return true;
+    return false;
 }

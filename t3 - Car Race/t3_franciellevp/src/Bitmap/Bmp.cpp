@@ -231,21 +231,14 @@ void Bmp::load(const char* path)
     bits   = info.bits;
     bytesPerLine =(3 * (width + 1) / 4) * 4;
     imagesize    = bytesPerLine*height;
-    int delta    = bytesPerLine - (3 * width);
     int padding  = (4 - (width * sizeof(Color)) % 4) % 4;
-
-    cout << "Imagem: " << width << "x" << height << " - Bits: " << bits << endl;
-    cout << "bytesPerLine: " << bytesPerLine << endl;
-    cout << "bytesPerLine: " << width * 3 << endl;
-    cout << "delta: " << delta << endl;
-    cout << "imagesize: " << imagesize << " " << info.imagesize << endl;
 
     if( header.type != 19778 ) {
         (*alert)->alerts.push_back(new Alert(350, 300, 500, 200, "Arquivo BMP invalido ", Utils::ERRO, TRUE));
         return;
     }
     if( info.compression != 0 ) {
-        cout << "COMPREENNSAO " << info.compression << endl;
+        cout << "Compreensao nao suportada " << info.compression << endl;
         return;
     }
     if( bits != 24 ) {
@@ -259,12 +252,10 @@ void Bmp::load(const char* path)
 
     dt = newBitmap(height, width);
     Color(*image)[width] = (Color(*)[width])calloc(height, width * sizeof(Color));
-    cout << "LENDO" << endl;
     for (int i = 0; i < height; i++) {
         fread(image[i], sizeof(Color), width, fp); // le toda a linha
         fseek(fp, padding, SEEK_CUR); // pula bytes extras, se houver
     }
-     cout << "LEU" << endl;
     for(int i = 0; i < height; i++) // preenche o dt com as cores RGB da imagem
         for(int j = 0; j < width; j++)
             dt[i][j] = image[i][j];
