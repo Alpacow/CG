@@ -15,4 +15,5 @@ Funções obrigatórias
 
 # funções extras
 - Controle de FPS
+- inputs numéricos para inserção da largura da pista e cor do carro
 - Determinação se o veículo está andando em cima da pista e respectiva contagem de pontos

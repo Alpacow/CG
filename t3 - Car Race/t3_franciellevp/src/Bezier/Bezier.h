@@ -8,6 +8,7 @@
 #define ___BEZIER__H___
 
 #include "ControlPoints.h"
+#include "../Utils/Vector2.h"
 #include <vector>
 
 using namespace std;
@@ -20,7 +21,16 @@ private:
     ControlPoints* cp;
     bool canDrawSpeedWay;
     int speedWayWidth;
+    vector<Vector2> cpIn;
+    vector<Vector2> cpOut;
+    vector<Vector2> bezierPointsIn;
+    vector<Vector2> bezierPointsOut;
+
+    void drawBezierCurveForPolygon();
+    double bernstein(float n, float i);
+    double factorial(int n);
 public:
+
     Bezier();
     ~Bezier();
     ControlPoints* getControlPoints();
@@ -31,8 +41,6 @@ public:
     void render();
     void clearControlPoints();
     void drawBezierCurve(float maxValue);
-    double bernstein(float n, float i);
-    double factorial(int n);
 };
 
 #endif

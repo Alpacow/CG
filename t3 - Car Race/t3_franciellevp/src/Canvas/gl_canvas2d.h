@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <vector>
 
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h> //callback da wheel do mouse.
@@ -37,6 +38,7 @@ public:
     //desenha um poligono CONVEXO. Para um retangulo, deve-se passar 4 vertices
     static void polygon(float vx[], float vy[], int n_elems);
     static void polygonFill(float vx[], float vy[], int n_elems);
+    static void polygonFill(std::vector<Vector2> xyPoints);
 
     //centro e raio do circulo
     static void circle( float x, float y, float radius, int div );
