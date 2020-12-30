@@ -283,13 +283,13 @@
 	"ControlPoints.h"
 	<iostream>
 
-1609287133 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.cpp
+1609340804 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.cpp
 	"Bezier.h"
 	"../Utils/Utils.h"
 	"../Canvas/gl_canvas2d.h"
 	<iostream>
 
-1609285348 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.h
+1609340136 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.h
 	"ControlPoints.h"
 	"../Utils/Vector2.h"
 	<vector>
@@ -326,7 +326,7 @@
 1426372440 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\include\gl\freeglut_ext.h
 	<stdarg.h>
 
-1609284828 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\utils\vector2.h
+1609290936 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\utils\vector2.h
 	<math.h>
 	<iostream>
 

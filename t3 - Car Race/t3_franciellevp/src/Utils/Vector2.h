@@ -93,6 +93,12 @@ public:
         return {x, y};
     }
 
+    Vector2 operator = (const float v)
+    {
+        Vector2 aux(v, v);
+        return( aux );
+    }
+
     Vector2 operator / (const float v)
     {
         if (v != 0) {

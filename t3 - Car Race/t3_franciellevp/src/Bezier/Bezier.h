@@ -21,8 +21,7 @@ private:
     ControlPoints* cp;
     bool canDrawSpeedWay;
     int speedWayWidth;
-    vector<Vector2> cpIn;
-    vector<Vector2> cpOut;
+    vector<Vector2> estimatedPoints;
     vector<Vector2> bezierPointsIn;
     vector<Vector2> bezierPointsOut;
 
@@ -41,6 +40,7 @@ public:
     void render();
     void clearControlPoints();
     void drawBezierCurve(float maxValue);
+    void getPointsBezier();
 };
 
 #endif
