@@ -71,7 +71,7 @@ void Checkbox::renderWidgets()
    @param x: coordenada x do mouse
    @param y: coordenada y do mouse
 */
-void Checkbox::checkState(int state, int x, int y)
+void Checkbox::checkState(int button, int state, int x, int y)
 {
     for(vector<Checkbox>::size_type i = 0; i != check.size(); i++) {
         if( state == 0 ) {

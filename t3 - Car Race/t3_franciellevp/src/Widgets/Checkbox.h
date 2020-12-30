@@ -21,7 +21,7 @@ public:
     ~Checkbox();
     Checkbox(int x, int y, float w, float h, int isChecked, string label, vector<float> labelColor, vector<float> bg);
     void render() override;
-    void checkState(int state, int x, int y) override;
+    void checkState(int button, int state, int x, int y) override;
     void create () override;
     void renderWidgets() override;
     void keyboardCheck(int key) override;

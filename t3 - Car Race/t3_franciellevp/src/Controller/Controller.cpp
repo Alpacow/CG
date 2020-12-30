@@ -4,6 +4,7 @@
 //
 //*******************************************************************************
 #include "Controller.h"
+#include "../Widgets/Slider.h"
 #include "../Canvas/gl_canvas2d.h"
 #include <iostream>
 
@@ -19,9 +20,11 @@ Controller::Controller()
     frames  = new Frames();
     alerts = new Alert();
     car = new Car(&alerts);
-    bezier = new Bezier();
+    slider = new Slider();
+    bezier = new Bezier(slider->sliders[0]);
     wds.push_back(alerts);
-    wds.push_back(new Input());
+    //wds.push_back(new Input());
+    wds.push_back(slider);
 }
 
 Controller::~Controller() {}
@@ -93,7 +96,7 @@ void Controller::Mouse(int button, int x, int y, int state)
     mx = x; //guarda as coordenadas do mouse para exibir dentro da render()
     my = y;
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
-        wds[i]->checkState(state, x, y);
+        wds[i]->checkState(button, state, x, y);
     //cout << button << state << endl;
     //cout << mx << " " << my << endl;
     bezier->checkMouseStates(button, x, y, state);

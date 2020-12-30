@@ -8,7 +8,7 @@
 #define R 4
 #define DRAG_DIST 20
 #define DRAW_Y_VALID 30
-#define DRAW_X_VALID 1030
+#define DRAW_X_VALID 1020
 
 using namespace std;
 

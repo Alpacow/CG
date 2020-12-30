@@ -62,7 +62,7 @@ void Button::renderWidgets()
    @param x: coordenada x do mouse
    @param y: coordenada y do mouse
 */
-void Button::checkState(int state, int x, int y)
+void Button::checkState(int button, int state, int x, int y)
 {
     /*
     if( state == 0 ) {

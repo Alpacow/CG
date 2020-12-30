@@ -55,7 +55,7 @@ void Input::render()
     CV::rectFill(p.x + 2, p.y + 2, (p.x + width) - 2, (p.y + height) - 2);
 
     CV::color(labelColor[0], labelColor[1], labelColor[2]);
-    CV::text(p.x, p.y - 10, label.c_str()); //escreve o label do botao mais ou menos ao centro.
+    CV::text(p.x, p.y - 10, label.c_str());
 
     CV::color(0, 0, 0);
     CV::text(p.x + 2, p.y + height/2, buffer.c_str());
@@ -74,7 +74,7 @@ void Input::renderWidgets()
    @param x: coordenada x do mouse
    @param y: coordenada y do mouse
 */
-void Input::checkState(int state, int x, int y)
+void Input::checkState(int button, int state, int x, int y)
 {
     for(vector<Input>::size_type i = 0; i != inputs.size(); i++) {
         if( state == 0 ) {
@@ -88,7 +88,6 @@ void Input::checkState(int state, int x, int y)
 void Input::keyboardCheck(int key)
 {
     for(vector<Input>::size_type i = 0; i != inputs.size(); i++) {
-        cout << inputs[i]->buffer << endl;
         if(inputs[i]->canWrite) { // TODO: add suporte para tipos: int/ float (acc apenas numeros do teclado)
             if (key == 8)
                 inputs[i]->buffer.pop_back();

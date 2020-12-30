@@ -75,7 +75,7 @@ void Alert::renderWidgets()
    @param x: coordenada x do mouse
    @param y: coordenada y do mouse
 */
-void Alert::checkState(int state, int x, int y)
+void Alert::checkState(int button, int state, int x, int y)
 {
     if(state == 0) {
         for(vector<Alert>::size_type i = 0; i != alerts.size(); i++){

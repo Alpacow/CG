@@ -8,6 +8,7 @@
 #define ___BEZIER__H___
 
 #include "ControlPoints.h"
+#include "../Widgets/Slider.h"
 #include "../Utils/Vector2.h"
 #include <vector>
 
@@ -20,17 +21,18 @@ private:
     float t; // t da equação de bezier (TODO: verificar se sera preciso)
     ControlPoints* cp;
     bool canDrawSpeedWay;
-    int speedWayWidth;
     vector<Vector2> estimatedPoints;
     vector<Vector2> bezierPointsIn;
     vector<Vector2> bezierPointsOut;
+    Slider* slider;
 
     void drawBezierCurveForPolygon();
     double bernstein(float n, float i);
     double factorial(int n);
-public:
 
-    Bezier();
+public:
+    int speedWayWidth;
+    Bezier(Slider* slider);
     ~Bezier();
     ControlPoints* getControlPoints();
     void setCanDragSpeedWay(bool value);

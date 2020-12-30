@@ -9,21 +9,27 @@ using namespace std;
 
 class Slider : public Widget
 {
+private:
+    Vector2 circle;
+    bool canDrag;
+    float currentValue;
+    string label;
+
 public:
     vector<Slider*> sliders;
     int minRange;
     int maxRange;
-    float inc;
     Bmp** imgController;
 
     Slider();
-    Slider(Bmp** imgController);
     ~Slider();
-    Slider(int x, int y, float w, float h, vector<float> bg, int minRange, int maxRange, float inc);
-    void Render() override;
-    void CheckState(int state, int x, int y) override;
-    void Create () override;
-    void RenderWidgets() override;
+    Slider(int x, int y, float w, float h, vector<float> bg, const string label, int minRange, int maxRange);
+    void render() override;
+    void checkState(int button, int state, int x, int y) override;
+    void create () override;
+    void renderWidgets() override;
+    void keyboardCheck(int key) override;
+    float getCurrentValue();
 };
 
 #endif

@@ -15,9 +15,10 @@ using namespace std;
 
 /* Inicia os atributos necessarios
 */
-Bezier::Bezier()
+Bezier::Bezier(Slider* slider)
 {
     this->cp = new ControlPoints();
+    this->slider = slider;
     canDrawSpeedWay = false;
     speedWayWidth = 30;
     estimatedPoints.reserve(INDEX);
@@ -76,9 +77,10 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
                 cPoint->canDragPoint = false;
         } else if(button == -2) {
             for (unsigned int i = 0; i < cp->points.size(); i++)
-                if(cp->points[i]->canDragPoint && cp->points[i]->isSelect && cp->points[i]->checkControlPointArea(x, y))
+                if(cp->points[i]->isSelect && cp->points[i]->checkControlPointArea(x, y))
                     cp->points[i]->dragSelectPoint(x, y);
         }
+        speedWayWidth = slider->getCurrentValue();
     }
     if (cp->checkCollisionFirstPoint())
         canDrawSpeedWay = true;

@@ -28,7 +28,7 @@ public:
     Alert(int x, int y, float w, float h, const string txt, int type, int isActive);
     bool checkCollision(int mx, int my);
     void render() override;
-    void checkState(int state, int x, int y) override;
+    void checkState(int button, int state, int x, int y) override;
     void create () override;
     void renderWidgets() override;
     void keyboardCheck(int key) override;
