@@ -42,6 +42,8 @@ public:
     void clearControlPoints();
     void drawBezierCurve(float maxValue);
     void getPointsBezier();
+    Vector2 getCenterPoint();
+    void rotateCurve(float rad);
 };
 
 #endif

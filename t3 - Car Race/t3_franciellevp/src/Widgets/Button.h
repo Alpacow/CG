@@ -7,7 +7,7 @@
 #define __BUTTON_H__
 
 #include "Widget.h"
-#include "../Bitmap/Bmp.h"
+#include "../Bezier/Bezier.h"
 #include <string>
 
 using namespace std;
@@ -18,10 +18,10 @@ public:
     string label;
     vector<float> labelColor;
     vector<Button*> bts;
-    Bmp** imgController;
+    Bezier** bezierController;
 
     Button();
-    Button(Bmp** img);
+    Button(Bezier** b);
     ~Button();
     Button(int x, int y, float w, float h, vector<float> bg, const string label, vector<float> labelColor);
     void render() override;

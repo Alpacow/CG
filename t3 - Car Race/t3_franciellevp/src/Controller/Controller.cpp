@@ -5,6 +5,7 @@
 //*******************************************************************************
 #include "Controller.h"
 #include "../Widgets/Slider.h"
+#include "../Widgets/Button.h"
 #include "../Canvas/gl_canvas2d.h"
 #include <iostream>
 
@@ -23,6 +24,7 @@ Controller::Controller()
     slider = new Slider();
     bezier = new Bezier(slider->sliders[0]);
     wds.push_back(alerts);
+    wds.push_back(new Button(&bezier));
     //wds.push_back(new Input());
     wds.push_back(slider);
 }
@@ -36,13 +38,16 @@ void Controller::Render()
     rgb = Utils::RGBtoFloat(211,211,211);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::rectFill(0, 0, screenWidth, 30);
-
     rgb = Utils::RGBtoFloat(220,220,220);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::rectFill(screenWidth - 180, 30, screenWidth, screenHeight);
-    rgb = Utils::RGBtoFloat(28,28,28);
-    CV::color(rgb[0], rgb[1], rgb[2]);
-    CV::text(screenWidth - 170, 150, "Cor do carrinho:");
+
+    if (bezier->canApplyTransformations) {
+        rgb = Utils::RGBtoFloat(28,28,28);
+        CV::color(rgb[0], rgb[1], rgb[2]);
+        CV::text(screenWidth - 170, 150, "Cor do carrinho:");
+        car->render(fps);
+    }
 
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
@@ -51,7 +56,6 @@ void Controller::Render()
     sprintf(text, "FPS: %.0f", fps);
     CV::text(10, screenHeight - 10, text);
     bezier->render();
-    car->render(fps);
 }
 
 /* Controla as teclas apertadas durante a execucao

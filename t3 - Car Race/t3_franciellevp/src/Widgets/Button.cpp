@@ -12,9 +12,9 @@ using namespace std;
 /* Inicia todos os atributos necessarios
    @param img: instancia da classe Bmp para controlar as acoes dos botoes na imagem
 */
-Button::Button (Bmp** img) : Widget()
+Button::Button (Bezier** b) : Widget()
 {
-    this->imgController = img;
+    this->bezierController = b;
     create();
 }
 
@@ -53,8 +53,9 @@ void Button::render()
 */
 void Button::renderWidgets()
 {
-    for(vector<Button>::size_type i = 0; i != bts.size(); i++)
-        bts[i]->render();
+    if ((*bezierController)->canApplyTransformations)
+        for(vector<Button>::size_type i = 0; i != bts.size(); i++)
+            bts[i]->render();
 }
 
 /* Verifica a colisao com cada botao criado, realizando as operacoes necessarias quando colide
@@ -64,14 +65,12 @@ void Button::renderWidgets()
 */
 void Button::checkState(int button, int state, int x, int y)
 {
-    /*
     if( state == 0 ) {
         if(bts[0]->checkCollision(x, y))
-            (*imgController)->rotateImage(TRUE);
+            cout << "preparar para iniciar a corrida" << endl;
         else if(bts[1]->checkCollision(x, y))
-            (*imgController)->rotateImage(FALSE);
+            (*bezierController)->rotateCurve(30 * PI / 180);
     }
-    */
 }
 
 /* Cria todos os botoes da aplicacao
@@ -80,8 +79,8 @@ void Button::create()
 {
     vector<float> bg = Utils::RGBtoFloat(176,196,222);
     vector<float> labelColor = Utils::RGBtoFloat(28, 28, 28);
-    bts.push_back(new Button(0, 30, 130, 30, bg, "Editar pista", labelColor));
-    bts.push_back(new Button(132, 30, 160, 30, bg, "Iniciar corrida", labelColor));
+    bts.push_back(new Button(0, 0, 180, 30, bg, "Finalizar edicao", labelColor));
+    bts.push_back(new Button(1030, 300, 160, 30, bg, "Sentido horario", labelColor));
 }
 
 void Button::keyboardCheck(int key) {}

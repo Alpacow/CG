@@ -98,7 +98,6 @@ void Bezier::getPointsBezier()
     }
 }
 
-// TODO: IMPLEMENTAR TRANSFORMAÇÕES NA CURVA INTEIRA
 void Bezier::drawBezierCurve(float maxValue)
 {
     int idx = 0;
@@ -139,6 +138,35 @@ void Bezier::drawBezierCurveForPolygon()
         CV::line(estimatedPoints[INDEX-1].x, estimatedPoints[INDEX-1].y, estimatedPoints[0].x, estimatedPoints[0].y);
         CV::line(bezierPointsIn[INDEX_POLY-1].x, bezierPointsIn[INDEX_POLY-1].y, bezierPointsIn[0].x, bezierPointsIn[0].y);
         CV::line(bezierPointsOut[INDEX_POLY-1].x, bezierPointsOut[INDEX_POLY-1].y, bezierPointsOut[0].x, bezierPointsOut[0].y);
+
+        CV::color(0,1,0);
+        Vector2 c = getCenterPoint();
+        CV::circleFill(c.x, c.y, 5, 25);
+    }
+}
+
+Vector2 Bezier::getCenterPoint()
+{
+    float sumCx = 0, sumCy = 0, sum = 0;
+    for (unsigned int i = 0; i < estimatedPoints.size(); i++) {
+        Vector2 p = estimatedPoints[i];
+        Vector2 p2 = estimatedPoints[i + 1];
+        sumCx += (p.x + p2.x) * (p.x * p2.y - p2.x * p.y);
+        sumCy += (p.y + p2.y) * (p.x * p2.y - p2.x * p.y);
+        sum += p.x * p2.y - p2.x * p.y;
+    }
+    float cx = sumCx / sum / 3;
+    float cy = sumCy / sum / 3;
+    return Vector2 {cx, cy};
+}
+
+void Bezier::rotateCurve(float rad)
+{
+    cout << "rotaciona horario" << endl;
+    for (unsigned int i = 0; i < estimatedPoints.size(); i++) {
+        Vector2 p = estimatedPoints[i];
+        Vector2 c = getCenterPoint();
+        Utils::rotatePoint(p, c, rad);
     }
 }
 
