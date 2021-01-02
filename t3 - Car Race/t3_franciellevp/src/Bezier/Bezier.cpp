@@ -19,7 +19,7 @@ Bezier::Bezier(Slider* slider)
 {
     this->cp = new ControlPoints();
     this->slider = slider;
-    canDrawSpeedWay = false;
+    canApplyTransformations = false;
     speedWayWidth = 30;
     estimatedPoints.reserve(INDEX);
     bezierPointsIn.reserve(INDEX_POLY);
@@ -34,20 +34,14 @@ Bezier::Bezier(Slider* slider)
 
 Bezier::~Bezier() {}
 
-void Bezier::setCanDragSpeedWay(bool value)
-{
-    canDrawSpeedWay = value;
-}
-
 /* Renderiza/desenha tudo que sera necessario na tela
 */
 void Bezier::render()
 {
-    if (!canDrawSpeedWay) {
+    if (!canApplyTransformations) {
         for(vector<ControlPoints>::size_type i = 0; i != cp->points.size(); i++)
             cp->points[i]->render();
         cp->drawControlGraph();
-        // TODO: APPLY TRANSFORMATIONS
     }
     if (cp->points.size() > 1)
         drawBezierCurve(1);
@@ -62,7 +56,7 @@ void Bezier::render()
 */
 void Bezier::checkMouseStates(int button, int x, int y, int state)
 {
-    if (!canDrawSpeedWay) { // ainda nao finalizou a inserção de pontos de controle
+    if (!canApplyTransformations) { // ainda nao finalizou a inserção de pontos de controle
         ControlPoints* cPoint = cp->checkCollisionDragPoints(x, y);
         if (button == 0) {
             if (state == 0) { // clicou no botao esquerdo
@@ -83,7 +77,7 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
         speedWayWidth = slider->getCurrentValue();
     }
     if (cp->checkCollisionFirstPoint())
-        canDrawSpeedWay = true;
+        canApplyTransformations = true;
     getPointsBezier();
 }
 
@@ -112,10 +106,8 @@ void Bezier::drawBezierCurve(float maxValue)
         Vector2 l = estimatedPoints[i - 1]; // left point
         Vector2 r = estimatedPoints[i + 1]; // center point
         Vector2 c = estimatedPoints[i]; // right point
-        Vector2 v1 = c - l;
-        Vector2 v2 = r - c;
-        Vector2 n1 = v1.normalizeTo(speedWayWidth/2).getPerpendicular();
-        Vector2 n2 = v2.normalizeTo(speedWayWidth/2).getPerpendicular();
+        Vector2 n1 = (c - l).normalizeTo(speedWayWidth/2).getPerpendicular();
+        Vector2 n2 = (r - c).normalizeTo(speedWayWidth/2).getPerpendicular();
         Vector2 p1a = l + n1; // primeiro vetor perpendicular
         Vector2 p1b = l - n1;
         Vector2 p2a = r + n2;
@@ -139,10 +131,15 @@ void Bezier::drawBezierCurveForPolygon()
 {
     rgb = Utils::RGBtoFloat(79,79,79);
     CV::color(rgb[0], rgb[1], rgb[2]);
-    for (unsigned int i = 1; i < bezierPointsIn.size(); i++)
+    for (unsigned int i = 1; i < bezierPointsIn.size(); i++) {
         CV::line(bezierPointsIn[i-1].x, bezierPointsIn[i-1].y, bezierPointsIn[i].x, bezierPointsIn[i].y);
-    for (unsigned int i = 1; i < bezierPointsOut.size(); i++)
         CV::line(bezierPointsOut[i-1].x, bezierPointsOut[i-1].y, bezierPointsOut[i].x, bezierPointsOut[i].y);
+    }
+    if (canApplyTransformations) {
+        CV::line(estimatedPoints[INDEX-1].x, estimatedPoints[INDEX-1].y, estimatedPoints[0].x, estimatedPoints[0].y);
+        CV::line(bezierPointsIn[INDEX_POLY-1].x, bezierPointsIn[INDEX_POLY-1].y, bezierPointsIn[0].x, bezierPointsIn[0].y);
+        CV::line(bezierPointsOut[INDEX_POLY-1].x, bezierPointsOut[INDEX_POLY-1].y, bezierPointsOut[0].x, bezierPointsOut[0].y);
+    }
 }
 
 ControlPoints* Bezier::getControlPoints()

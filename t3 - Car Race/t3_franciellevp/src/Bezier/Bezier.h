@@ -20,7 +20,6 @@ private:
     vector<float> rgb;           // controla cores passadas em RGB
     float t; // t da equação de bezier (TODO: verificar se sera preciso)
     ControlPoints* cp;
-    bool canDrawSpeedWay;
     vector<Vector2> estimatedPoints;
     vector<Vector2> bezierPointsIn;
     vector<Vector2> bezierPointsOut;
@@ -32,10 +31,10 @@ private:
 
 public:
     int speedWayWidth;
+    bool canApplyTransformations;
     Bezier(Slider* slider);
     ~Bezier();
     ControlPoints* getControlPoints();
-    void setCanDragSpeedWay(bool value);
     void Keyboard(int key);
     void checkMouseStates(int button, int x, int y, int state);
     void drawControlGraph();

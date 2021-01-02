@@ -69,7 +69,7 @@ void Controller::Keyboard(int key)
             break;
         case Utils::Delete:
             bezier->getControlPoints()->clearControlPoints();
-            bezier->setCanDragSpeedWay(false);
+            bezier->canApplyTransformations = false;
             break;
         case Utils::RightArrow:
             car->checkRotation(car->RightArrow);
