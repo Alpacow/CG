@@ -15,7 +15,6 @@ using namespace std;
 class ControlPoints
 {
 private:
-    Vector2 point;
     Vector2 dragPoint;
     Vector2 fstPoint;
     int nPoint;
@@ -23,6 +22,7 @@ private:
     void drawDragPoints();
 
 public:
+    Vector2 point;
     vector<ControlPoints*> points;  // vetor com todos os pontos de controle
     bool canDragPoint;
     bool isSelect;
@@ -31,7 +31,6 @@ public:
     ControlPoints();
     ~ControlPoints();
     ControlPoints* checkCollisionDragPoints(int x, int y);
-    Vector2 getPoint();
     Vector2 getDragPoint();
     Vector2 getFirstPoint();
     void render();

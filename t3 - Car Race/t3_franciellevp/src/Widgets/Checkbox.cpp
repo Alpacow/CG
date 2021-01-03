@@ -13,9 +13,9 @@ using namespace std;
 /* Inicia todos os atributos necessarios
    @param img: instancia da classe Bmp para controlar as acoes dos checkbox na imagem
 */
-Checkbox::Checkbox (Bmp** img) : Widget()
+Checkbox::Checkbox (Bezier** bezier) : Widget()
 {
-    this->imgController = img;
+    this->bezierController = bezier;
     create();
 }
 
@@ -77,6 +77,7 @@ void Checkbox::checkState(int button, int state, int x, int y)
         if( state == 0 ) {
             if(check[i]->checkCollision(x, y)) {
                 check[i]->isChecked = (check[i]->isChecked) ? FALSE : TRUE;
+                if (i == 0) (*bezierController)->translationMode = check[0]->isChecked;
             }
         }
     }
@@ -86,13 +87,8 @@ void Checkbox::checkState(int button, int state, int x, int y)
 */
 void Checkbox::create()
 {
-    /*vector<float> labelColor = Utils::RGBtoFloat(255,99,71);
-    check.push_back(new Checkbox(600, 130, 20, 20, FALSE, "RED", labelColor, Utils::RGBtoFloat(255,250,250)));
-    labelColor = Utils::RGBtoFloat(50,205,50);
-    check.push_back(new Checkbox(660, 130, 20, 20, FALSE, "GREEN", labelColor, Utils::RGBtoFloat(255,250,250)));
-    labelColor = Utils::RGBtoFloat(30,144,255);
-    check.push_back(new Checkbox(740, 130, 20, 20, FALSE, "BLUE", labelColor, Utils::RGBtoFloat(255,250,250)));
-    */
+    vector<float> labelColor = Utils::RGBtoFloat(28,28,28);
+    check.push_back(new Checkbox(1030, 420, 20, 20, FALSE, "Transladar", labelColor, Utils::RGBtoFloat(255,250,250)));
 }
 
 void Checkbox::keyboardCheck(int key) {}

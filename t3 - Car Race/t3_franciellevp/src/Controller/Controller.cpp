@@ -6,6 +6,7 @@
 #include "Controller.h"
 #include "../Widgets/Slider.h"
 #include "../Widgets/Button.h"
+#include "../Widgets/Checkbox.h"
 #include "../Canvas/gl_canvas2d.h"
 #include <iostream>
 
@@ -25,6 +26,7 @@ Controller::Controller()
     bezier = new Bezier(slider->sliders[0]);
     wds.push_back(alerts);
     wds.push_back(new Button(&bezier));
+    //wds.push_back(new Checkbox(&bezier));
     //wds.push_back(new Input());
     wds.push_back(slider);
 }
@@ -74,6 +76,10 @@ void Controller::Keyboard(int key)
         case Utils::Delete:
             bezier->getControlPoints()->clearControlPoints();
             bezier->canApplyTransformations = false;
+            bezier->translationMode = false;
+            break;
+        case Utils::KeyT:
+            bezier->translationMode = (bezier->translationMode) ? false : true;
             break;
         case Utils::RightArrow:
             car->checkRotation(car->RightArrow);

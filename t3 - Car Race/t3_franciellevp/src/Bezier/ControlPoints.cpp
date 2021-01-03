@@ -28,11 +28,6 @@ ControlPoints::ControlPoints() {}
 
 ControlPoints::~ControlPoints() {}
 
-Vector2 ControlPoints::getPoint()
-{
-    return point;
-}
-
 Vector2 ControlPoints::getDragPoint()
 {
     return dragPoint;
@@ -93,8 +88,8 @@ void ControlPoints::drawControlGraph()
     CV::color(0, 0, 0);
     if (points.size() > 1) {
         for (unsigned int i = 0; i < points.size() - 1; i++) {
-            Vector2 p1 = points[i]->getPoint();
-            Vector2 p2 = points[i+1]->getPoint();
+            Vector2 p1 = points[i]->point;
+            Vector2 p2 = points[i+1]->point;
             CV::line(p1.x, p1.y, p2.x, p2.y);
         }
     }

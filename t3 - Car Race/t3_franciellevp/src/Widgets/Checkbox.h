@@ -2,7 +2,7 @@
 #define __CHECKBOX_H__
 
 #include "Widget.h"
-#include "../Bitmap/Bmp.h"
+#include "../Bezier/Bezier.h"
 #include <string>
 
 using namespace std;
@@ -14,10 +14,10 @@ public:
     string label;
     vector<float> labelColor;
     vector<Checkbox*> check;
-    Bmp** imgController;
+    Bezier** bezierController;
 
     Checkbox();
-    Checkbox(Bmp** img);
+    Checkbox (Bezier** bezier);
     ~Checkbox();
     Checkbox(int x, int y, float w, float h, int isChecked, string label, vector<float> labelColor, vector<float> bg);
     void render() override;

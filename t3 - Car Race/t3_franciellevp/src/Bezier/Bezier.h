@@ -12,6 +12,9 @@
 #include "../Utils/Vector2.h"
 #include <vector>
 
+#define INDEX 101
+#define INDEX_POLY 33
+
 using namespace std;
 
 class Bezier
@@ -24,14 +27,17 @@ private:
     vector<Vector2> bezierPointsIn;
     vector<Vector2> bezierPointsOut;
     Slider* slider;
+    Vector2 center;
 
     void drawBezierCurveForPolygon();
     double bernstein(float n, float i);
     double factorial(int n);
+    void updateSpeedWaySize();
 
 public:
     int speedWayWidth;
     bool canApplyTransformations;
+    bool translationMode;
     Bezier(Slider* slider);
     ~Bezier();
     ControlPoints* getControlPoints();
@@ -40,10 +46,11 @@ public:
     void drawControlGraph();
     void render();
     void clearControlPoints();
-    void drawBezierCurve(float maxValue);
+    void drawBezierCurve();
     void getPointsBezier();
     Vector2 getCenterPoint();
     void rotateCurve(float rad);
+    void translate(int x, int y);
 };
 
 #endif

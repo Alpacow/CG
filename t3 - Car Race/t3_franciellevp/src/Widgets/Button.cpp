@@ -80,7 +80,8 @@ void Button::create()
     vector<float> bg = Utils::RGBtoFloat(176,196,222);
     vector<float> labelColor = Utils::RGBtoFloat(28, 28, 28);
     bts.push_back(new Button(0, 0, 180, 30, bg, "Finalizar edicao", labelColor));
-    bts.push_back(new Button(1030, 300, 160, 30, bg, "Sentido horario", labelColor));
+    bts.push_back(new Button(1030, 300, 160, 30, bg, "Horario", labelColor));
+    bts.push_back(new Button(1030, 340, 160, 30, bg, "Antihorario", labelColor));
 }
 
 void Button::keyboardCheck(int key) {}

@@ -78,6 +78,14 @@ public:
         return( aux );
     }
 
+    Vector2 operator += (const Vector2& v)
+    {
+        x += v.x;
+        y += v.y;
+        Vector2 aux(x, y);
+        return( aux );
+    }
+
     Vector2 operator * (const Vector2& v)
     {
         Vector2 aux( x * v.x, y * v.y);

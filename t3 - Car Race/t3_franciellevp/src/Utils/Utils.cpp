@@ -96,25 +96,7 @@ Vector2 Utils::intersecLines2d(Vector2 pLine1, Vector2 p2Line1, Vector2 pLine2, 
     return point;
 }
 
-Vector2 Utils::getNearestPoint(Vector2 p1, Vector2 pc, Vector2 p2) {
-    Vector2 v0 = pc - p1;
-    Vector2 v1 = p2 - pc;
-    Vector2 a = (v1 - v0) * (v1 - v0);
-    Vector2 b = (v1 * v0 - v0 * v0) * 3;
-    Vector2 c = v0 * v0 - v1 * v0 * 3;
-    Vector2 d = v0 * v0 * (-1);
-    Vector2 p = (b * (-1)) / (a * 3);
-    Vector2 q = p * p * p + (b * c - a * d * 3) / (a * a * 6);
-    Vector2 r = c / (a * 3);
-    float sx = sqrt(q.x * q.x + pow(r.x - p.x * p.x, 3));
-    float sy = sqrt(q.y * q.y + pow(r.y - p.y * p.y, 3));
-    float tx = cbrt(q.x + sx) + cbrt(q.x - sx) + p.x;
-    float ty = cbrt(q.y + sy) + cbrt(q.y - sy) + p.y;
-    return Vector2 {tx, ty};
-}
-
-Vector2 Utils::getPointInQuadraticCurve (Vector2 t, Vector2 p1, Vector2 pc, Vector2 p2) {
-    float x = (1 - t.x) * (1 - t.x) * p1.x + 2 * (1 - t.x) * t.x * pc.x + t.x * t.x * p2.x;
-    float y = (1 - t.y) * (1 - t.y) * p1.y + 2 * (1 - t.y) * t.y * pc.y + t.y * t.y * p2.y;
-    return Vector2 {x, y};
+float Utils::distanceBetweenPoints(Vector2 p1, Vector2 p2)
+{
+    return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
