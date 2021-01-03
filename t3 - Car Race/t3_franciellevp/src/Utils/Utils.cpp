@@ -90,7 +90,6 @@ Vector2 Utils::intersecLines2d(Vector2 pLine1, Vector2 p2Line1, Vector2 pLine2, 
     if (det == 0.0)
         return Vector2 {0, 0};
     double s = ((p2Line2.x - pLine2.x) * (pLine2.y - pLine1.y) - (p2Line2.y - pLine2.y) * (pLine2.x - pLine1.x))/ det ;
-    //t = ((p2Line1.x - pLine1.x) * (pLine2.y - pLine1.y) - (p2Line1.y - pLine1.y) * (pLine2.x - pLine1.x))/ det ;
     point.x = pLine1.x + (p2Line1.x - pLine1.x) * s; // eq parametrica da linha1
     point.y = pLine1.y + (p2Line1.y - pLine1.y) * s;
     return point;

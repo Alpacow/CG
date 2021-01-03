@@ -77,9 +77,13 @@ void Controller::Keyboard(int key)
             bezier->getControlPoints()->clearControlPoints();
             bezier->canApplyTransformations = false;
             bezier->translationMode = false;
+            bezier->scaleMode = false;
             break;
         case Utils::KeyT:
             bezier->translationMode = (bezier->translationMode) ? false : true;
+            break;
+        case Utils::KeyE:
+            bezier->scaleMode = (bezier->scaleMode) ? false : true;
             break;
         case Utils::RightArrow:
             car->checkRotation(car->RightArrow);

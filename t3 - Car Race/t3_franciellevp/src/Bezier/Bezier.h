@@ -21,13 +21,13 @@ class Bezier
 {
 private:
     vector<float> rgb;           // controla cores passadas em RGB
-    float t; // t da equação de bezier (TODO: verificar se sera preciso)
     ControlPoints* cp;
     vector<Vector2> estimatedPoints;
     vector<Vector2> bezierPointsIn;
     vector<Vector2> bezierPointsOut;
     Slider* slider;
     Vector2 center;
+    Vector2 lastPosition;
 
     void drawBezierCurveForPolygon();
     double bernstein(float n, float i);
@@ -38,6 +38,7 @@ public:
     int speedWayWidth;
     bool canApplyTransformations;
     bool translationMode;
+    bool scaleMode;
     Bezier(Slider* slider);
     ~Bezier();
     ControlPoints* getControlPoints();
@@ -51,6 +52,7 @@ public:
     Vector2 getCenterPoint();
     void rotateCurve(float rad);
     void translate(int x, int y);
+    void rescaleCurve(Vector2 scale);
 };
 
 #endif

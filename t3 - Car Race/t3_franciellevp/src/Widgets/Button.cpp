@@ -70,6 +70,8 @@ void Button::checkState(int button, int state, int x, int y)
             cout << "preparar para iniciar a corrida" << endl;
         else if(bts[1]->checkCollision(x, y))
             (*bezierController)->rotateCurve(30 * PI / 180);
+        else if(bts[2]->checkCollision(x, y))
+            (*bezierController)->rotateCurve(-30 * PI / 180);
     }
 }
 

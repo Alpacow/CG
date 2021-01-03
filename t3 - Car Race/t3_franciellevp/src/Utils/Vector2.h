@@ -49,6 +49,10 @@ public:
         return aux;
     }
 
+    float len() {
+        return sqrt(x * x + y * y);
+    }
+
     Vector2 scale (float xv, float yv)
     {
         Vector2 aux(x * xv, y * yv);

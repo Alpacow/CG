@@ -18,8 +18,10 @@ Bezier::Bezier(Slider* slider)
     cp = new ControlPoints();
     canApplyTransformations = false;
     translationMode = false;
+    scaleMode = false;
     speedWayWidth = 30;
     center = Vector2 {0, 0};
+    lastPosition = Vector2 {0, 0};
     estimatedPoints.reserve(INDEX);
     for(unsigned int i = 0; i < INDEX; i++)
         estimatedPoints.push_back(Vector2 {0, 0});
@@ -42,7 +44,7 @@ void Bezier::render()
     if (cp->points.size() > 1)
         drawBezierCurve();
     if (canApplyTransformations) {
-        if (translationMode) {
+        if (translationMode || scaleMode) {
             CV::color(0,1,0);
             CV::circleFill(center.x, center.y, 5, 25);
         }
@@ -78,8 +80,16 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
         canApplyTransformations = true;
     getPointsBezier();
     if (canApplyTransformations) {
-        if (translationMode) {
+        if (translationMode)
             translate(x, y);
+        else if (scaleMode) {
+            /*center = getCenterPoint();
+            Vector2 scale1 = {x - center.x, y - center.y};
+            Vector2 scale2 = {lastPosition.x - center.x, lastPosition.y - center.y};
+            float scale = scale1.length() / scale2.length();
+            cout << "scale is " << scale << endl;*/
+            rescaleCurve(Vector2 {0.02, 0.02});
+            //lastPosition = Vector2 {(float)x, (float)y};
         }
     }
 }
@@ -144,34 +154,44 @@ void Bezier::drawBezierCurveForPolygon()
 
 Vector2 Bezier::getCenterPoint()
 {
-    float sumCx = 0, sumCy = 0, sum = 0;
-    for (unsigned int i = 0; i < estimatedPoints.size() - 1; i++) {
-        Vector2 p = estimatedPoints[i];
-        Vector2 p2 = estimatedPoints[i + 1];
-        sumCx += (p.x + p2.x) * (p.x * p2.y - p2.x * p.y);
-        sumCy += (p.y + p2.y) * (p.x * p2.y - p2.x * p.y);
-        sum += p.x * p2.y - p2.x * p.y;
+    if (cp->points.size() <= 2)
+        return (cp->points[0]->point + cp->points[1]->point) / 2;
+    float cx = 0, cy = 0, det = 0, aux = 0;
+    int j = 0;
+    for (unsigned int i = 0; i < cp->points.size(); i++) {
+        if (i + 1 == cp->points.size()) j = 0;
+        else j = i + 1;
+        Vector2 p = cp->points[i]->point;
+        Vector2 p2 = cp->points[j]->point;
+        aux = p.x * p2.y - p2.x * p.y;
+        det += aux;
+        cx += (p.x + p2.x) * aux;
+        cy += (p.y + p2.y) * aux;
     }
-    float cx = sumCx / sum / 3;
-    float cy = sumCy / sum / 3;
+    cx /= 3 * det;
+    cy /= 3 * det;
     return Vector2 {cx, cy};
 }
 
-void Bezier::rotateCurve(float rad)
-{
-    cout << "rotaciona horario" << endl;
-    for (unsigned int i = 0; i < estimatedPoints.size(); i++) {
-        Vector2 p = estimatedPoints[i];
-        Vector2 c = getCenterPoint();
-        Utils::rotatePoint(p, c, rad);
+void Bezier::rescaleCurve(Vector2 scale) {
+    for (unsigned int i = 0; i < cp->points.size(); i++) {
+        float x = cp->points[i]->point.x * scale.x;
+        float y = cp->points[i]->point.y * scale.y;
+        cp->points[i]->point.x = x;
+        cp->points[i]->point.y = y;
     }
-    cout << "rotacao finalizada" << endl;
+}
+
+void Bezier::rotateCurve(float rad) {
+    center = getCenterPoint();
+    for (unsigned int i = 0; i < cp->points.size(); i++)
+        cp->points[i]->point = Utils::rotatePoint(cp->points[i]->point, center, rad);
 }
 
 void Bezier::translate(int x, int y) {
-    center = Vector2 {(float)x, (float)y};
-    Vector2 c = getCenterPoint();
-    Vector2 diff = center - c;
+    Vector2 c = Vector2 {(float)x, (float)y};
+    center = getCenterPoint();
+    Vector2 diff = c - center;
     for (unsigned int i = 0; i < cp->points.size(); i++)
         cp->points[i]->point += diff;
 }
