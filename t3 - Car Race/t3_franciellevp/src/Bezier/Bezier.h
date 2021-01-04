@@ -9,6 +9,7 @@
 
 #include "ControlPoints.h"
 #include "../Utils/Vector2.h"
+#include "../Widgets/Alert.h"
 #include <vector>
 
 #define INDEX 101
@@ -26,6 +27,7 @@ private:
     vector<Vector2> bezierPointsOut;
     Vector2 center;
     int previousN;
+    Alert** alert;
 
     void drawBezierCurveForPolygon();
     double bernstein(float n, float i);
@@ -36,11 +38,10 @@ public:
     int speedWayWidth;
     bool canApplyTransformations;
     bool translationMode;
-    bool scaleMode;
     bool showHelp;
     bool raceOn;
     int scale;
-    Bezier();
+    Bezier(Alert** alert);
     ~Bezier();
     ControlPoints* getControlPoints();
     void Keyboard(int key);
@@ -54,6 +55,7 @@ public:
     void rotateCurve(float rad);
     void translate(int x, int y);
     void rescaleCurve(int scale);
+    Vector2 checkIntersect ();
 };
 
 #endif

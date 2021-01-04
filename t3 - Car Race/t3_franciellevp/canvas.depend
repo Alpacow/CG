@@ -283,18 +283,19 @@
 	"ControlPoints.h"
 	<iostream>
 
-1609764839 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.cpp
+1609771463 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.cpp
 	"Bezier.h"
 	"../Utils/Utils.h"
 	"../Canvas/gl_canvas2d.h"
 	<iostream>
 
-1609764350 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.h
+1609771076 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\bezier.h
 	"ControlPoints.h"
 	"../Utils/Vector2.h"
+	"../Widgets/Alert.h"
 	<vector>
 
-1609700344 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.h
+1609769167 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.h
 	"../Canvas/gl_canvas2d.h"
 	<math.h>
 	<vector>
@@ -330,7 +331,7 @@
 	<math.h>
 	<iostream>
 
-1609700340 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.cpp
+1609769173 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\bezier\controlpoints.cpp
 	"ControlPoints.h"
 	"../Utils/Utils.h"
 	<iostream>
@@ -366,7 +367,7 @@
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1609764329 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.cpp
+1609771086 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\controller\controller.cpp
 	"Controller.h"
 	"../Widgets/Slider.h"
 	"../Widgets/Button.h"
@@ -423,12 +424,12 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1609716962 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\car\car.h
+1609769583 c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\car\car.h
 	"../Bitmap/Bmp.h"
 	"../Bezier/Bezier.h"
 	"../Widgets/Alert.h"
 
-1609736477 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\car\car.cpp
+1609770685 source:c:\users\flan\desktop\cg\t3 - car race\t3_franciellevp\src\car\car.cpp
 	"Car.h"
 	"../Utils/Utils.h"
 	"../Canvas/gl_canvas2d.h"

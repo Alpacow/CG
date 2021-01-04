@@ -22,10 +22,9 @@ Car::Car(Alert** alerts, Bezier** b)
 {
     this->bezier = b;
     this->alert = alerts;
-    p1 = Vector2 {1102, 88};
-    p2 = {p1.x + CAR_WIDTH, p1.y};
-    p3 = Vector2{p1.x, p1.y + CAR_HEIGHT};
-    p4 = Vector2{p1.x + CAR_WIDTH, p1.y + CAR_HEIGHT};
+    p.push_back(Vector2 {1102, 88});
+    p.push_back(Vector2 {p[0].x - CAR_WIDTH / 2, p[0].y + CAR_HEIGHT});
+    p.push_back(Vector2{p[0].x + CAR_WIDTH / 2, p[0].y + CAR_HEIGHT});
     img = new Bmp(1100, 80, Utils::getImagePath("car.bmp"), alerts);
     sumRotation = 90; // inicia virado para cima
     speed = 0;
@@ -39,19 +38,19 @@ Car::~Car() {}
 void Car::render(float fps)
 {
     moveCar(fps);
-    CV::color(245,245,220);
-    CV::rectFill(p1, p2, p3, p4);
+    rgb = Utils::RGBtoFloat(28, 28, 28);
+    CV::color(rgb[0], rgb[1], rgb[2]);
+    CV::polygonFill(p);
     //img->renderBmp();
 }
 
 void Car::initRace ()
 {
     if ((*bezier)->canApplyTransformations) {
-        p1 = Vector2{(*bezier)->getControlPoints()->points[0]->point - (CAR_WIDTH / 2)};
-        p2 = {p1.x + CAR_WIDTH, p1.y};
-        p3 = Vector2{p1.x, p1.y + CAR_HEIGHT};
-        p4 = Vector2{p1.x + CAR_WIDTH, p1.y + CAR_HEIGHT};
-        degrees = 90;
+        p[0] = Vector2{(*bezier)->getControlPoints()->points[0]->point - (CAR_WIDTH / 2)};
+        p[1] = Vector2 {p[0].x - CAR_WIDTH / 2, p[0].y + CAR_HEIGHT};
+        p[2] = Vector2{p[0].x + CAR_WIDTH / 2, p[0].y + CAR_HEIGHT};
+        degrees = -90;
         sumRotation = 180;
         rotateCar();
     } else
@@ -73,58 +72,46 @@ void Car::decreaseSpeed()
 void Car::moveCar(float fps)
 {
     if (sumRotation == 0 || sumRotation == 360) {
-        p1.x += 1/fps * speed;
-        p2.x += 1/fps * speed;;
-        p3.x += 1/fps * speed;;
-        p4.x += 1/fps * speed;;
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++)
+            p[i].x += 1/fps * speed;
     } else if (sumRotation == 90) {
-        p1.y -= 1/fps * speed;;
-        p2.y -= 1/fps * speed;;
-        p3.y -= 1/fps * speed;;
-        p4.y -= 1/fps * speed;;
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++)
+            p[i].y -= 1/fps * speed;
     } else if (sumRotation == 180) {
-        p1.x -= 1/fps * speed;;
-        p2.x -= 1/fps * speed;;
-        p3.x -= 1/fps * speed;;
-        p4.x -= 1/fps * speed;;
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++)
+            p[i].x -= 1/fps * speed;
     } else if (sumRotation == 270) {
-        p1.y += 1/fps * speed;
-        p2.y += 1/fps * speed;
-        p3.y += 1/fps * speed;
-        p4.y += 1/fps * speed;
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++)
+            p[i].y += 1/fps * speed;
     } else if (sumRotation > 0 && sumRotation < 90) {
-        p1.x += 1/fps * speed; p1.y -= 1/fps * speed;
-        p2.x += 1/fps * speed; p2.y -= 1/fps * speed;
-        p3.x += 1/fps * speed; p3.y -= 1/fps * speed;
-        p4.x += 1/fps * speed; p4.y -= 1/fps * speed;
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++) {
+            p[i].x += 1/fps * speed;
+            p[i].y -= 1/fps * speed;
+        }
     } else if (sumRotation > 90 && sumRotation < 180) {
-        p1.x -= 1/fps * speed; p1.y -= 1/fps * speed;
-        p2.x -= 1/fps * speed; p2.y -= 1/fps * speed;
-        p3.x -= 1/fps * speed; p3.y -= 1/fps * speed;
-        p4.x -= 1/fps * speed; p4.y -= 1/fps * speed;;
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++) {
+            p[i].x -= 1/fps * speed;
+            p[i].y -= 1/fps * speed;
+        }
     } else if (sumRotation > 180 && sumRotation < 270) {
-        p1.x -= 1/fps * speed; p1.y += 1/fps * speed;
-        p2.x -= 1/fps * speed; p2.y += 1/fps * speed;
-        p3.x -= 1/fps * speed; p3.y += 1/fps * speed;
-        p4.x -= 1/fps * speed; p4.y += 1/fps * speed;
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++) {
+            p[i].x -= 1/fps * speed;
+            p[i].y += 1/fps * speed;
+        }
     } else if (sumRotation > 270 && sumRotation < 360) {
-        p1.x += 1/fps * speed; p1.y += 1/fps * speed;
-        p2.x += 1/fps * speed; p2.y += 1/fps * speed;
-        p3.x += 1/fps * speed; p3.y += 1/fps * speed;
-        p4.x += 1/fps * speed; p4.y += 1/fps * speed;
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++) {
+            p[i].x += 1/fps * speed;
+            p[i].y += 1/fps * speed;
+        }
     }
-    img->position.y = p1.y - 6;
-    img->position.x = p1.x - 2;
 }
 
 void Car::rotateCar() {
     float rad = degrees * PI / 180; // transforma graus para radianos
-    Vector2 mid = p1 + ((p4 - p1) / 2);
-    p1 = Utils::rotatePoint(p1, mid, rad);
-    p2 = Utils::rotatePoint(p2, mid, rad);
-    p3 = Utils::rotatePoint(p3, mid, rad);
-    p4 = Utils::rotatePoint(p4, mid, rad);
-    img->rotateImage(rad);
+    Vector2 mid = (p[0] + p[1] + p[2]) / 3;
+    for(vector<Vector2>::size_type i = 0; i != p.size(); i++)
+        p[i] = Utils::rotatePoint(p[i], mid, rad);
+    //img->rotateImage(rad);
 }
 
 void Car::checkRotation(float maxDegrees)

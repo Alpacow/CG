@@ -15,7 +15,7 @@ using namespace std;
 class Car
 {
 private:
-    Vector2 p1, p2, p3, p4;
+    vector<Vector2> p;
 
     vector<float> rgb;           // controla cores passadas em RGB
     Bmp* img;                // imagem a ser manipulada

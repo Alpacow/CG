@@ -21,7 +21,7 @@ Controller::Controller()
     fps = 100.0;
     frames  = new Frames();
     alerts = new Alert();
-    bezier = new Bezier();
+    bezier = new Bezier(&alerts);
     car = new Car(&alerts, &bezier);
     wds.push_back(alerts);
     wds.push_back(new Button(&bezier, &car));
@@ -69,11 +69,13 @@ void Controller::Render()
         CV::text(120, 180, "2. DELETE: limpa todos os pontos de controle/deleta a pista");
         CV::text(120, 220, "TRANSFORMACOES PODEM SER APLICADAS APENAS APOS O TERMINO DA PISTA");
         CV::text(120, 240, "T: liga e desliga a translacao da pista");
-        CV::text(120, 260, "Para rotacionar use os botoes do menu lateral");
-        CV::text(120, 300, "MOVIMENTACAO DO CARRINHO");
-        CV::text(120, 320, "A: acelera");
-        CV::text(120, 340, "F: freia");
-        CV::text(120, 360, "SETAS: mudam a direcao do carrinho");
+        CV::text(120, 260, "+: aumenta a pista");
+        CV::text(120, 280, "-: diminui a pista");
+        CV::text(120, 300, "Para rotacionar use os botoes do menu lateral");
+        CV::text(120, 320, "MOVIMENTACAO DO CARRINHO");
+        CV::text(120, 340, "A: acelera");
+        CV::text(120, 360, "F: freia");
+        CV::text(120, 380, "SETAS: mudam a direcao do carrinho");
     }
 }
 
@@ -93,18 +95,15 @@ void Controller::Keyboard(int key)
             bezier->getControlPoints()->clearControlPoints();
             bezier->canApplyTransformations = false;
             bezier->translationMode = false;
-            bezier->scaleMode = false;
             bezier->scale = 0;
             break;
         case Utils::KeyT:
             bezier->translationMode = (bezier->translationMode) ? false : true;
             break;
         case Utils::KeyPlus:
-            //bezier->scaleMode = (bezier->scaleMode) ? false : true;
             bezier->rescaleCurve(1);
             break;
         case Utils::KeyMinus:
-            //bezier->scaleMode = (bezier->scaleMode) ? false : true;
             bezier->rescaleCurve(-1);
             break;
         case Utils::KeyA:
@@ -147,7 +146,7 @@ void Controller::Mouse(int button, int x, int y, int state)
 */
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T3 - Corridinha de Carrinho");
-    rgb = Utils::RGBtoFloat(34,139,34); // (245,245,220)
+    rgb = Utils::RGBtoFloat(245,245,220);
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();
 }

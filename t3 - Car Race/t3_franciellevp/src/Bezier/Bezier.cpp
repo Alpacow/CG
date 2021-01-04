@@ -12,10 +12,11 @@ using namespace std;
 
 /* Inicia os atributos necessarios
 */
-Bezier::Bezier()
+Bezier::Bezier(Alert** alert)
 {
+    this->alert = alert;
     cp = new ControlPoints();
-    canApplyTransformations = translationMode = scaleMode = showHelp = raceOn = false;
+    canApplyTransformations = translationMode = showHelp = raceOn = false;
     speedWayWidth = 30;
     scale = 0;
     center = Vector2 {0, 0};
@@ -36,17 +37,17 @@ ControlPoints* Bezier::getControlPoints()
 */
 void Bezier::render()
 {
-    //if (!canApplyTransformations) {
+    if (!canApplyTransformations) {
         for(vector<ControlPoints>::size_type i = 0; i != cp->points.size(); i++)
             cp->points[i]->render();
         cp->drawControlGraph();
-    //}
+    }
     if (cp->points.size() > 2)
         drawBezierCurveForPolygon();
     if (cp->points.size() > 1)
         drawBezierCurve();
     if (canApplyTransformations) {
-        if (translationMode || scaleMode) {
+        if (translationMode) {
             CV::color(0,1,0);
             CV::circleFill(center.x, center.y, 5, 25);
         }
@@ -83,6 +84,9 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
     if (canApplyTransformations) {
         if (translationMode)
             translate(x, y);
+    } else if (translationMode && !canApplyTransformations) {
+        translationMode = false;
+        (*alert)->alerts.push_back(new Alert(950, 30, 200, 100, "Pista nao finalizada", Utils::WARNING, TRUE));
     }
 }
 
@@ -154,7 +158,7 @@ Vector2 Bezier::getCenterPoint()
     }
     cx /= 3 * det;
     cy /= 3 * det;
-    return Vector2 {cx, cy};
+    return Vector2{cx, cy};
 }
 
 void Bezier::rescaleCurve(int n) {
@@ -174,6 +178,8 @@ void Bezier::rescaleCurve(int n) {
             idx++;
         }
         cp->points[cp->points.size() - 1]->point = cp->points[0]->point - 2;
+    } else {
+        (*alert)->alerts.push_back(new Alert(950, 30, 200, 100, "Pista nao finalizada", Utils::WARNING, TRUE));
     }
     render();
 }
@@ -183,6 +189,8 @@ void Bezier::rotateCurve(float rad) {
         center = getCenterPoint();
         for (unsigned int i = 0; i < cp->points.size(); i++)
             cp->points[i]->point = Utils::rotatePoint(cp->points[i]->point, center, rad);
+    } else {
+        (*alert)->alerts.push_back(new Alert(950, 30, 200, 100, "Pista nao finalizada", Utils::WARNING, TRUE));
     }
 }
 
