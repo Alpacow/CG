@@ -17,7 +17,7 @@ class Car
 private:
     vector<Vector2> p;
 
-    vector<float> rgb;           // controla cores passadas em RGB
+    vector<float> rgb;          // controla cores passadas em RGB
     Bmp* img;                // imagem a ser manipulada
     Bezier** bezier;
     Alert** alert;
@@ -26,6 +26,7 @@ private:
     float speed;
 
 public:
+    vector<float> carColor;   // controla cores passadas em RGB
     enum maxDegrees// rotacoes maximas
     {
         LeftArrow = 180,

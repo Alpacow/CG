@@ -25,7 +25,7 @@ Controller::Controller()
     car = new Car(&alerts, &bezier);
     wds.push_back(alerts);
     wds.push_back(new Button(&bezier, &car));
-    //wds.push_back(new Input());
+    wds.push_back(new Input(&car));
     wds.push_back(new Slider(&bezier));
 }
 

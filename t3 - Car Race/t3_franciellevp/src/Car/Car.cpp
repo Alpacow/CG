@@ -22,6 +22,7 @@ Car::Car(Alert** alerts, Bezier** b)
 {
     this->bezier = b;
     this->alert = alerts;
+    carColor = Utils::RGBtoFloat(28, 28, 28);
     p.push_back(Vector2 {1102, 88});
     p.push_back(Vector2 {p[0].x - CAR_WIDTH / 2, p[0].y + CAR_HEIGHT});
     p.push_back(Vector2{p[0].x + CAR_WIDTH / 2, p[0].y + CAR_HEIGHT});
@@ -38,8 +39,7 @@ Car::~Car() {}
 void Car::render(float fps)
 {
     moveCar(fps);
-    rgb = Utils::RGBtoFloat(28, 28, 28);
-    CV::color(rgb[0], rgb[1], rgb[2]);
+    CV::color(carColor[0], carColor[1], carColor[2]);
     CV::polygonFill(p);
     //img->renderBmp();
 }
@@ -83,6 +83,11 @@ void Car::moveCar(float fps)
     } else if (sumRotation == 270) {
         for(vector<Vector2>::size_type i = 0; i != p.size(); i++)
             p[i].y += 1/fps * speed;
+    } else if (sumRotation > 90 && sumRotation < 180) {
+        for(vector<Vector2>::size_type i = 0; i != p.size(); i++) {
+            p[i].x -= 1/fps * speed;
+            p[i].y -= 1/fps * speed;
+        }
     } else if (sumRotation > 0 && sumRotation < 90) {
         for(vector<Vector2>::size_type i = 0; i != p.size(); i++) {
             p[i].x += 1/fps * speed;

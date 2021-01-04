@@ -15,10 +15,20 @@ using namespace std;
    @param i: numero equivalente a RED, GREEN ou BLUE
    @return : ponto flutuante equivalente a componente RGB
 */
-static float calcRtoF (float i)
+static float calcRtoF(float i)
 {
     float maxRGB = 255;
     return (i / maxRGB);
+}
+
+/* Metodo estatico auxiliar ao FloatToRGB
+   @param i: numero equivalente a RED, GREEN ou BLUE
+   @return : ponto flutuante equivalente a componente RGB
+*/
+static int calcFtoR(float i)
+{
+    float maxRGB = 255;
+    return (int)(i * maxRGB);
 }
 
 /* Converte RGB para float
@@ -32,6 +42,20 @@ vector<float> Utils::RGBtoFloat (int r, int g, int b)
     rgb.push_back(calcRtoF(r));
     rgb.push_back(calcRtoF(g));
     rgb.push_back(calcRtoF(b));
+    return rgb;
+}
+
+/* Converte float para RGB
+   @param r: numero equivalente a RED
+   @param g: numero equivalente a GREEN
+   @param b: numero equivalente a BLUE
+*/
+vector<int> Utils::FloatToRGB (float r, float g, float b)
+{
+    vector<int> rgb;
+    rgb.push_back(calcFtoR(r));
+    rgb.push_back(calcFtoR(g));
+    rgb.push_back(calcFtoR(b));
     return rgb;
 }
 

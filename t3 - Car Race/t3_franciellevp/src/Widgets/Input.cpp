@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "../Canvas/gl_canvas2d.h"
 #include "../Utils/Utils.h"
+#include <string>
 
 #define MAX_CHARS 162
 
@@ -14,9 +15,14 @@ using namespace std;
 /* Inicia todos os atributos necessarios
    @param img: instancia da classe Bmp para controlar as acoes dos botoes na imagem
 */
-Input::Input () : Widget()
+Input::Input (Car** car) : Widget()
 {
+    this->carController = car;
     create();
+    vector<int> rgb = Utils::FloatToRGB((*car)->carColor[0], (*car)->carColor[1], (*car)->carColor[2]);
+    inputs[0]->buffer = to_string(rgb[0]);
+    inputs[1]->buffer = to_string(rgb[1]);
+    inputs[2]->buffer = to_string(rgb[2]);
 }
 
 Input::~Input() {}
@@ -88,13 +94,21 @@ void Input::checkState(int button, int state, int x, int y)
 void Input::keyboardCheck(int key)
 {
     for(vector<Input>::size_type i = 0; i != inputs.size(); i++) {
-        if(inputs[i]->canWrite) { // TODO: add suporte para tipos: int/ float (acc apenas numeros do teclado)
+        if(inputs[i]->canWrite) {
             if (key == 8)
                 inputs[i]->buffer.pop_back();
-            else
-                inputs[i]->buffer += (char)key;
+            if (key >= 48 && key <= 57) { //TODO: deixar padrao de acordo com o tipo especificado
+                if (inputs[i]->buffer.size() <= 1 && inputs[i]->buffer.compare(to_string(0)) == 0) {
+                    inputs[i]->buffer.pop_back();
+                    inputs[i]->buffer.push_back((char)key);
+                } else
+                    inputs[i]->buffer.push_back((char)key);
+            }
         }
+        if (inputs[i]->buffer.size() <= 0)
+            inputs[i]->buffer = to_string(0);
     }
+    (*carController)->carColor = Utils::RGBtoFloat(stoi(inputs[0]->buffer), stoi(inputs[1]->buffer), stoi(inputs[2]->buffer));
 }
 
 /* Cria todos os botoes da aplicacao
@@ -102,7 +116,9 @@ void Input::keyboardCheck(int key)
 void Input::create()
 {
     vector<float> bg = Utils::RGBtoFloat(28,28,28);
-    inputs.push_back(new Input(1030, 400, 130, 30, bg, "Largura da pista", bg));
+    inputs.push_back(new Input(1030, 220, 40, 25, bg, "R", bg));
+    inputs.push_back(new Input(1075, 220, 40, 25, bg, "G", bg));
+    inputs.push_back(new Input(1120, 220, 40, 25, bg, "B", bg));
 }
 
 bool Input::getCanWrite()

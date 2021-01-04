@@ -37,6 +37,7 @@ public:
     };
 
     static vector<float> RGBtoFloat(int r, int g, int b);
+    static vector<int> FloatToRGB (float r, float g, float b);
     static string getImagePath(const char* filename);
     static string getCurrentPath();
     static bool checkCircleCollision(int mx, int my, Vector2 p, int r);

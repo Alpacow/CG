@@ -7,6 +7,7 @@
 #define __INPUT_H__
 
 #include "Widget.h"
+#include "../Car/Car.h"
 #include <string>
 
 using namespace std;
@@ -16,13 +17,14 @@ class Input : public Widget
 private:
     bool canWrite;
     string buffer;
+    Car** carController;
 
 public:
     string label;
     vector<float> labelColor;
     vector<Input*> inputs;
 
-    Input();
+    Input(Car** car);
     ~Input();
     Input(int x, int y, float w, float h, vector<float> bg, const string label, vector<float> labelColor);
     bool getCanWrite();
