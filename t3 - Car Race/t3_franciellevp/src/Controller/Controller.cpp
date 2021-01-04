@@ -49,7 +49,6 @@ void Controller::Render()
         CV::text(1030, 290, "Rotacionar:");
         CV::text(screenWidth - 170, 150, "Cor do carrinho:");
     }
-    car->render(fps);
 
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
@@ -77,6 +76,7 @@ void Controller::Render()
         CV::text(120, 360, "F: freia");
         CV::text(120, 380, "SETAS: mudam a direcao do carrinho");
     }
+    car->render(fps);
 }
 
 /* Controla as teclas apertadas durante a execucao

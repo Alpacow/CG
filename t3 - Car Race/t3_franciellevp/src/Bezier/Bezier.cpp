@@ -33,6 +33,11 @@ ControlPoints* Bezier::getControlPoints()
     return cp;
 }
 
+vector<Vector2> Bezier::getEstimatedPoints()
+{
+    return estimatedPoints;
+}
+
 /* Renderiza/desenha tudo que sera necessario na tela
 */
 void Bezier::render()
@@ -131,7 +136,7 @@ void Bezier::drawBezierCurve()
 
 void Bezier::drawBezierCurveForPolygon()
 {
-    rgb = Utils::RGBtoFloat(169,169,169);
+    rgb = Utils::RGBtoFloat(105,105,105);
     CV::color(rgb[0], rgb[1], rgb[2]);
     unsigned int currentSize = (!canApplyTransformations) ? INDEX_POLY : bezierPointsIn.size();
     for (unsigned int i = 1; i < currentSize; i++) {

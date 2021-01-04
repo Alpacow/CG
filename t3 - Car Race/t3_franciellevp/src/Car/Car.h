@@ -24,6 +24,9 @@ private:
     float sumRotation;
     float degrees;
     float speed;
+    bool isCoinOn;
+    Vector2 coinPos;
+    int coinCount;
 
 public:
     vector<float> carColor;   // controla cores passadas em RGB
@@ -45,6 +48,7 @@ public:
     void increaseSpeed();
     void decreaseSpeed();
     void initRace();
+    void checkCoinCollision();
 };
 
 #endif

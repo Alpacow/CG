@@ -8,11 +8,13 @@
 #include "../Canvas/gl_canvas2d.h"
 #include <iostream>
 #include <math.h>
+#include <ctime>
 
 #define CAR_WIDTH 18
 #define CAR_HEIGHT 28
 #define DEGREES 5
 #define SPEED 5
+#define COIN_RAD 6
 
 using namespace std;
 
@@ -22,6 +24,7 @@ Car::Car(Alert** alerts, Bezier** b)
 {
     this->bezier = b;
     this->alert = alerts;
+    isCoinOn = false;
     carColor = Utils::RGBtoFloat(28, 28, 28);
     p.push_back(Vector2 {1102, 88});
     p.push_back(Vector2 {p[0].x - CAR_WIDTH / 2, p[0].y + CAR_HEIGHT});
@@ -29,6 +32,7 @@ Car::Car(Alert** alerts, Bezier** b)
     img = new Bmp(1100, 80, Utils::getImagePath("car.bmp"), alerts);
     sumRotation = 90; // inicia virado para cima
     speed = 0;
+    coinCount = 0;
     degrees = 10;
 }
 
@@ -42,6 +46,23 @@ void Car::render(float fps)
     CV::color(carColor[0], carColor[1], carColor[2]);
     CV::polygonFill(p);
     //img->renderBmp();
+    if ((*bezier)->raceOn && !isCoinOn) {
+        srand((unsigned) time(0));
+        int r = 0 + (rand() % (*bezier)->getEstimatedPoints().size() - 1);
+        coinPos = (*bezier)->getEstimatedPoints()[r];
+        isCoinOn = true;
+    }
+    if (isCoinOn) {
+        char* text = (char*)malloc(sizeof(char) * 30);
+        sprintf(text, "Pontuacao: %d", coinCount);
+        rgb = Utils::RGBtoFloat(28, 28, 28);
+        CV::color(rgb[0], rgb[1], rgb[2]);
+        CV::text(1050, 100, text);
+        rgb = Utils::RGBtoFloat(124,252,0);
+        CV::color(rgb[0], rgb[1], rgb[2]);
+        CV::circleFill(coinPos.x, coinPos.y, COIN_RAD, 10);
+    }
+    checkCoinCollision();
 }
 
 void Car::initRace ()
@@ -167,4 +188,14 @@ void Car::checkRotation(float maxDegrees)
     }
     degrees = validDegrees;
     rotateCar();
+}
+
+void Car::checkCoinCollision()
+{
+    for(vector<Vector2>::size_type i = 0; i != p.size(); i++) {
+        if (Utils::checkCircleCollision(p[i].x, p[i].y, coinPos, COIN_RAD)) {
+            coinCount++;
+            isCoinOn = false;
+        }
+    }
 }

@@ -44,14 +44,15 @@ public:
     Bezier(Alert** alert);
     ~Bezier();
     ControlPoints* getControlPoints();
+    vector<Vector2> getEstimatedPoints();
+    Vector2 getCenterPoint();
     void Keyboard(int key);
     void checkMouseStates(int button, int x, int y, int state);
     void drawControlGraph();
     void render();
     void clearControlPoints();
-    void drawBezierCurve();
     void getPointsBezier();
-    Vector2 getCenterPoint();
+    void drawBezierCurve();
     void rotateCurve(float rad);
     void translate(int x, int y);
     void rescaleCurve(int scale);
