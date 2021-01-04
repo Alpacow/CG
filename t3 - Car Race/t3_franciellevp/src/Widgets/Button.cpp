@@ -77,9 +77,9 @@ void Button::checkState(int button, int state, int x, int y)
                     (*bezierController)->raceOn = true;
             }
             else if(bts[2]->checkCollision(x, y))
-                (*bezierController)->rotateCurve(30 * PI / 180);
+                (*bezierController)->rotateCurve(20 * PI / 180);
             else if(bts[3]->checkCollision(x, y))
-                (*bezierController)->rotateCurve(-30 * PI / 180);
+                (*bezierController)->rotateCurve(-20 * PI / 180);
         }
     }
 }

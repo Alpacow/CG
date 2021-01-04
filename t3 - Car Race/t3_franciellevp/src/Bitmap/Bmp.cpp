@@ -7,14 +7,13 @@
 #include "../Canvas/gl_canvas2d.h"
 
 #include <vector>
-#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <math.h>
 
 using namespace std;
 
-Bmp::Bmp(){}
+Bmp::Bmp() {}
 
 /* Inicializa atributos necessarios
    @param _fileName: nome da imagem bmp
@@ -89,28 +88,16 @@ void Bmp::deleteBitmap(Color** dt, int h, int w)
 */
 void Bmp::renderBmp()
 {
-    Vector2 mid = position / 2;
-    Vector2 oldP = position;
+    //Vector2 center = Vector2 {(float)height / 2 - 1, (float)width / 2 - 1};
     for(int i = 0; i < height; i++)
         for(int j = 0; j < width; j++) {
-            vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r , dt[i][j].g , dt[i][j].b);
-            // rotacao se houver
-            double oldX = j / mid.x;
-            double oldY = i / mid.y;
-            //Calcula os novos pontos pos rotacao da imagem
-            int newY = round(-oldX * sin(rad) + oldY * cos(rad));
-            int newX = round(oldX * cos(rad) + oldY * sin(rad));
-            //Recentralia a imagem ja rotacionada
-            newY = mid.y - newY;
-            newX = mid.x - newX;
-
-            // cores sao multiplicadas por channel para visualizacao dos canais
+            //Vector2 p = Vector2{position.x + j, position.y + height - i};
+            //Vector2 pos = Utils::rotatePoint(p, center, rad);
+            vector<float> rgb = Utils::RGBtoFloat(dt[i][j].r, dt[i][j].g, dt[i][j].b);
             if (rgb[0] != 1 && rgb[1] != 1 && rgb[2] != 1) { // branco, cor de fundo
-                Vector2 p = Utils::rotatePoint(oldP, mid, rad);
                 CV::color(rgb[0], rgb[1], rgb[2]);
                 CV::point(position.x + j, position.y + height - i);
-                oldP = p;
-                //CV::point(newX + position.x, newY + position.y);
+                //CV::point(pos.x, pos.y);
             }
         }
 }
@@ -118,40 +105,41 @@ void Bmp::renderBmp()
 /* Rotaciona a imagem bmp 90 graus no sentido horario ou antihorario
    @param clockwise: inteiro 0 ou 1, indica em qual sentido girar a imagem
 */
-void Bmp::rotateImage (float rad, int clockwise)
+void Bmp::rotateImage(float rad)
+{
+    if (rad == 0) return;
+    int diagonal = ceil(sqrt((owidth * owidth) + (oheight * oheight)));
+    Vector2 center = {(float)width / 2, (float)height / 2};
+    Color** newDt = newBitmap(diagonal, diagonal);
+    for (int l = 0; l < diagonal; l++) {
+        for (int c = 0; c < diagonal; c++) {
+            float xx = c - center.x;
+            float yy = l - center.y;
+            float newX = (xx * cos(-rad) + yy * sin(-rad));
+            float newY = ((-xx * sin(-rad)) + yy * cos(-rad));
+            Vector2 pos = {newX + width / 2, newY + height / 2};
+            if (pos.x < 0 || pos.x >= width || pos.y < 0 || pos.y >= height) {
+                newDt[l][c].r = 0;
+                newDt[l][c].g = 0;
+                newDt[l][c].b = 255;
+                continue;
+            }
+            newDt[l][c].r = dt[(int)pos.y][(int)pos.x].r;
+            newDt[l][c].g = dt[(int)pos.y][(int)pos.x].g;
+            newDt[l][c].b = dt[(int)pos.y][(int)pos.x].b;
+        }
+    }
+    deleteBitmap(dt, height, width);
+    width = height = diagonal;
+    dt = newBitmap(height, width);
+    dt = newDt;
+}
+
+/*
+void Bmp::rotateImage (float rad)
 {
     this->rad = rad;
-}
-
-/* Rotaciona a imagem bmp 90 graus no sentido horario
-   @param temp: matriz com altura e largura trocados
-*/
-void Bmp::rotateRight (float rad, Color** temp)
-{
-    Vector2 mid = position / 2;
-    for (int i = 0; i < height; i++) {
-        int y = 0;
-        for (int j = width-1; j >= 0; j--) {
-            temp[y][i] = dt[i][j];
-            y++;
-        }
-    }
-    position = Utils::rotatePoint(position, mid, rad);
-}
-
-/* Rotaciona a imagem bmp 90 graus no sentido antihorario
-   @param temp: matriz com altura e largura trocados
-*/
-void Bmp::rotateLeft(float rad, Color** temp)
-{
-    int y = height - 1;
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            temp[j][y] = dt[i][j];
-        }
-        y--;
-    }
-}
+}*/
 
 /* Le o HEADER componente a componente devido ao problema de alinhamento de bytes
    Usando o comando fread sao lidos 16 bytes ao inves de 14
@@ -164,18 +152,6 @@ void Bmp::readHeader(FILE* fp)
     fread(&header.reserved1, sizeof(unsigned short int), 1, fp);
     fread(&header.reserved2, sizeof(unsigned short int), 1, fp);
     fread(&header.offset,    sizeof(unsigned int),       1, fp);
-}
-
-/* Escreve o HEADER componente a componente com as informacoes do novo bmp gerado
-   @param fp: ponteiro para o arquivo a ser escrito
-*/
-void Bmp::writeHeader(FILE* fp)
-{
-    fwrite(&header.type,      sizeof(unsigned short int), 1, fp);
-    fwrite(&header.size,      sizeof(unsigned int),       1, fp);
-    fwrite(&header.reserved1, sizeof(unsigned short int), 1, fp);
-    fwrite(&header.reserved2, sizeof(unsigned short int), 1, fp);
-    fwrite(&header.offset,    sizeof(unsigned int),       1, fp);
 }
 
 /* Le o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
@@ -196,23 +172,6 @@ void Bmp::readInfoHeader(FILE* fp)
     fread(&info.impcolours,  sizeof(unsigned int),       1, fp);
 }
 
-/* Escreve o INFOHEADER componente a componente devido ao problema de alinhamento de bytes
-   @param fp: ponteiro para o arquivo a ser escrito
-*/
-void Bmp::writeInfoHeader(FILE* fp)
-{
-    fwrite(&info.size,        sizeof(unsigned int),       1, fp);
-    fwrite(&info.width,       sizeof(int),                1, fp);
-    fwrite(&info.height,      sizeof(int),                1, fp);
-    fwrite(&info.planes,      sizeof(unsigned short int), 1, fp);
-    fwrite(&info.bits,        sizeof(unsigned short int), 1, fp);
-    fwrite(&info.compression, sizeof(unsigned int),       1, fp);
-    fwrite(&info.imagesize,   sizeof(unsigned int),       1, fp);
-    fwrite(&info.xresolution, sizeof(int),                1, fp);
-    fwrite(&info.yresolution, sizeof(int),                1, fp);
-    fwrite(&info.ncolours,    sizeof(unsigned int),       1, fp);
-    fwrite(&info.impcolours,  sizeof(unsigned int),       1, fp);
-}
 
 /* Carrega todas as informacoes do arquivo bmp nas estruturas da classe
    @param path: caminho que a imagem se encontra
@@ -228,6 +187,8 @@ void Bmp::load(const char* path)
     readInfoHeader(fp);
     width  = info.width;
     height = info.height;
+    owidth = width;
+    oheight = height;
     bits   = info.bits;
     bytesPerLine =(3 * (width + 1) / 4) * 4;
     imagesize    = bytesPerLine*height;

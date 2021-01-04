@@ -31,7 +31,7 @@ public:
         float norm = (float)sqrt(x*x + y*y);
 
         if(norm==0.0) {
-            std::cout << "Normalize::Divisao por zero" << std::endl;
+            //std::cout << "Normalize::Divisao por zero" << std::endl;
             x = 1;
             y = 1;
             return;
@@ -132,6 +132,12 @@ public:
     }
 
     Vector2 operator - (const float v)
+    {
+        Vector2 aux( x - v, y - v);
+        return( aux );
+    }
+
+    Vector2 operator + (const float v)
     {
         Vector2 aux( x - v, y - v);
         return( aux );

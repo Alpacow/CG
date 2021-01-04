@@ -44,24 +44,23 @@ public:
 class Bmp
 {
 private:
-    int width, height, imagesize, bytesPerLine, bits;
+    int width, height, imagesize, bytesPerLine, bits, owidth, oheight;
     Color** dt;
     BmpHeader header;
     BmpInfoHeader info;
     Alert** alert;
     string path;
-    Vector2 position;
     float rad;
 
     void load(const char* path);
     void readHeader(FILE* fp);
-    void writeHeader(FILE* fp);
     void readInfoHeader(FILE* fp);
-    void writeInfoHeader(FILE* fp);
     void rotateRight (float rad, Color** temp);
     void rotateLeft (float rad, Color** temp);
 
 public:
+    Vector2 position;
+
     Bmp();
     Bmp(float x, float y, string _path, Alert** alerts);
     Color** getImage();
@@ -71,7 +70,7 @@ public:
     int     getHeight(void);
     void    deleteBitmap(Color** dt, int h, int w);
     void    renderBmp();
-    void    rotateImage(float rad, int clockwise);
+    void    rotateImage(float rad);
 };
 
 #endif

@@ -41,7 +41,7 @@ void Car::render(float fps)
     moveCar(fps);
     CV::color(245,245,220);
     CV::rectFill(p1, p2, p3, p4);
-    img->renderBmp();
+    //img->renderBmp();
 }
 
 void Car::initRace ()
@@ -113,6 +113,8 @@ void Car::moveCar(float fps)
         p3.x += 1/fps * speed; p3.y += 1/fps * speed;
         p4.x += 1/fps * speed; p4.y += 1/fps * speed;
     }
+    img->position.y = p1.y - 6;
+    img->position.x = p1.x - 2;
 }
 
 void Car::rotateCar() {
@@ -122,8 +124,7 @@ void Car::rotateCar() {
     p2 = Utils::rotatePoint(p2, mid, rad);
     p3 = Utils::rotatePoint(p3, mid, rad);
     p4 = Utils::rotatePoint(p4, mid, rad);
-    rad = sumRotation * PI / 180;
-    img->rotateImage(rad, 1);
+    img->rotateImage(rad);
 }
 
 void Car::checkRotation(float maxDegrees)

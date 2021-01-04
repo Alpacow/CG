@@ -17,7 +17,8 @@ Bezier::Bezier()
     cp = new ControlPoints();
     canApplyTransformations = translationMode = scaleMode = showHelp = raceOn = false;
     speedWayWidth = 30;
-    center = lastPosition = Vector2 {0, 0};
+    scale = 0;
+    center = Vector2 {0, 0};
     estimatedPoints.reserve(INDEX);
     for(unsigned int i = 0; i < INDEX; i++)
         estimatedPoints.push_back(Vector2 {0, 0});
@@ -35,11 +36,11 @@ ControlPoints* Bezier::getControlPoints()
 */
 void Bezier::render()
 {
-    if (!canApplyTransformations) {
+    //if (!canApplyTransformations) {
         for(vector<ControlPoints>::size_type i = 0; i != cp->points.size(); i++)
             cp->points[i]->render();
         cp->drawControlGraph();
-    }
+    //}
     if (cp->points.size() > 2)
         drawBezierCurveForPolygon();
     if (cp->points.size() > 1)
@@ -50,6 +51,7 @@ void Bezier::render()
             CV::circleFill(center.x, center.y, 5, 25);
         }
     }
+    getPointsBezier();
 }
 
 /* Controla a posicao do mouse e se houve clique ou nao
@@ -78,19 +80,9 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
     }
     if (cp->checkCollisionFirstPoint())
         canApplyTransformations = true;
-    getPointsBezier();
     if (canApplyTransformations) {
         if (translationMode)
             translate(x, y);
-        else if (scaleMode) {
-            /*center = getCenterPoint();
-            Vector2 scale1 = {x - center.x, y - center.y};
-            Vector2 scale2 = {lastPosition.x - center.x, lastPosition.y - center.y};
-            float scale = scale1.length() / scale2.length();
-            cout << "scale is " << scale << endl;*/
-            rescaleCurve(Vector2 {0.02, 0.02});
-            //lastPosition = Vector2 {(float)x, (float)y};
-        }
     }
 }
 
@@ -121,16 +113,8 @@ void Bezier::drawBezierCurve()
             Vector2 c = estimatedPoints[i]; // right point
             Vector2 n1 = (c - l).normalizeTo(j/2).getPerpendicular();
             Vector2 n2 = (r - c).normalizeTo(j/2).getPerpendicular();
-            Vector2 p1a = l + n1; // primeiro vetor perpendicular
-            Vector2 p1b = l - n1;
-            Vector2 p2a = r + n2;
-            Vector2 p2b = r - n2;
-            Vector2 c1a = c + n1; //segundo vetor perpendicular
-            Vector2 c1b = c - n1;
-            Vector2 c2a = c + n2;
-            Vector2 c2b = c - n2;
-            Vector2 ca = Utils::intersecLines2d(p1a, c1a, p2a, c2a); // pontos centrais
-            Vector2 cb = Utils::intersecLines2d(p1b, c1b, p2b, c2b);
+            Vector2 ca = Utils::intersecLines2d(l + n1, c + n1, r + n2, c + n2); // pontos centrais
+            Vector2 cb = Utils::intersecLines2d(l - n1, c - n1, r - n2, c - n2);
             bezierPointsOut.at(idx) = cb;
             bezierPointsIn.at(idx) = ca;
             idx++;
@@ -173,15 +157,25 @@ Vector2 Bezier::getCenterPoint()
     return Vector2 {cx, cy};
 }
 
-void Bezier::rescaleCurve(Vector2 scale) {
+void Bezier::rescaleCurve(int n) {
     if (canApplyTransformations) {
-        for (unsigned int i = 0; i < cp->points.size(); i++) {
-            float x = cp->points[i]->point.x * scale.x;
-            float y = cp->points[i]->point.y * scale.y;
-            cp->points[i]->point.x = x;
-            cp->points[i]->point.y = y;
+        scale = (previousN != n) ? 0 : scale + n;
+        previousN = n;
+        int idx = 0;
+        Vector2 l, r, c;
+        for (unsigned int i = 0; i < cp->points.size() - 1; i++) {
+            l = (i == 0) ? cp->points[cp->points.size() - 1]->point : cp->points[i - 1]->point;
+            r = cp->points[i + 1]->point; // center point
+            c = cp->points[i]->point; // right point
+            Vector2 n1 = (c - l).normalizeTo(scale).getPerpendicular();
+            Vector2 n2 = (r - c).normalizeTo(scale).getPerpendicular();
+            Vector2 cb = Utils::intersecLines2d(l - n1, c - n1, r - n2, c - n2);
+            cp->points[i]->point = cb;
+            idx++;
         }
+        cp->points[cp->points.size() - 1]->point = cp->points[0]->point - 2;
     }
+    render();
 }
 
 void Bezier::rotateCurve(float rad) {

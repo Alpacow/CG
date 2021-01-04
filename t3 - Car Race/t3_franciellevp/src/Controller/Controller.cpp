@@ -94,12 +94,18 @@ void Controller::Keyboard(int key)
             bezier->canApplyTransformations = false;
             bezier->translationMode = false;
             bezier->scaleMode = false;
+            bezier->scale = 0;
             break;
         case Utils::KeyT:
             bezier->translationMode = (bezier->translationMode) ? false : true;
             break;
-        case Utils::KeyE:
-            bezier->scaleMode = (bezier->scaleMode) ? false : true;
+        case Utils::KeyPlus:
+            //bezier->scaleMode = (bezier->scaleMode) ? false : true;
+            bezier->rescaleCurve(1);
+            break;
+        case Utils::KeyMinus:
+            //bezier->scaleMode = (bezier->scaleMode) ? false : true;
+            bezier->rescaleCurve(-1);
             break;
         case Utils::KeyA:
             car->increaseSpeed();

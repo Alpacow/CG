@@ -25,7 +25,7 @@ private:
     vector<Vector2> bezierPointsIn;
     vector<Vector2> bezierPointsOut;
     Vector2 center;
-    Vector2 lastPosition;
+    int previousN;
 
     void drawBezierCurveForPolygon();
     double bernstein(float n, float i);
@@ -39,6 +39,7 @@ public:
     bool scaleMode;
     bool showHelp;
     bool raceOn;
+    int scale;
     Bezier();
     ~Bezier();
     ControlPoints* getControlPoints();
@@ -52,7 +53,7 @@ public:
     Vector2 getCenterPoint();
     void rotateCurve(float rad);
     void translate(int x, int y);
-    void rescaleCurve(Vector2 scale);
+    void rescaleCurve(int scale);
 };
 
 #endif
