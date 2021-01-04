@@ -7,6 +7,8 @@
 #define ___CAR__H___
 
 #include "../Bitmap/Bmp.h"
+#include "../Bezier/Bezier.h"
+#include "../Widgets/Alert.h"
 
 using namespace std;
 
@@ -17,6 +19,8 @@ private:
 
     vector<float> rgb;           // controla cores passadas em RGB
     Bmp* img;                // imagem a ser manipulada
+    Bezier** bezier;
+    Alert** alert;
     float sumRotation;
     float degrees;
     float speed;
@@ -31,12 +35,15 @@ public:
     };
 
     Car();
-    Car(Alert** alerts);
+    Car(Alert** alerts, Bezier** b);
     ~Car();
     void render(float fps);
     void rotateCar();
     void checkRotation(float maxDegrees);
     void moveCar(float fps);
+    void increaseSpeed();
+    void decreaseSpeed();
+    void initRace();
 };
 
 #endif

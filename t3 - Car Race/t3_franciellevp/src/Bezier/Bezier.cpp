@@ -12,16 +12,12 @@ using namespace std;
 
 /* Inicia os atributos necessarios
 */
-Bezier::Bezier(Slider* slider)
+Bezier::Bezier()
 {
-    this->slider = slider;
     cp = new ControlPoints();
-    canApplyTransformations = false;
-    translationMode = false;
-    scaleMode = false;
+    canApplyTransformations = translationMode = scaleMode = showHelp = raceOn = false;
     speedWayWidth = 30;
-    center = Vector2 {0, 0};
-    lastPosition = Vector2 {0, 0};
+    center = lastPosition = Vector2 {0, 0};
     estimatedPoints.reserve(INDEX);
     for(unsigned int i = 0; i < INDEX; i++)
         estimatedPoints.push_back(Vector2 {0, 0});
@@ -29,6 +25,11 @@ Bezier::Bezier(Slider* slider)
 }
 
 Bezier::~Bezier() {}
+
+ControlPoints* Bezier::getControlPoints()
+{
+    return cp;
+}
 
 /* Renderiza/desenha tudo que sera necessario na tela
 */
@@ -75,7 +76,6 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
             if(cp->points[i]->isSelect && cp->points[i]->checkControlPointArea(x, y))
                 cp->points[i]->dragSelectPoint(x, y);
     }
-    speedWayWidth = slider->getCurrentValue();
     if (cp->checkCollisionFirstPoint())
         canApplyTransformations = true;
     getPointsBezier();
@@ -174,18 +174,22 @@ Vector2 Bezier::getCenterPoint()
 }
 
 void Bezier::rescaleCurve(Vector2 scale) {
-    for (unsigned int i = 0; i < cp->points.size(); i++) {
-        float x = cp->points[i]->point.x * scale.x;
-        float y = cp->points[i]->point.y * scale.y;
-        cp->points[i]->point.x = x;
-        cp->points[i]->point.y = y;
+    if (canApplyTransformations) {
+        for (unsigned int i = 0; i < cp->points.size(); i++) {
+            float x = cp->points[i]->point.x * scale.x;
+            float y = cp->points[i]->point.y * scale.y;
+            cp->points[i]->point.x = x;
+            cp->points[i]->point.y = y;
+        }
     }
 }
 
 void Bezier::rotateCurve(float rad) {
-    center = getCenterPoint();
-    for (unsigned int i = 0; i < cp->points.size(); i++)
-        cp->points[i]->point = Utils::rotatePoint(cp->points[i]->point, center, rad);
+    if (canApplyTransformations) {
+        center = getCenterPoint();
+        for (unsigned int i = 0; i < cp->points.size(); i++)
+            cp->points[i]->point = Utils::rotatePoint(cp->points[i]->point, center, rad);
+    }
 }
 
 void Bezier::translate(int x, int y) {
@@ -194,11 +198,6 @@ void Bezier::translate(int x, int y) {
     Vector2 diff = c - center;
     for (unsigned int i = 0; i < cp->points.size(); i++)
         cp->points[i]->point += diff;
-}
-
-ControlPoints* Bezier::getControlPoints()
-{
-    return cp;
 }
 
 double Bezier::bernstein(float n, float i)

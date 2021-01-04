@@ -32,7 +32,7 @@ public:
     ~ControlPoints();
     ControlPoints* checkCollisionDragPoints(int x, int y);
     Vector2 getDragPoint();
-    Vector2 getFirstPoint();
+    Vector2 getFstPoint();
     void render();
     void dragSelectPoint(int mx, int my);
     void addPoint(int x, int y);

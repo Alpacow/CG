@@ -12,9 +12,10 @@ using namespace std;
 /* Inicia todos os atributos necessarios
    @param img: instancia da classe Bmp para controlar as acoes dos botoes na imagem
 */
-Button::Button (Bezier** b) : Widget()
+Button::Button (Bezier** b, Car** c) : Widget()
 {
     this->bezierController = b;
+    this->carController = c;
     create();
 }
 
@@ -46,15 +47,16 @@ void Button::render()
     CV::color(bgColor[0], bgColor[1], bgColor[2]);
     CV::rectFill(p.x, p.y, p.x + width, p.y + height);
     CV::color(labelColor[0], labelColor[1], labelColor[2]);
-    CV::text(p.x + 5, p.y + height/2, label.c_str()); //escreve o label do botao mais ou menos ao centro.
+    CV::text(p.x + 5, p.y + height/2, label.c_str()); //escreve o label do botao mais ou menos ao centro.s
 }
 
 /* Percorre um array contendo todos os botoes para desenha-los na tela
 */
 void Button::renderWidgets()
 {
-    if ((*bezierController)->canApplyTransformations)
-        for(vector<Button>::size_type i = 0; i != bts.size(); i++)
+    bts[0]->render();
+    for(vector<Button>::size_type i = 1; i != bts.size(); i++)
+        if (!(*bezierController)->raceOn)
             bts[i]->render();
 }
 
@@ -66,12 +68,19 @@ void Button::renderWidgets()
 void Button::checkState(int button, int state, int x, int y)
 {
     if( state == 0 ) {
-        if(bts[0]->checkCollision(x, y))
-            cout << "preparar para iniciar a corrida" << endl;
-        else if(bts[1]->checkCollision(x, y))
-            (*bezierController)->rotateCurve(30 * PI / 180);
-        else if(bts[2]->checkCollision(x, y))
-            (*bezierController)->rotateCurve(-30 * PI / 180);
+        if (bts[0]->checkCollision(x, y))
+            (*bezierController)->showHelp = ((*bezierController)->showHelp) ? false : true;
+        if (!(*bezierController)->raceOn) {
+            if (bts[1]->checkCollision(x, y)) {
+                (*carController)->initRace();
+                if ((*bezierController)->canApplyTransformations)
+                    (*bezierController)->raceOn = true;
+            }
+            else if(bts[2]->checkCollision(x, y))
+                (*bezierController)->rotateCurve(30 * PI / 180);
+            else if(bts[3]->checkCollision(x, y))
+                (*bezierController)->rotateCurve(-30 * PI / 180);
+        }
     }
 }
 
@@ -81,7 +90,8 @@ void Button::create()
 {
     vector<float> bg = Utils::RGBtoFloat(176,196,222);
     vector<float> labelColor = Utils::RGBtoFloat(28, 28, 28);
-    bts.push_back(new Button(0, 0, 180, 30, bg, "Finalizar edicao", labelColor));
+    bts.push_back(new Button(0, 0, 80, 30, bg, "Ajuda", labelColor));
+    bts.push_back(new Button(100, 0, 180, 30, bg, "Finalizar edicao", labelColor));
     bts.push_back(new Button(1030, 300, 160, 30, bg, "Horario", labelColor));
     bts.push_back(new Button(1030, 340, 160, 30, bg, "Antihorario", labelColor));
 }

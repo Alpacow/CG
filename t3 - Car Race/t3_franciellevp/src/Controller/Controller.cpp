@@ -21,14 +21,12 @@ Controller::Controller()
     fps = 100.0;
     frames  = new Frames();
     alerts = new Alert();
-    car = new Car(&alerts);
-    slider = new Slider();
-    bezier = new Bezier(slider->sliders[0]);
+    bezier = new Bezier();
+    car = new Car(&alerts, &bezier);
     wds.push_back(alerts);
-    wds.push_back(new Button(&bezier));
-    //wds.push_back(new Checkbox(&bezier));
+    wds.push_back(new Button(&bezier, &car));
     //wds.push_back(new Input());
-    wds.push_back(slider);
+    wds.push_back(new Slider(&bezier));
 }
 
 Controller::~Controller() {}
@@ -43,13 +41,15 @@ void Controller::Render()
     rgb = Utils::RGBtoFloat(220,220,220);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::rectFill(screenWidth - 180, 30, screenWidth, screenHeight);
+    bezier->render();
 
-    if (bezier->canApplyTransformations) {
+    if (!bezier->raceOn) {
         rgb = Utils::RGBtoFloat(28,28,28);
         CV::color(rgb[0], rgb[1], rgb[2]);
+        CV::text(1030, 290, "Rotacionar:");
         CV::text(screenWidth - 170, 150, "Cor do carrinho:");
-        car->render(fps);
     }
+    car->render(fps);
 
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
@@ -57,7 +57,24 @@ void Controller::Render()
     char* text = (char*)malloc(sizeof(char) * 30);
     sprintf(text, "FPS: %.0f", fps);
     CV::text(10, screenHeight - 10, text);
-    bezier->render();
+
+    if (bezier->showHelp) {
+        rgb = Utils::RGBtoFloat(28,28,28);
+        CV::color(rgb[0], rgb[1], rgb[2]);
+        CV::rectFill(100, 100, 900, 600);
+        rgb = Utils::RGBtoFloat(211,211,211);
+        CV::color(rgb[0], rgb[1], rgb[2]);
+        CV::text(440, 140, "MENU DE AJUDA");
+        CV::text(120, 160, "1. Botao esquerdo adiciona pontos de controle e pontos de arrasto");
+        CV::text(120, 180, "2. DELETE: limpa todos os pontos de controle/deleta a pista");
+        CV::text(120, 220, "TRANSFORMACOES PODEM SER APLICADAS APENAS APOS O TERMINO DA PISTA");
+        CV::text(120, 240, "T: liga e desliga a translacao da pista");
+        CV::text(120, 260, "Para rotacionar use os botoes do menu lateral");
+        CV::text(120, 300, "MOVIMENTACAO DO CARRINHO");
+        CV::text(120, 320, "A: acelera");
+        CV::text(120, 340, "F: freia");
+        CV::text(120, 360, "SETAS: mudam a direcao do carrinho");
+    }
 }
 
 /* Controla as teclas apertadas durante a execucao
@@ -67,7 +84,6 @@ void Controller::Keyboard(int key)
 {
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->keyboardCheck(key);
-    //cout << "Tecla: " << key << endl;
     opcao = key;
     switch(key) {
         case Utils::Esc:
@@ -84,6 +100,12 @@ void Controller::Keyboard(int key)
             break;
         case Utils::KeyE:
             bezier->scaleMode = (bezier->scaleMode) ? false : true;
+            break;
+        case Utils::KeyA:
+            car->increaseSpeed();
+            break;
+        case Utils::KeyF:
+            car->decreaseSpeed();
             break;
         case Utils::RightArrow:
             car->checkRotation(car->RightArrow);
@@ -111,7 +133,6 @@ void Controller::Mouse(int button, int x, int y, int state)
     my = y;
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->checkState(button, state, x, y);
-    //cout << button << state << endl;
     //cout << mx << " " << my << endl;
     bezier->checkMouseStates(button, x, y, state);
 }
@@ -120,7 +141,7 @@ void Controller::Mouse(int button, int x, int y, int state)
 */
 void Controller::InitCanvas() {
     CV::init(&screenWidth, &screenHeight, "T3 - Corridinha de Carrinho");
-    rgb = Utils::RGBtoFloat(245,245,220);
+    rgb = Utils::RGBtoFloat(34,139,34); // (245,245,220)
     CV::clear(rgb[0], rgb[1], rgb[2]);
     CV::run();
 }

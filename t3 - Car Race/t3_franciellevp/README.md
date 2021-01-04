@@ -7,11 +7,11 @@ A edição dos pontos de controle termina quando clica-se em P1 novamente e a pi
 DELETE: limpa todos os pontos de controle/deleta a pista
 t: aciona o modo de translação
 
-Funções obrigatórias
+Funções
 - desenho dos pontos de controle
 - translação da pista
-
 - rotação da pista
+
 - escala da pista
 
 # funções extras

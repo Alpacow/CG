@@ -10,10 +10,11 @@
 
 using namespace std;
 
-Slider::Slider () : Widget()
+Slider::Slider (Bezier** bc) : Widget()
 {
-    create();
+    this->bezierController = bc;
     this->canDrag = false;
+    create();
 }
 
 Slider::~Slider() {}
@@ -49,7 +50,8 @@ void Slider::renderWidgets()
 
 {
     for (vector<Slider>::size_type i = 0; i != sliders.size(); i++)
-        sliders[i]->render();
+        if (!(*bezierController)->raceOn)
+            sliders[i]->render();
 }
 
 void Slider::checkState(int button, int state, int x, int y)
@@ -69,6 +71,7 @@ void Slider::checkState(int button, int state, int x, int y)
                     float percentPx = (s->circle.x - s->p.x) * 100 / s->width;
                     float valueSlided = percentPx * (s->maxRange - s->minRange) / 100;
                     s->currentValue = s->minRange + valueSlided;
+                    (*bezierController)->speedWayWidth = s->currentValue;
                 }
             }
         }

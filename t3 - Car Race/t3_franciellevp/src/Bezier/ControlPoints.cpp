@@ -33,7 +33,7 @@ Vector2 ControlPoints::getDragPoint()
     return dragPoint;
 }
 
-Vector2 ControlPoints::getFirstPoint()
+Vector2 ControlPoints::getFstPoint()
 {
     return fstPoint;
 }

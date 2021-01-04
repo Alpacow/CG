@@ -8,7 +8,6 @@
 #define ___BEZIER__H___
 
 #include "ControlPoints.h"
-#include "../Widgets/Slider.h"
 #include "../Utils/Vector2.h"
 #include <vector>
 
@@ -25,7 +24,6 @@ private:
     vector<Vector2> estimatedPoints;
     vector<Vector2> bezierPointsIn;
     vector<Vector2> bezierPointsOut;
-    Slider* slider;
     Vector2 center;
     Vector2 lastPosition;
 
@@ -39,7 +37,9 @@ public:
     bool canApplyTransformations;
     bool translationMode;
     bool scaleMode;
-    Bezier(Slider* slider);
+    bool showHelp;
+    bool raceOn;
+    Bezier();
     ~Bezier();
     ControlPoints* getControlPoints();
     void Keyboard(int key);

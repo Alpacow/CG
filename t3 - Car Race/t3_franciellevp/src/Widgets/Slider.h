@@ -3,6 +3,7 @@
 
 #include "Widget.h"
 #include "../Bitmap/Bmp.h"
+#include "../Bezier/Bezier.h"
 #include <string>
 
 using namespace std;
@@ -20,8 +21,9 @@ public:
     int minRange;
     int maxRange;
     Bmp** imgController;
+    Bezier** bezierController;
 
-    Slider();
+    Slider(Bezier** bc);
     ~Slider();
     Slider(int x, int y, float w, float h, vector<float> bg, const string label, int minRange, int maxRange);
     void render() override;

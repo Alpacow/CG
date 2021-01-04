@@ -8,6 +8,7 @@
 
 #include "Widget.h"
 #include "../Bezier/Bezier.h"
+#include "../Car/Car.h"
 #include <string>
 
 using namespace std;
@@ -19,9 +20,10 @@ public:
     vector<float> labelColor;
     vector<Button*> bts;
     Bezier** bezierController;
+    Car** carController;
 
     Button();
-    Button(Bezier** b);
+    Button(Bezier** b, Car** c);
     ~Button();
     Button(int x, int y, float w, float h, vector<float> bg, const string label, vector<float> labelColor);
     void render() override;

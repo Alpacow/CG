@@ -9,23 +9,26 @@
 #include <iostream>
 #include <math.h>
 
-#define CAR_WIDTH 22
-#define CAR_HEIGHT 35
+#define CAR_WIDTH 18
+#define CAR_HEIGHT 28
 #define DEGREES 5
+#define SPEED 5
 
 using namespace std;
 
 /* Inicia os atributos necessarios
 */
-Car::Car(Alert** alerts)
+Car::Car(Alert** alerts, Bezier** b)
 {
-    p1 = Vector2 {1105, 86};
+    this->bezier = b;
+    this->alert = alerts;
+    p1 = Vector2 {1102, 88};
     p2 = {p1.x + CAR_WIDTH, p1.y};
     p3 = Vector2{p1.x, p1.y + CAR_HEIGHT};
     p4 = Vector2{p1.x + CAR_WIDTH, p1.y + CAR_HEIGHT};
     img = new Bmp(1100, 80, Utils::getImagePath("car.bmp"), alerts);
     sumRotation = 90; // inicia virado para cima
-    speed = 20;
+    speed = 0;
     degrees = 10;
 }
 
@@ -35,10 +38,36 @@ Car::~Car() {}
 */
 void Car::render(float fps)
 {
-    //moveCar(fps);
+    moveCar(fps);
     CV::color(245,245,220);
     CV::rectFill(p1, p2, p3, p4);
     img->renderBmp();
+}
+
+void Car::initRace ()
+{
+    if ((*bezier)->canApplyTransformations) {
+        p1 = Vector2{(*bezier)->getControlPoints()->points[0]->point - (CAR_WIDTH / 2)};
+        p2 = {p1.x + CAR_WIDTH, p1.y};
+        p3 = Vector2{p1.x, p1.y + CAR_HEIGHT};
+        p4 = Vector2{p1.x + CAR_WIDTH, p1.y + CAR_HEIGHT};
+        degrees = 90;
+        sumRotation = 180;
+        rotateCar();
+    } else
+        (*alert)->alerts.push_back(new Alert(950, 30, 200, 100, "Pista nao finalizada", Utils::WARNING, TRUE));
+}
+
+void Car::increaseSpeed()
+{
+    speed += SPEED;
+    degrees -= 2;
+}
+
+void Car::decreaseSpeed()
+{
+    speed -= SPEED;
+    degrees += 2;
 }
 
 void Car::moveCar(float fps)
@@ -59,30 +88,30 @@ void Car::moveCar(float fps)
         p3.x -= 1/fps * speed;;
         p4.x -= 1/fps * speed;;
     } else if (sumRotation == 270) {
-        p1.y += 1/fps * speed;;
-        p2.y += 1/fps * speed;;
-        p3.y += 1/fps * speed;;
-        p4.y += 1/fps * speed;;
+        p1.y += 1/fps * speed;
+        p2.y += 1/fps * speed;
+        p3.y += 1/fps * speed;
+        p4.y += 1/fps * speed;
     } else if (sumRotation > 0 && sumRotation < 90) {
-        p1.x += 1/fps * speed;; p1.y -= 1/fps * speed;;
-        p2.x += 1/fps * speed;; p2.y -= 1/fps * speed;;
-        p3.x += 1/fps * speed;; p3.y -= 1/fps * speed;;
-        p4.x += 1/fps * speed;; p4.y -= 1/fps * speed;;
+        p1.x += 1/fps * speed; p1.y -= 1/fps * speed;
+        p2.x += 1/fps * speed; p2.y -= 1/fps * speed;
+        p3.x += 1/fps * speed; p3.y -= 1/fps * speed;
+        p4.x += 1/fps * speed; p4.y -= 1/fps * speed;
     } else if (sumRotation > 90 && sumRotation < 180) {
-        p1.x -= 1/fps * speed;; p1.y -= 1/fps * speed;;
-        p2.x -= 1/fps * speed;; p2.y -= 1/fps * speed;;
-        p3.x -= 1/fps * speed;; p3.y -= 1/fps * speed;;
-        p4.x -= 1/fps * speed;; p4.y -= 1/fps * speed;;
+        p1.x -= 1/fps * speed; p1.y -= 1/fps * speed;
+        p2.x -= 1/fps * speed; p2.y -= 1/fps * speed;
+        p3.x -= 1/fps * speed; p3.y -= 1/fps * speed;
+        p4.x -= 1/fps * speed; p4.y -= 1/fps * speed;;
     } else if (sumRotation > 180 && sumRotation < 270) {
-        p1.x -= 1/fps * speed;; p1.y += 1/fps * speed;;
-        p2.x -= 1/fps * speed;; p2.y += 1/fps * speed;;
-        p3.x -= 1/fps * speed;; p3.y += 1/fps * speed;;
-        p4.x -= 1/fps * speed;; p4.y += 1/fps * speed;;
+        p1.x -= 1/fps * speed; p1.y += 1/fps * speed;
+        p2.x -= 1/fps * speed; p2.y += 1/fps * speed;
+        p3.x -= 1/fps * speed; p3.y += 1/fps * speed;
+        p4.x -= 1/fps * speed; p4.y += 1/fps * speed;
     } else if (sumRotation > 270 && sumRotation < 360) {
-        p1.x += 1/fps * speed;; p1.y += 1/fps * speed;;
-        p2.x += 1/fps * speed;; p2.y += 1/fps * speed;;
-        p3.x += 1/fps * speed;; p3.y += 1/fps * speed;;
-        p4.x += 1/fps * speed;; p4.y += 1/fps * speed;;
+        p1.x += 1/fps * speed; p1.y += 1/fps * speed;
+        p2.x += 1/fps * speed; p2.y += 1/fps * speed;
+        p3.x += 1/fps * speed; p3.y += 1/fps * speed;
+        p4.x += 1/fps * speed; p4.y += 1/fps * speed;
     }
 }
 

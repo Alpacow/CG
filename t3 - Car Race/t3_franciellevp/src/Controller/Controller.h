@@ -23,7 +23,6 @@ private:
     int mx, my;                //variaveis do mouse para poder exibir dentro da render().
     float fps;
     Frames* frames;
-    Slider* slider;
 
 public:
     Car* car;                // imagem a ser manipulada

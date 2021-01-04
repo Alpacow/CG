@@ -27,6 +27,8 @@ public:
         Delete = 127,
         KeyT = 116,
         KeyE = 101,
+        KeyA = 97,
+        KeyF = 102,
         LeftArrow = 200,
         UpArrow = 201,
         RightArrow = 202,
