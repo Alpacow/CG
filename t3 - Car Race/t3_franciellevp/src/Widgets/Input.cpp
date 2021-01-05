@@ -116,9 +116,9 @@ void Input::keyboardCheck(int key)
 void Input::create()
 {
     vector<float> bg = Utils::RGBtoFloat(28,28,28);
-    inputs.push_back(new Input(1030, 220, 40, 25, bg, "R", bg));
-    inputs.push_back(new Input(1075, 220, 40, 25, bg, "G", bg));
-    inputs.push_back(new Input(1120, 220, 40, 25, bg, "B", bg));
+    inputs.push_back(new Input(1030, 180, 40, 25, bg, "R", bg));
+    inputs.push_back(new Input(1075, 180, 40, 25, bg, "G", bg));
+    inputs.push_back(new Input(1120, 180, 40, 25, bg, "B", bg));
 }
 
 bool Input::getCanWrite()

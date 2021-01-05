@@ -1,8 +1,8 @@
-//*******************************************************************************
+//********************************************************************
 //
-// classe para fazer o controle e comunicacao necessaria entre as demais classes
+// classe para fazer o controle e movimentacao do carrinho e do jogo
 //
-//*******************************************************************************
+//********************************************************************
 #include "Car.h"
 #include "../Utils/Utils.h"
 #include "../Canvas/gl_canvas2d.h"
@@ -10,26 +10,22 @@
 #include <math.h>
 #include <ctime>
 
-#define CAR_WIDTH 18
-#define CAR_HEIGHT 28
-#define DEGREES 5
-#define SPEED 5
-#define COIN_RAD 6
-
 using namespace std;
 
-/* Inicia os atributos necessarios
+/* Inicializa atributos necessarios
+   @param alerts: instancia da classe Alert para manipular janelas de mensagem
+   @param b: instancia da classe Bezier para manipular alguns atributos
 */
 Car::Car(Alert** alerts, Bezier** b)
 {
     this->bezier = b;
     this->alert = alerts;
     isCoinOn = false;
+    finish = false;
     carColor = Utils::RGBtoFloat(28, 28, 28);
     p.push_back(Vector2 {1102, 88});
     p.push_back(Vector2 {p[0].x - CAR_WIDTH / 2, p[0].y + CAR_HEIGHT});
     p.push_back(Vector2{p[0].x + CAR_WIDTH / 2, p[0].y + CAR_HEIGHT});
-    img = new Bmp(1100, 80, Utils::getImagePath("car.bmp"), alerts);
     sumRotation = 90; // inicia virado para cima
     speed = 0;
     coinCount = 0;
@@ -39,13 +35,14 @@ Car::Car(Alert** alerts, Bezier** b)
 Car::~Car() {}
 
 /* Renderiza/desenha tudo que sera necessario na tela
+   @param fps: frames por segundo calculados
 */
 void Car::render(float fps)
 {
-    moveCar(fps);
+    if (!finish)
+        moveCar(fps);
     CV::color(carColor[0], carColor[1], carColor[2]);
     CV::polygonFill(p);
-    //img->renderBmp();
     if ((*bezier)->raceOn && !isCoinOn) {
         srand((unsigned) time(0));
         int r = 0 + (rand() % (*bezier)->getEstimatedPoints().size() - 1);
@@ -63,21 +60,36 @@ void Car::render(float fps)
         CV::circleFill(coinPos.x, coinPos.y, COIN_RAD, 10);
     }
     checkCoinCollision();
+    if (coinCount == COIN_FINISH) {
+        finish = true;
+        speed = 0;
+        coinCount = 0;
+        (*alert)->alerts.push_back(new Alert(950, 30, 200, 100, "Jogo finalizado", Utils::SUCCESS, TRUE));
+    }
 }
 
+/* Realiza configuracoes necessarias para iniciar a "corrida"
+*/
 void Car::initRace ()
 {
     if ((*bezier)->canApplyTransformations) {
+        isCoinOn = false;
+        finish = false;
+        speed = 0;
+        coinCount = 0;
         p[0] = Vector2{(*bezier)->getControlPoints()->points[0]->point - (CAR_WIDTH / 2)};
         p[1] = Vector2 {p[0].x - CAR_WIDTH / 2, p[0].y + CAR_HEIGHT};
         p[2] = Vector2{p[0].x + CAR_WIDTH / 2, p[0].y + CAR_HEIGHT};
         degrees = -90;
         sumRotation = 180;
-        rotateCar();
+        p = rotateCar(p);
     } else
         (*alert)->alerts.push_back(new Alert(950, 30, 200, 100, "Pista nao finalizada", Utils::WARNING, TRUE));
 }
 
+/* Renderiza/desenha tudo que sera necessario na tela
+   @param fps: frames por segundo calculados
+*/
 void Car::increaseSpeed()
 {
     speed += SPEED;
@@ -132,12 +144,12 @@ void Car::moveCar(float fps)
     }
 }
 
-void Car::rotateCar() {
+vector<Vector2> Car::rotateCar(vector<Vector2> pCar) {
     float rad = degrees * PI / 180; // transforma graus para radianos
-    Vector2 mid = (p[0] + p[1] + p[2]) / 3;
-    for(vector<Vector2>::size_type i = 0; i != p.size(); i++)
-        p[i] = Utils::rotatePoint(p[i], mid, rad);
-    //img->rotateImage(rad);
+    Vector2 mid = (pCar[0] + pCar[1] + pCar[2]) / 3;
+    for(vector<Vector2>::size_type i = 0; i != pCar.size(); i++)
+        pCar[i] = Utils::rotatePoint(pCar[i], mid, rad);
+    return pCar;
 }
 
 void Car::checkRotation(float maxDegrees)
@@ -187,7 +199,7 @@ void Car::checkRotation(float maxDegrees)
         }
     }
     degrees = validDegrees;
-    rotateCar();
+    p = rotateCar(p);
 }
 
 void Car::checkCoinCollision()

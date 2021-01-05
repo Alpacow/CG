@@ -36,6 +36,8 @@ Alert::Alert(int x, int y, float w, float h, const string txt, int type, int isA
         this->bgColor = Utils::RGBtoFloat(255,215,0);
     else if (type == Utils::ERRO)
         this->bgColor = Utils::RGBtoFloat(255,99,71);
+    else if (type == Utils::SUCCESS)
+        this->bgColor = Utils::RGBtoFloat(50,205,50);
     else
         this->bgColor = Utils::RGBtoFloat(176,196,222);
 }

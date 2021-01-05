@@ -1,9 +1,8 @@
-
-//*******************************************************************************
+//*****************************************************************
 //
-// classe para fazer o controle e comunicacao necessaria entre as demais classes
+// classe para desenhar e controlar a pista responsavel pela pista
 //
-//*******************************************************************************
+//*****************************************************************
 #ifndef ___BEZIER__H___
 #define ___BEZIER__H___
 
@@ -20,7 +19,7 @@ using namespace std;
 class Bezier
 {
 private:
-    vector<float> rgb;           // controla cores passadas em RGB
+    vector<float> rgb;
     ControlPoints* cp;
     vector<Vector2> estimatedPoints;
     vector<Vector2> bezierPointsIn;
@@ -51,7 +50,7 @@ public:
     void drawControlGraph();
     void render();
     void clearControlPoints();
-    void getPointsBezier();
+    void calculatePointsBezier();
     void drawBezierCurve();
     void rotateCurve(float rad);
     void translate(int x, int y);

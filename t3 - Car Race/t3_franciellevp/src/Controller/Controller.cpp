@@ -43,12 +43,12 @@ void Controller::Render()
     CV::rectFill(screenWidth - 180, 30, screenWidth, screenHeight);
     bezier->render();
 
-    if (!bezier->raceOn) {
-        rgb = Utils::RGBtoFloat(28,28,28);
-        CV::color(rgb[0], rgb[1], rgb[2]);
+    rgb = Utils::RGBtoFloat(28,28,28);
+    CV::color(rgb[0], rgb[1], rgb[2]);
+    if (!bezier->raceOn)
         CV::text(1030, 290, "Rotacionar:");
-        CV::text(screenWidth - 170, 150, "Cor do carrinho:");
-    }
+    CV::text(screenWidth - 170, 150, "Cor do carrinho:");
+    car->render(fps);
 
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
@@ -75,8 +75,8 @@ void Controller::Render()
         CV::text(120, 340, "A: acelera");
         CV::text(120, 360, "F: freia");
         CV::text(120, 380, "SETAS: mudam a direcao do carrinho");
+        CV::text(120, 420, "O jogo acaba ao coletar 10 bolinhas");
     }
-    car->render(fps);
 }
 
 /* Controla as teclas apertadas durante a execucao

@@ -1,8 +1,8 @@
-//*******************************************************************************
+//*****************************************************************
 //
-// classe para fazer o controle e comunicacao necessaria entre as demais classes
+// classe para desenhar e controlar a pista responsavel pela pista
 //
-//*******************************************************************************
+//*****************************************************************
 #include "Bezier.h"
 #include "../Utils/Utils.h"
 #include "../Canvas/gl_canvas2d.h"
@@ -10,14 +10,15 @@
 
 using namespace std;
 
-/* Inicia os atributos necessarios
+/* Inicializa atributos necessarios
+   @param alerts: instancia da classe Alert para manipular janelas de mensagem
 */
 Bezier::Bezier(Alert** alert)
 {
     this->alert = alert;
     cp = new ControlPoints();
     canApplyTransformations = translationMode = showHelp = raceOn = false;
-    speedWayWidth = 30;
+    speedWayWidth = 40;
     scale = 0;
     center = Vector2 {0, 0};
     estimatedPoints.reserve(INDEX);
@@ -28,11 +29,17 @@ Bezier::Bezier(Alert** alert)
 
 Bezier::~Bezier() {}
 
+/* Retorna os pontos de controle da curva
+   @return cp: pontos de controle
+*/
 ControlPoints* Bezier::getControlPoints()
 {
     return cp;
 }
 
+/* Retorna os pontos estimados da curva de acordo com os pontos de controle
+   @return estimatedPoints: pontos estimados da curva de Bezier
+*/
 vector<Vector2> Bezier::getEstimatedPoints()
 {
     return estimatedPoints;
@@ -42,7 +49,7 @@ vector<Vector2> Bezier::getEstimatedPoints()
 */
 void Bezier::render()
 {
-    if (!canApplyTransformations) {
+    if (!canApplyTransformations && !raceOn) {
         for(vector<ControlPoints>::size_type i = 0; i != cp->points.size(); i++)
             cp->points[i]->render();
         cp->drawControlGraph();
@@ -57,13 +64,14 @@ void Bezier::render()
             CV::circleFill(center.x, center.y, 5, 25);
         }
     }
-    getPointsBezier();
+    calculatePointsBezier();
 }
 
 /* Controla a posicao do mouse e se houve clique ou nao
-   @param button: estado dos botões do mouse
+   @param button: estado dos botoes do mouse
    @param x: coordenada x do mouse
    @param y: coordenada y do mouse
+   @param state: verifica qual botao foi pressionado
 */
 void Bezier::checkMouseStates(int button, int x, int y, int state)
 {
@@ -84,9 +92,9 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
             if(cp->points[i]->isSelect && cp->points[i]->checkControlPointArea(x, y))
                 cp->points[i]->dragSelectPoint(x, y);
     }
-    if (cp->checkCollisionFirstPoint())
+    if (cp->checkCollisionFirstPoint() && !raceOn)
         canApplyTransformations = true;
-    if (canApplyTransformations) {
+    if (canApplyTransformations && !raceOn) {
         if (translationMode)
             translate(x, y);
     } else if (translationMode && !canApplyTransformations) {
@@ -95,7 +103,9 @@ void Bezier::checkMouseStates(int button, int x, int y, int state)
     }
 }
 
-void Bezier::getPointsBezier()
+/* Calcula os pontos da curva de Bezier de acordo com os pontos de controle
+*/
+void Bezier::calculatePointsBezier()
 {
     int index = 0;
     for(float t = 0; t <= 1; t += 0.01) {
@@ -111,6 +121,9 @@ void Bezier::getPointsBezier()
     }
 }
 
+/* Desenha a curva de bezier baseada nos pontos estimados e calcula os demais pontos necessarios
+   para o desenho da pista
+*/
 void Bezier::drawBezierCurve()
 {
     int idx = 0;
@@ -134,6 +147,8 @@ void Bezier::drawBezierCurve()
     }
 }
 
+/* Desenha as linhas interna e externa da pista
+*/
 void Bezier::drawBezierCurveForPolygon()
 {
     rgb = Utils::RGBtoFloat(105,105,105);
@@ -145,6 +160,9 @@ void Bezier::drawBezierCurveForPolygon()
     }
 }
 
+/* Retorna a centroide da curva
+   @return Vector2: coordenadas x, y do ponto central
+*/
 Vector2 Bezier::getCenterPoint()
 {
     if (cp->points.size() <= 2)
@@ -166,8 +184,11 @@ Vector2 Bezier::getCenterPoint()
     return Vector2{cx, cy};
 }
 
+/* Faz a reescala da pista a partir do centro
+   @param n: 1 para ir aumentando a pista e -1 para ir diminuindo
+*/
 void Bezier::rescaleCurve(int n) {
-    if (canApplyTransformations) {
+    if (canApplyTransformations && !raceOn) {
         scale = (previousN != n) ? 0 : scale + n;
         previousN = n;
         int idx = 0;
@@ -184,13 +205,16 @@ void Bezier::rescaleCurve(int n) {
         }
         cp->points[cp->points.size() - 1]->point = cp->points[0]->point - 2;
     } else {
-        (*alert)->alerts.push_back(new Alert(950, 30, 200, 100, "Pista nao finalizada", Utils::WARNING, TRUE));
+        (*alert)->alerts.push_back(new Alert(950, 30, 200, 100, "Opcao indisponivel", Utils::WARNING, TRUE));
     }
     render();
 }
 
+/* Rotaciona a pista a partir do centro
+   @param rad: angulo em radianos que deseja-se rotacionar a pista
+*/
 void Bezier::rotateCurve(float rad) {
-    if (canApplyTransformations) {
+    if (canApplyTransformations && !raceOn) {
         center = getCenterPoint();
         for (unsigned int i = 0; i < cp->points.size(); i++)
             cp->points[i]->point = Utils::rotatePoint(cp->points[i]->point, center, rad);
@@ -199,6 +223,10 @@ void Bezier::rotateCurve(float rad) {
     }
 }
 
+/* translada a pista de acordo com o centro
+   @param x: coordenada x do mouse
+   @param y: coordenada y do mouse
+*/
 void Bezier::translate(int x, int y) {
     Vector2 c = Vector2 {(float)x, (float)y};
     center = getCenterPoint();
@@ -207,16 +235,25 @@ void Bezier::translate(int x, int y) {
         cp->points[i]->point += diff;
 }
 
+/* Metodo auxilar para calculo da bezier
+   @param n: posicao no vetor do ultimo ponto de controle adicionado
+   @param i: posicao no vetor do ponto de controle atual
+*/
 double Bezier::bernstein(float n, float i)
 {
     return (factorial(n) / (factorial(i) * factorial(n - i)));
 }
 
+/* Metodo auxilar para calcular o fatorial de um numero
+   @param n: inteiro que deseja-se saber o fatorial
+*/
 double Bezier::factorial(int n)
 {
     return (n == 0) ? 1 : n * factorial(n - 1);
 }
 
+/* Aumenta o tamanho dos pontos de controle de acordo com a largura desejada da curva
+*/
 void Bezier::updateSpeedWaySize()
 {
     float reserved = INDEX_POLY * speedWayWidth;

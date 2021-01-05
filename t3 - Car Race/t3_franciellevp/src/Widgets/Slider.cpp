@@ -5,8 +5,8 @@
 #include <iostream>
 
 #define RAD 8
-#define MIN_SPEEDWAY 30
-#define MAX_SPEEDWAY 80
+#define MIN_SPEEDWAY 40
+#define MAX_SPEEDWAY 100
 
 using namespace std;
 

@@ -18,7 +18,8 @@ public:
     {
         WARNING,
         ERRO,
-        INFO
+        INFO,
+        SUCCESS
     };
 
     enum // teclas utilizadas

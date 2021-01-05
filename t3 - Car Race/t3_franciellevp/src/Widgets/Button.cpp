@@ -55,9 +55,14 @@ void Button::render()
 void Button::renderWidgets()
 {
     bts[0]->render();
-    for(vector<Button>::size_type i = 1; i != bts.size(); i++)
-        if (!(*bezierController)->raceOn)
-            bts[i]->render();
+    for(vector<Button>::size_type i = 1; i != bts.size(); i++) {
+        if (!(*bezierController)->raceOn) {
+            if (i != 4)
+                bts[i]->render();
+        }
+        if (i == 4 && (*carController)->finish)
+            bts[4]->render();
+    }
 }
 
 /* Verifica a colisao com cada botao criado, realizando as operacoes necessarias quando colide
@@ -81,6 +86,8 @@ void Button::checkState(int button, int state, int x, int y)
             else if(bts[3]->checkCollision(x, y))
                 (*bezierController)->rotateCurve(-20 * PI / 180);
         }
+        if((*carController)->finish && bts[4]->checkCollision(x, y))
+            (*carController)->initRace();
     }
 }
 
@@ -94,6 +101,7 @@ void Button::create()
     bts.push_back(new Button(100, 0, 180, 30, bg, "Finalizar edicao", labelColor));
     bts.push_back(new Button(1030, 300, 160, 30, bg, "Horario", labelColor));
     bts.push_back(new Button(1030, 340, 160, 30, bg, "Antihorario", labelColor));
+    bts.push_back(new Button(100, 0, 160, 30, bg, "Reiniciar", labelColor));
 }
 
 void Button::keyboardCheck(int key) {}
