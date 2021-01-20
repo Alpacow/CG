@@ -80,7 +80,7 @@ void Alert::renderWidgets()
 void Alert::checkState(int button, int state, int x, int y)
 {
     if(state == 0) {
-        for(vector<Alert>::size_type i = 0; i != alerts.size(); i++){
+        for(vector<Alert>::size_type i = 0; i != alerts.size(); i++) {
             if(alerts[i]->checkCollision(x, y)) {
                 // se um aviso do tipo "ERRO" eh liberado, toda a aplicacao eh fechada
                 if (alerts[i]->type ==  Utils::ERRO) exit(-1);

@@ -9,6 +9,7 @@
 #include "../Widgets/Alert.h"
 #include "../Widgets/Input.h"
 #include "../Utils/Fps.h"
+#include "../Gear/Gear.h"
 #include <vector>
 
 using namespace std;
@@ -21,6 +22,7 @@ private:
     int mx, my;                //variaveis do mouse para poder exibir dentro da render().
     float fps;
     Frames* frames;
+    Gear* gear;
 
 public:
     Alert* alerts;

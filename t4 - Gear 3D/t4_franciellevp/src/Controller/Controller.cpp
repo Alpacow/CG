@@ -19,6 +19,7 @@ Controller::Controller()
     screenWidth = 1200;
     screenHeight = 620;
     fps = 100.0;
+    gear = new Gear(100, 0, 8, 3, Utils::RGBtoFloat(25,25,112));
     frames  = new Frames();
     alerts = new Alert();
     wds.push_back(alerts);
@@ -43,6 +44,8 @@ void Controller::Render()
     char* text = (char*)malloc(sizeof(char) * 30);
     sprintf(text, "FPS: %.0f", fps);
     CV::text(10, screenHeight - 10, text);
+
+    gear->render();
 }
 
 /* Controla as teclas apertadas durante a execucao
