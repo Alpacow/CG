@@ -75,11 +75,21 @@ void Gear::drawGear2D()
     for(vector<Vector3>::size_type i = 0; i != points2D.size(); i++) {
         CV::point(points2D[i].x, points2D[i].y);
     }
-
     for(unsigned int i = 0; i < lines2D.size() - 1; i += 2) {
         CV::line(lines2D[i].x, lines2D[i].y, lines2D[i + 1].x, lines2D[i + 1].y);
     }
-    //CV::circle(origin.x, origin.y, radius - radius / 1.5, 50); // TODO: COMO DEIXA ISSAQ 3D TB
+
+    vector<Vector3>::const_iterator first = lines2D.begin();
+    vector<Vector3>::const_iterator last = lines2D.begin() + lines2D.size() / 2;
+    vector<Vector3> frontPoints(first, last);
+    first = lines2D.begin() + lines2D.size() / 2;
+    last = lines2D.begin() + lines2D.size();
+    vector<Vector3> backPoints(first, last);
+    for(unsigned int i = 0; i < frontPoints.size() - 1; i++) {
+      CV::line(frontPoints[i].x, frontPoints[i].y, backPoints[i].x, backPoints[i].y);
+    }
+    //CV::circle(origin.x * DIST / (z - width / 2.0), origin.y * DIST / (z - width / 2.0), radius - radius / 1.5, 50); // frente
+    //CV::circle(origin.x * DIST / (z + width / 2.0), origin.y * DIST / (z + width / 2.0), radius - radius / 1.5, 50); // tras
 }
 
 void Gear::initDraw2D(float iniPoint, float increment, float translationX, float translationY, float rad, int frontBack)
