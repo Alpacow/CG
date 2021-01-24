@@ -47,6 +47,12 @@ public:
         return( aux );
     }
 
+    inline Vector3 operator += ( const Vector3 v )
+    {
+        Vector3 aux( x + v.x, y + v.y, z + v.z );
+        return( aux );
+    }
+
     inline Vector3 operator - ( const Vector3 v )
     {
         Vector3 aux( x - v.x, y - v.y, z - v.z );

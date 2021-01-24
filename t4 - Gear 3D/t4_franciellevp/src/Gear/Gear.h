@@ -16,20 +16,19 @@ class Gear
 {
 private:
     vector<float> rgb;           // controla cores passadas em RGB
-    float x;
-    float y;
-    float z;
     vector<Vector3> points;
     vector<Vector3> points2D;
     vector<Vector3> lines;
     vector<Vector3> lines2D;
     vector<float> color;
     Vector3 origin;
+    Vector3 translation;
 
     void drawGear2D();
-    void initDraw2D(float iniPoint, float increment, float translationX, float translationY, float rad, int frontBack);
+    void initDraw2D(float iniPoint, float increment, float rad, int frontBack);
     void draw2D();
-    Vector3 calcToothPosition(float ang, float radius, float z, float tx, float ty);
+    void rotate3D(int axis);
+    Vector3 calcToothPosition(float ang, float radius, float z);
 
 public:
     Alert* alerts;

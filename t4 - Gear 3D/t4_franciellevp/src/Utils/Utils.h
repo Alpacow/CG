@@ -7,6 +7,7 @@
 #define ___UTILS__H___
 
 #include "Vector2.h"
+#include "Vector3.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -20,6 +21,12 @@ public:
         ERRO,
         INFO,
         SUCCESS
+    };
+
+    enum {
+        X,
+        Y,
+        Z
     };
 
     enum // teclas utilizadas
@@ -43,9 +50,11 @@ public:
     static string getCurrentPath();
     static bool checkCircleCollision(int mx, int my, Vector2 p, int r);
     static bool checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRight);
-    static Vector2 rotatePoint(Vector2 p, Vector2 mid, float rad);
+    //static Vector2 rotatePoint(Vector2 p, Vector2 mid, float rad);
     static Vector2 intersecLines2d(Vector2 pLine1, Vector2 p2Line1, Vector2 pLine2, Vector2 p2Line2);
     static float distanceBetweenPoints(Vector2 p1, Vector2 p2);
+    static Vector3 rotatePoint(Vector3 p,float rad, int axis);
+    static Vector3 translate(Vector3 p, Vector3 o);
 };
 
 typedef struct // estrutura que guarda a cor de um pyxel

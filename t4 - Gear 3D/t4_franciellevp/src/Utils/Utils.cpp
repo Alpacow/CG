@@ -62,7 +62,8 @@ vector<int> Utils::FloatToRGB (float r, float g, float b)
 /* Pega o caminho fisico em que os arquivos se encontram
    @return path: retorna todo o endereco fisico em uma string
 */
-string Utils::getCurrentPath() {
+string Utils::getCurrentPath()
+{
     char buf[100];
     getcwd(buf, sizeof(buf));
     string path = buf;
@@ -73,16 +74,17 @@ string Utils::getCurrentPath() {
    @param filename: nome da imagem bmp
    @return path: endereco fisico que a imagem se encontra
 */
-string Utils::getImagePath (const char* filename) {
+string Utils::getImagePath (const char* filename)
+{
     string path = getCurrentPath();
     const char* aux;
-    #ifdef WIN32
-        aux = "\\t3_franciellevp\\resources\\";
-        path += aux;
-    #else
-        aux = "/t3_franciellevp/resources/";
-        path += aux;
-    #endif
+#ifdef WIN32
+    aux = "\\t3_franciellevp\\resources\\";
+    path += aux;
+#else
+    aux = "/t3_franciellevp/resources/";
+    path += aux;
+#endif
     path += filename;
     return path;
 }
@@ -117,12 +119,53 @@ bool Utils::checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRi
     @param rad: valor em radianos da rotação
     @return novo vetor de pontos rotacionais
 */
-Vector2 Utils::rotatePoint(Vector2 p, Vector2 mid, float rad) {
-    float a = p.x - mid.x;
-    float b = p.y - mid.y;
-    float xx = +a * cos(rad) - b * sin(rad) + mid.x;
-    float yy = +a * sin(rad) + b * cos(rad) + mid.y;
-    return Vector2{xx, yy};
+Vector3 Utils::rotatePoint(Vector3 p, float rad, int axis)
+{
+    float newX, newY, newZ;
+    double mz[3][3] = {cos(rad),-sin(rad),0,
+                       sin(rad), cos(rad), 0,
+                       0, 0, 1};
+    double mx[3][3] = {1, 0, 0,
+                       0, cos(rad),-sin(rad),
+                       0, sin(rad), cos(rad)};
+    double my[3][3] = {cos(rad), 0, sin(rad),
+                       0, 1, 0,
+                       -sin(rad), 0, cos(rad)};
+    if (axis == Utils::Z) { //Rotação em Z
+        newX = p.x * mz[0][0] + p.y * mz[0][1] + p.z * mz[0][2];
+        newY = p.x * mz[1][0] + p.y * mz[1][1] + p.z * mz[1][2];
+        newZ = p.x * mz[2][0] + p.y * mz[2][1] + p.z * mz[2][2];
+    } else if (axis == Utils::X) { //Rotação em X
+        newX = p.x * mx[0][0] + p.y * mx[0][1] + p.z * mx[0][2];
+        newY = p.x * mx[1][0] + p.y * mx[1][1] + p.z * mx[1][2];
+        newZ = p.x * mx[2][0] + p.y * mx[2][1] + p.z * mx[2][2];
+    } else if (axis == Utils::Y) { //Rotação em X
+        newX = p.x * my[0][0] + p.y * my[0][1] + p.z * my[0][2];
+        newY = p.x * my[1][0] + p.y * my[1][1] + p.z * my[1][2];
+        newZ = p.x * my[2][0] + p.y * my[2][1] + p.z * my[2][2];
+    }
+    p.x = newX;
+    p.y = newY;
+    p.z = newZ;
+    return Vector3{newX, newY, newZ};
+}
+
+Vector3 Utils::translate(Vector3 p, Vector3 o)
+{
+    float new_x, new_y, new_z;
+    // em Z
+    double matriz[3][3] = {1,0, o.x,
+                           0, 1, o.y,
+                           0,0,o.z
+                          };
+    new_x = p.x*matriz[0][0] + p.y*matriz[0][1] + p.z*matriz[0][2];
+    new_y = p.x*matriz[1][0] + p.y*matriz[1][1] + p.z*matriz[1][2];
+    new_z = p.x*matriz[2][0] + p.y*matriz[2][1] + p.z*matriz[2][2];
+    p.x = new_x;
+    p.y = new_y;
+    p.z = new_z;
+
+    return Vector3{new_x, new_y, new_z};
 }
 
 /* Verifica a intersecção entre duas linhas
