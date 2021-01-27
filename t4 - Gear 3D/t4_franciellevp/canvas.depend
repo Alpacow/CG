@@ -462,11 +462,11 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1609283648 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\canvas\gl_canvas2d.cpp
+1611762605 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\canvas\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1609041587 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\canvas\gl_canvas2d.h
+1611762640 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\canvas\gl_canvas2d.h
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -475,6 +475,7 @@
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	"../Utils/Vector2.h"
+	"../Utils/Vector3.h"
 
 1426372440 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\include\gl\glut.h
 	"freeglut_std.h"
@@ -497,7 +498,7 @@
 	<math.h>
 	<iostream>
 
-1609773745 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\main.cpp
+1611551349 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	"Controller/Controller.h"
@@ -519,7 +520,7 @@
 	"../Utils/Utils.h"
 	<vector>
 
-1611527162 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\utils.h
+1611551260 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\utils.h
 	"Vector2.h"
 	"Vector3.h"
 	<vector>
@@ -540,7 +541,7 @@
 	<iostream>
 	<math.h>
 
-1611029738 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\controller\controller.cpp
+1611760997 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\controller\controller.cpp
 	"Controller.h"
 	"../Widgets/Slider.h"
 	"../Widgets/Button.h"
@@ -589,7 +590,7 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1611526919 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.h
+1611761722 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.h
 	"../Widgets/Alert.h"
 	"../Utils/Vector3.h"
 	<vector>
@@ -597,7 +598,7 @@
 1611525317 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\vector3.h
 	<math.h>
 
-1611530596 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.cpp
+1611762576 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.cpp
 	"Gear.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"

@@ -19,7 +19,7 @@ Controller::Controller()
     screenWidth = 1200;
     screenHeight = 620;
     fps = 100.0;
-    gear = new Gear(100, 0, 8, 3, Utils::RGBtoFloat(25,25,112));
+    gear = new Gear(100, 8, 3, Utils::RGBtoFloat(25,25,112), 500, 310, 300);
     frames  = new Frames();
     alerts = new Alert();
     wds.push_back(alerts);
@@ -59,6 +59,24 @@ void Controller::Keyboard(int key)
     switch(key) {
         case Utils::Esc:
             exit(0);
+            break;
+        case Utils::UpArrow:
+            gear->MoveY(-10);
+            break;
+        case Utils::DownArrow:
+            gear->MoveY(10);
+            break;
+        case Utils::LeftArrow:
+            gear->MoveX(-10);
+            break;
+        case Utils::RightArrow:
+            gear->MoveX(10);
+            break;
+        case Utils::KeyS:
+            gear->MoveZ(10);
+            break;
+        case Utils::KeyD:
+            gear->MoveZ(-10);
             break;
     }
 }

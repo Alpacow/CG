@@ -36,12 +36,15 @@ public:
         KeyT = 116,
         KeyMinus = 45,
         KeyPlus = 61,
-        KeyA = 97,
-        KeyF = 102,
+        KeyS = 115,
+        KeyD = 100,
         LeftArrow = 200,
         UpArrow = 201,
         RightArrow = 202,
         DownArrow = 203,
+        KeyZ = 122,
+        KeyX = 120,
+        KeyY = 121
     };
 
     static vector<float> RGBtoFloat(int r, int g, int b);

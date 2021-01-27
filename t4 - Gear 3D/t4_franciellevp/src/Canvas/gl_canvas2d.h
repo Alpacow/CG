@@ -11,6 +11,7 @@
 #include <GL/freeglut_ext.h> //callback da wheel do mouse.
 
 #include "../Utils/Vector2.h"
+#include "../Utils/Vector3.h"
 
 #define PI_2 6.28318530717
 #define PI   3.14159265359
@@ -25,7 +26,7 @@ public:
     static void point(Vector2 pos); //coordeandas do ponto
 
     static void line( float x1, float y1, float x2, float y2 ); //coordenadas da linha x1, y1, x2, y2
-    static void line( Vector2 p1, Vector2 p2 ); //coordenadas da linha (p1, p2)
+    static void line( Vector3 p1, Vector3 p2 ); //coordenadas da linha (p1, p2)
 
     //desenha um retangulo alinhado nos eixos x e y
     static void rect( float x1, float y1, float x2, float y2 ); //coordenadas do retangulo x1, y1, x2, y2

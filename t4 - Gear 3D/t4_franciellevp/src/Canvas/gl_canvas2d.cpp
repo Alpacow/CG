@@ -69,7 +69,7 @@ void CV::line( float x1, float y1, float x2, float y2 )
     glEnd();
 }
 
-void CV::line(Vector2 p1, Vector2 p2)
+void CV::line(Vector3 p1, Vector3 p2)
 {
     glBegin(GL_LINES);
     glVertex2d(p1.x, p1.y);
