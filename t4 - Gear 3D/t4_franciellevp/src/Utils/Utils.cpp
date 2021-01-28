@@ -122,8 +122,7 @@ bool Utils::checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRi
 Vector3 Utils::rotatePoint(Vector3 p, float rad, int axis)
 {
     float newX, newY, newZ;
-    double mz[3][3] = {
-        cos(rad),-sin(rad),0,
+    double mz[3][3] = {cos(rad),-sin(rad),0,
                        sin(rad), cos(rad), 0,
                        0, 0, 1};
     double mx[3][3] = {1, 0, 0,
@@ -145,27 +144,20 @@ Vector3 Utils::rotatePoint(Vector3 p, float rad, int axis)
         newY = p.x * my[1][0] + p.y * my[1][1] + p.z * my[1][2];
         newZ = p.x * my[2][0] + p.y * my[2][1] + p.z * my[2][2];
     }
-    p.x = newX;
-    p.y = newY;
-    p.z = newZ;
     return Vector3{newX, newY, newZ};
 }
 
 Vector3 Utils::translate(Vector3 p, Vector3 o)
 {
-    float new_x, new_y, new_z;
-    // em Z
-    double matriz[3][3] = {1,0, o.x,
-                           0, 1, o.y,
-                           0,0, o.z
+    float newX, newY, newZ;
+    double m[3][3] = {1,0, o.x,
+                      0, 1, o.y,
+                      0,0, o.z
                           };
-    new_x = p.x * matriz[0][0] + p.y * matriz[0][1] + p.z * matriz[0][2];
-    new_y = p.x * matriz[1][0] + p.y * matriz[1][1] + p.z * matriz[1][2];
-    new_z = p.x * matriz[2][0] + p.y * matriz[2][1] + p.z * matriz[2][2];
-    p.x = new_x;
-    p.y = new_y;
-    p.z = new_z;
-    return Vector3{new_x, new_y, new_z};
+    newX = p.x * m[0][0] + p.y * m[0][1] + p.z * m[0][2];
+    newY = p.x * m[1][0] + p.y * m[1][1] + p.z * m[1][2];
+    newZ = p.x * m[2][0] + p.y * m[2][1] + p.z * m[2][2];
+    return Vector3{newX, newY, newZ};
 }
 
 /* Verifica a intersecção entre duas linhas
@@ -197,4 +189,10 @@ Vector2 Utils::intersecLines2d(Vector2 pLine1, Vector2 p2Line1, Vector2 pLine2, 
 float Utils::distanceBetweenPoints(Vector2 p1, Vector2 p2)
 {
     return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
+}
+
+
+void Utils::clearVector (vector<Vector3>& v) {
+    v.erase(v.begin(), v.end());
+    v.shrink_to_fit();
 }

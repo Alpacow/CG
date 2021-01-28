@@ -19,13 +19,13 @@ Controller::Controller()
     screenWidth = 1200;
     screenHeight = 620;
     fps = 100.0;
-    gear = new Gear(100, 8, 3, Utils::RGBtoFloat(25,25,112), 500, 310, 300);
+    gear = new Gear(100, 10, 4, Utils::RGBtoFloat(25,25,112), 500, 310, 0);
     frames  = new Frames();
     alerts = new Alert();
     wds.push_back(alerts);
     wds.push_back(new Button());
     //wds.push_back(new Input());
-    wds.push_back(new Slider());
+    wds.push_back(new Slider(&gear));
 }
 
 Controller::~Controller() {}

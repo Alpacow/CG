@@ -22,31 +22,26 @@ private:
     vector<Vector3> lines2D;
     vector<float> color;
     Vector3 origin;
+    Vector3 translation;
+    float angTeeth;
+    float radiusOut;
 
     void drawGear2D();
     void initDraw2D(int* i, int* j, bool frontBack);
-    void draw2D();
     void rotate3D(int axis, float rad);
+    void initGear();
     Vector3 calcToothPosition(float ang, float radius, float z);
+    void updateArraysSize();
 
 public:
     Alert* alerts;
     float radius;
-    float radiusOffset;
-    float radiusOut;
-    float radiusOutOffset;
-    float angTeeth;
-    float ang;
     float width;
     int nTeeth;
     int nFaces;
     float velRotation;
     float velTranslation;
     int screenDist;
-    float x;
-    float y;
-    float z;
-    int inOutTurn;
 
     Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, float y, float z);
     Gear();
@@ -55,6 +50,8 @@ public:
     void MoveX(float dist);
     void MoveY(float dist);
     void MoveZ(float dist);
+    void setWidth(float value);
+    void setNroTeeth(int value);
 };
 
 #endif

@@ -11,4 +11,12 @@ cima: move para cima (eixo X)
 baixo: move para baixo
 
 Funções
-- parametrizações:
+Parametrizações:
+- Número de dentes
+- Espessura da engrenagem
+- Velocidade de translação
+- Velocidade de rotação
+- Distância da câmera
+
+- Rotação em sentido horário ou antihorário
+- Controle de FPS

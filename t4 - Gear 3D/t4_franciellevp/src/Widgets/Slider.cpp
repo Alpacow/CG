@@ -10,18 +10,18 @@
 #include <iostream>
 
 #define RAD 8
-#define MIN_SPEEDWAY 40
-#define MAX_SPEEDWAY 100
 
 using namespace std;
 
 /* Inicia todos os atributos necessarios
    @param bc: instancia da classe Bezier para controlar atributos da pista com sliders
 */
-Slider::Slider () : Widget()
+Slider::Slider (Gear** gear) : Widget()
 {
     this->canDrag = false;
+    this->gearController = gear;
     create();
+    sliders[0]->currentValue = (*gearController)->width;
 }
 
 Slider::~Slider() {}
@@ -65,6 +65,7 @@ void Slider::render()
     CV::color(bgColor[0], bgColor[1], bgColor[2]);
     CV::circleFill(circle.x, circle.y, RAD, 100);
     CV::text(p.x - RAD, p.y - 15, label.c_str());
+    //CV::text(p.x - RAD, p.y - 15, currentValue.c_str()); mostrar o valor atual do slider
 }
 
 /* Percorre um array contendo todos os slider para desenha-los na tela
@@ -99,6 +100,16 @@ void Slider::checkState(int button, int state, int x, int y)
                     float percentPx = (s->circle.x - s->p.x) * 100 / s->width;
                     float valueSlided = percentPx * (s->maxRange - s->minRange) / 100;
                     s->currentValue = s->minRange + valueSlided;
+                    if (i == 0)
+                        (*gearController)->setWidth(s->currentValue);
+                    else if (i == 1)
+                        (*gearController)->setNroTeeth(s->currentValue);
+                    else if (i == 2)
+                        (*gearController)->screenDist = s->currentValue;
+                    else if (i == 3)
+                        (*gearController)->velTranslation = s->currentValue;
+                    else if (i == 4)
+                        (*gearController)->velRotation = s->currentValue;
                 }
             }
         }
@@ -108,7 +119,11 @@ void Slider::checkState(int button, int state, int x, int y)
 void Slider::create()
 {
     vector<float> bg = Utils::RGBtoFloat(28,28,28);
-    sliders.push_back(new Slider(1030, 400, 120, 2, bg, "Largura da pista", MIN_SPEEDWAY, MAX_SPEEDWAY));
+    sliders.push_back(new Slider(1030, 100, 120, 2, bg, "Espessura:", 1, 50));
+    sliders.push_back(new Slider(1030, 150, 120, 2, bg, "Nro de dentes:", 3, 10));
+    sliders.push_back(new Slider(1030, 200, 120, 2, bg, "Distancia camera:", 100, 2000));
+    sliders.push_back(new Slider(1030, 250, 120, 2, bg, "Velocidade translacao:", 0, 4));
+    sliders.push_back(new Slider(1030, 300, 120, 2, bg, "Velocidade rotacao:", 1, 10));
 }
 
 /* Cria todos os inputs da aplicacao

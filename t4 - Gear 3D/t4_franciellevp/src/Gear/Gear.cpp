@@ -7,10 +7,11 @@
 #include "../Canvas/gl_canvas2d.h"
 #include "../Utils/Utils.h"
 
-#define IDX_POINTS 6681
-//13362
-#define IDX_LINES 32
-//68
+#define IDX_POINTS 6290
+//8384
+#define IDX_LINES 40
+
+#define MAX_X 1000
 
 using namespace std;
 
@@ -36,46 +37,31 @@ Gear::Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, floa
     this->nTeeth = nTeeth;
     this->nFaces = nFaces;
     this->color = color;
-    this->width = 20;
+    this->width = 10;
     this->screenDist = 300;
-    this->origin = Vector3{x, y, z};
-    this->inOutTurn = false;
+    this->velRotation = 1;
+    this->velTranslation = 1;
+    this->origin = Vector3{0, 0, 300};
+    this->translation = Vector3{x, y, z};
     this->angTeeth = PI_2 / (float)nTeeth;
-    this->radiusOffset = angTeeth * radius * 0.005; // inner taper offset (100% = half notch)
-    this->radiusOutOffset = angTeeth * radiusOut * 0.005; // inner taper offset (100% = half notch)
 
-    lines.reserve(IDX_LINES);
-    lines2D.reserve(IDX_LINES);
-    this->ang = angTeeth;
-    for (unsigned int i = 0; i < IDX_LINES; i++) {
-        lines.push_back(Vector3{0, 0, origin.z});
-        lines2D.push_back(Vector3{0, 0, origin.z});
-    }
-    points.reserve(IDX_POINTS);
-    points2D.reserve(IDX_POINTS);
-    for (unsigned int i = 0; i < IDX_POINTS; i++) {
-        points.push_back(Vector3{0, 0, origin.z});
-        points2D.push_back(Vector3{0, 0, origin.z});
-    }
-
-    int i = 0, j = 0;
-    //initDraw2D(&i, &j, 1); // parte da frente da engrenagem
-    initDraw2D(&i, &j, 0); // parte da frente da engrenagem
+    updateArraysSize();
+    initGear();
 }
 
 /* Renderiza/desenha o botao na tela
 */
 void Gear::render()
 {
+    rotate3D(Utils::Z, velRotation * PI / 180);
     drawGear2D();
-    rotate3D(Utils::X, 1 * PI / 180);
 }
 
 Vector3 Gear::calcToothPosition(float ang, float radius, float z)
 {
     Vector3 coord;
-    coord.x = radius * cos(ang);
-    coord.y = radius * sin(ang);
+    coord.x = origin.x + radius * cos(ang);
+    coord.y = origin.y + radius * sin(ang);
     coord.z = z;
     return coord;
 }
@@ -90,39 +76,51 @@ void Gear::drawGear2D()
 
     // translada para o ponto desejado (origem do desenho)
     for (vector<Vector3>::size_type i = 0; i != points2D.size(); i++)
-        points2D.at(i) += origin;
+        points2D.at(i) += translation;
     for (vector<Vector3>::size_type i = 0; i != lines2D.size(); i++)
-        lines2D.at(i) += origin;
+        lines2D.at(i) += translation;
 
+    // desenha
     CV::color(color[0], color[1], color[2]);
     for (vector<Vector3>::size_type i = 0; i != points2D.size(); i++) {
+        if (i < points2D.size() / 2.0) CV::color (1,0,0);
+        else CV::color (0,1,0);
         CV::point(points2D[i].x, points2D[i].y);
     }
     for (unsigned int i = 0; i < lines2D.size() - 1; i += 2) {
-        CV::color(color[0], color[1], color[2]);
+        if (i < lines2D.size() / 2.0) CV::color (1,0,0);
+        else CV::color (0,1,0);
         CV::line(lines2D[i], lines2D[i + 1]);
     }
-    for (unsigned int i = 2; i < lines2D.size() - 2; i += 4) {
+
+    // linhas que ligam os dentes da parte de fora
+    for (unsigned int i = 2; i < lines2D.size() / 2.0 - 2; i += 4) {
+        if (i < points2D.size() / 2.0 - 2) CV::color (1,0,0);
+        else CV::color (0,1,0);
         CV::line(lines2D[i], lines2D[i + 3]);
     }
-    CV::line(lines2D[30], lines2D[1]);
-
-    vector<Vector3>::const_iterator first = lines2D.begin();
-    vector<Vector3>::const_iterator last = lines2D.begin() + lines2D.size() / 2;
-    vector<Vector3> frontPoints(first, last);
-    first = lines2D.begin() + lines2D.size() / 2;
-    last = lines2D.begin() + lines2D.size();
-    vector<Vector3> backPoints(first, last);
-    for (unsigned int i = 0; i < frontPoints.size(); i++) {
-        //CV::line(frontPoints[i].x + origin.x, frontPoints[i].y + origin.y, backPoints[i].x + origin.x, backPoints[i].y + origin.y);
+    for (unsigned int i = lines2D.size() / 2.0 + 2; i < lines2D.size() - 2; i += 4) {
+        if (i < lines2D.size() / 2.0) CV::color (1,0,0);
+        else CV::color (0,1,0);
+        CV::line(lines2D[i], lines2D[i + 3]);
     }
-    //CV::circle(origin.x * DIST / (origin.z - width / 2.0), origin.y  * DIST / (origin.z - width / 2.0), radius - radius / 1.5, 50); // frente
-    //CV::circle(origin.x * DIST / (origin.z + width / 2.0), origin.y * DIST / (origin.z + width / 2.0), radius - radius / 1.5, 50); // tras
+
+    // liga o primeiro com ultimo ponto da parte de frente e de tras da engrenagem
+    CV::color (1,0,0);
+    CV::line(lines2D[lines2D.size() / 2.0 - 2], lines2D[1]);
+    CV::color(0,1,0);
+    CV::line(lines2D[lines2D.size() - 2], lines2D[lines2D.size() / 2.0 + 1]);
+
+    // linhas que ligam a parte de frente com parte de tras
+    for (unsigned int i = 0; i < lines2D.size() / 2.0; i++)
+        CV::line(lines2D[i], lines2D[i + lines2D.size() / 2.0]);
 }
 
 void Gear::initDraw2D(int* i, int* j, bool frontBack)
 {
+    angTeeth = PI_2 / (float)nTeeth;
     float p, w = width / 2.0;
+    int countp = 0, countl = 0;
     bool inOut = true;
     for (float t = 0; t <= PI_2; t += (angTeeth / 2.0)) {
         Vector3 p1, p2, p3;
@@ -136,6 +134,7 @@ void Gear::initDraw2D(int* i, int* j, bool frontBack)
                 else
                     points[*j] = Vector3{p3.x, p3.y, p3.z + w};
                 *j += 1;
+                countp++;
             }
         } else {
             p1 = calcToothPosition(t, radiusOut, origin.z);
@@ -148,6 +147,7 @@ void Gear::initDraw2D(int* i, int* j, bool frontBack)
             lines[*i] = Vector3{p1.x, p1.y, p1.z + w};
             lines[*i + 1] = Vector3{p2.x, p2.y, p2.z + w};
         }
+        countl += 2;
         *i += 2;
         inOut = !inOut;
     }
@@ -156,34 +156,93 @@ void Gear::initDraw2D(int* i, int* j, bool frontBack)
 void Gear::rotate3D(int axis, float rad)
 {
     for(vector<Vector3>::size_type i = 0; i != points.size(); i++) {
-        Utils::translate(points[i], rad)
+        //points[i] = Utils::translate(points[i], Vector3{-origin.x, -origin.y, -1});
         points[i] = Utils::rotatePoint(points[i], rad, axis);
+        //points[i] = Utils::translate(points[i], Vector3{origin.x, origin.y, 1});
     }
-    for(unsigned int i = 0; i < lines.size(); i++)
+    for(unsigned int i = 0; i < lines.size(); i++) {
+        //lines[i] = Utils::translate(lines[i], Vector3{-origin.x, -origin.y, -1});
         lines[i] = Utils::rotatePoint(lines[i], rad, axis);
+        //lines[i] = Utils::translate(lines[i], Vector3{origin.x, origin.y, 1});
+    }
 }
 
 void Gear::MoveZ (float dist)
 {
-    //origin.z += dist;
     for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
-        points[i].z += dist;
+        points[i].z += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
-        lines[i].z += dist;
+        lines[i].z += (velTranslation * dist);
 }
 
 void Gear::MoveY (float dist)
 {
     for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
-        points[i].y += dist;
+        points[i].y += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
-        lines[i].y += dist;
+        lines[i].y += (velTranslation * dist);
 }
 
 void Gear::MoveX (float dist)
 {
     for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
-        points[i].x += dist;
+        //if (points2D[i].x >= 0 && points2D[i].x < MAX_X)
+        points[i].x += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
-        lines[i].x += dist;
+        lines[i].x += (velTranslation * dist);
+}
+
+void Gear::initGear ()
+{
+    int i = 0, j = 0;
+    initDraw2D(&i, &j, 1); // parte da frente da engrenagem
+    initDraw2D(&i, &j, 0); // parte da tras da engrenagem
+}
+
+void Gear::updateArraysSize()
+{
+    int sizeLines = 0, sizePoints = 0;
+    float angle = PI_2 / (float)nTeeth;
+    float p;
+    int countp = 0, countl = 0;
+    bool inOut = true;
+    for (float t = 0; t <= PI_2; t += (angle / 2.0)) {
+        if (inOut)
+            for (p = t; p < (t + angle / 2.0); p += 0.001)
+                countp++;
+        countl += 2;
+        inOut = !inOut;
+    }
+    sizeLines = countl * 2;
+    sizePoints = countp * 2;
+
+    Utils::clearVector(lines);
+    Utils::clearVector(lines2D);
+    lines.reserve(sizeLines);
+    lines2D.reserve(sizeLines);
+    for (int i = 0; i < sizeLines; i++) {
+        lines.push_back(Vector3{0, 0, 0});
+        lines2D.push_back(Vector3{0, 0, 0});
+    }
+    Utils::clearVector(points);
+    Utils::clearVector(points2D);
+    points.reserve(sizePoints);
+    points2D.reserve(sizePoints);
+    for (int i = 0; i < sizePoints; i++) {
+        points.push_back(Vector3{0, 0, 0});
+        points2D.push_back(Vector3{0, 0, 0});
+    }
+}
+
+void Gear::setWidth (float value)
+{
+    this->width = value;
+    initGear();
+}
+
+void Gear::setNroTeeth (int value)
+{
+    this->nTeeth = value;
+    updateArraysSize();
+    initGear();
 }

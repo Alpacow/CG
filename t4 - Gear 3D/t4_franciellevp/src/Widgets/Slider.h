@@ -2,6 +2,7 @@
 #define __SLIDER_H__
 
 #include "Widget.h"
+#include "../Gear/Gear.h"
 #include <string>
 
 using namespace std;
@@ -13,13 +14,14 @@ private:
     bool canDrag;
     float currentValue;
     string label;
+    Gear** gearController;
 
 public:
     vector<Slider*> sliders;
     int minRange;
     int maxRange;
 
-    Slider();
+    Slider(Gear** gear);
     ~Slider();
     Slider(int x, int y, float w, float h, vector<float> bg, const string label, int minRange, int maxRange);
     void render() override;

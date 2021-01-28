@@ -58,6 +58,7 @@ public:
     static float distanceBetweenPoints(Vector2 p1, Vector2 p2);
     static Vector3 rotatePoint(Vector3 p,float rad, int axis);
     static Vector3 translate(Vector3 p, Vector3 o);
+    static void clearVector (vector<Vector3>& v);
 };
 
 typedef struct // estrutura que guarda a cor de um pyxel

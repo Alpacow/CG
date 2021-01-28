@@ -520,7 +520,7 @@
 	"../Utils/Utils.h"
 	<vector>
 
-1611551260 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\utils.h
+1611849474 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\utils.h
 	"Vector2.h"
 	"Vector3.h"
 	<vector>
@@ -534,14 +534,14 @@
 	<stdio.h>
 	<time.h>
 
-1611787465 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\utils.cpp
+1611791927 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\utils.cpp
 	"../Canvas/gl_canvas2d.h"
 	"Utils.h"
 	<unistd.h>
 	<iostream>
 	<math.h>
 
-1611760997 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\controller\controller.cpp
+1611848360 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\controller\controller.cpp
 	"Controller.h"
 	"../Widgets/Slider.h"
 	"../Widgets/Button.h"
@@ -549,8 +549,9 @@
 	"../Canvas/gl_canvas2d.h"
 	<iostream>
 
-1610923439 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\slider.h
+1611806503 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\slider.h
 	"Widget.h"
+	"../Gear/Gear.h"
 	<string>
 
 1610923982 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\button.h
@@ -584,13 +585,13 @@
 	"../Utils/Utils.h"
 	<string>
 
-1610924481 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\slider.cpp
+1611848172 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\slider.cpp
 	"Slider.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 	<iostream>
 
-1611761722 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.h
+1611846096 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.h
 	"../Widgets/Alert.h"
 	"../Utils/Vector3.h"
 	<vector>
@@ -598,7 +599,7 @@
 1611785513 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\vector3.h
 	<math.h>
 
-1611787809 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.cpp
+1611849369 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.cpp
 	"Gear.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
