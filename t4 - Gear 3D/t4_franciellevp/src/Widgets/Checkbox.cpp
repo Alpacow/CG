@@ -13,8 +13,9 @@ using namespace std;
 /* Inicia todos os atributos necessarios
    @param img: instancia da classe Bmp para controlar as acoes dos checkbox na imagem
 */
-Checkbox::Checkbox () : Widget()
+Checkbox::Checkbox (Gear** gear) : Widget()
 {
+    this->gearController = gear;
     create();
 }
 
@@ -55,6 +56,8 @@ void Checkbox::render()
         CV::color(c[0], c[1], c[2]);
         CV::circleFill(p.x + width/2, p.y + height/2, width/3, 100);
     }
+
+    CV::text(975, 380, "Rotacoes:");
 }
 
 /* Percorre um array contendo todos os checkboxes para desenha-los na tela
@@ -75,8 +78,22 @@ void Checkbox::checkState(int button, int state, int x, int y)
     for(vector<Checkbox>::size_type i = 0; i != check.size(); i++) {
         if( state == 0 ) {
             if(check[i]->checkCollision(x, y)) {
-                check[i]->isChecked = (check[i]->isChecked) ? FALSE : TRUE;
-                //if (i == 0) (*bezierController)->translationMode = check[0]->isChecked;
+                check[i]->isChecked = (check[i]->isChecked) ? false : true;
+                uncheckOthers(i);
+                if (i == 0) (*gearController)->setRotateZ(check[0]->isChecked);
+                if (i == 1) (*gearController)->setRotateY(check[1]->isChecked);
+                if (i == 2) (*gearController)->setRotateX(check[2]->isChecked);
+
+                if (i == 3) {
+                    (*gearController)->orthographic = check[3]->isChecked;
+                    (*gearController)->orthographicDraw();
+                    uncheckOthers(3);
+                }
+                if (i == 4) {
+                    (*gearController)->perspective = check[4]->isChecked;
+                    (*gearController)->perspectiveDraw();
+                    uncheckOthers(4);
+                }
             }
         }
     }
@@ -87,7 +104,36 @@ void Checkbox::checkState(int button, int state, int x, int y)
 void Checkbox::create()
 {
     vector<float> labelColor = Utils::RGBtoFloat(28,28,28);
-    check.push_back(new Checkbox(1030, 420, 20, 20, FALSE, "Transladar", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(975, 385, 20, 20, false, "Z", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(1035, 385, 20, 20, false, "Y", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(1095, 385, 20, 20, false, "X", labelColor, Utils::RGBtoFloat(255,250,250)));
+
+    check.push_back(new Checkbox(975, 460, 20, 20, true, "Ortografica", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(975, 500, 20, 20, false, "Perspectiva", labelColor, Utils::RGBtoFloat(255,250,250)));
+}
+
+void Checkbox::uncheckOthers (unsigned int checked)
+{
+    if (checked < 3) {
+        for(vector<Checkbox>::size_type i = 0; i < 3; i++) {
+            if (i != checked)
+                if (check[i]->isChecked)
+                    check[i]->isChecked = false;
+        }
+    }
+    else if (checked > 2) {
+        for(vector<Checkbox>::size_type i = 3; i < 5; i++) {
+            if (i != checked)
+                if (check[i]->isChecked)
+                    check[i]->isChecked = false;
+        }
+    }
+    (*gearController)->setRotateZ(check[0]->isChecked);
+    (*gearController)->setRotateY(check[1]->isChecked);
+    (*gearController)->setRotateX(check[2]->isChecked);
+
+    (*gearController)->orthographic = check[3]->isChecked;
+    (*gearController)->perspective = check[4]->isChecked;
 }
 
 void Checkbox::keyboardCheck(int key) {}

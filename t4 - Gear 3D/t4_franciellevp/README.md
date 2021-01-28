@@ -12,11 +12,12 @@ baixo: move para baixo
 
 Funções
 Parametrizações:
+- Raio
 - Número de dentes
 - Espessura da engrenagem
 - Velocidade de translação
 - Velocidade de rotação
-- Distância da câmera
+- Distância focal
 
 - Rotação em sentido horário ou antihorário
 - Controle de FPS

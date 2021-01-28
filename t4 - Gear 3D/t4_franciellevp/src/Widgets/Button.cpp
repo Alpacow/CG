@@ -12,8 +12,9 @@ using namespace std;
 /* Inicia todos os atributos necessarios
    @param img: instancia da classe Bmp para controlar as acoes dos botoes na imagem
 */
-Button::Button () : Widget()
+Button::Button (Gear** gear) : Widget()
 {
+    gearController = gear;
     create();
 }
 
@@ -66,8 +67,8 @@ void Button::renderWidgets()
 void Button::checkState(int button, int state, int x, int y)
 {
     if( state == 0 ) {
-        //if (bts[0]->checkCollision(x, y))
-            //(*bezierController)->showHelp = ((*bezierController)->showHelp) ? false : true;
+        if (bts[0]->checkCollision(x, y))
+            (*gearController)->setRotateZ(!(*gearController)->rotateZ);
     }
 }
 
@@ -77,7 +78,9 @@ void Button::create()
 {
     vector<float> bg = Utils::RGBtoFloat(176,196,222);
     vector<float> labelColor = Utils::RGBtoFloat(28, 28, 28);
-    bts.push_back(new Button(1060, 10, 80, 30, bg, "Ajuda", labelColor));
+    bts.push_back(new Button(975, 380, 100, 30, bg, "Rotacao Z", labelColor));
+    bts.push_back(new Button(975, 420, 100, 30, bg, "Rotacao Y", labelColor));
+    bts.push_back(new Button(975, 460, 100, 30, bg, "Rotacao Z", labelColor));
 }
 
 void Button::keyboardCheck(int key) {}

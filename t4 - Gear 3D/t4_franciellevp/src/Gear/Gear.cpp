@@ -37,15 +37,19 @@ Gear::Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, floa
     this->nTeeth = nTeeth;
     this->nFaces = nFaces;
     this->color = color;
-    this->width = 10;
+    this->width = 2;
+    this->widthP = 2;
     this->screenDist = 300;
     this->velRotation = 1;
     this->velTranslation = 1;
-    this->origin = Vector3{0, 0, 300};
+    this->origin = Vector3{0, 0, 0};
     this->translation = Vector3{x, y, z};
     this->angTeeth = PI_2 / (float)nTeeth;
+    this->rotateX = this->rotateY = this->rotateZ = this->perspective = false;
+    this->orthographic = true;
 
     updateArraysSize();
+    orthographicDraw();
     initGear();
 }
 
@@ -53,8 +57,14 @@ Gear::Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, floa
 */
 void Gear::render()
 {
-    rotate3D(Utils::Z, velRotation * PI / 180);
-    drawGear2D();
+    if (rotateZ)
+        rotate3D(Utils::Z, velRotation * PI / 180);
+    else if (rotateY)
+        rotate3D(Utils::Y, velRotation * PI / 180);
+    else if (rotateX)
+        rotate3D(Utils::X, velRotation * PI / 180);
+    if (orthographic || perspective)
+        drawGear2D();
 }
 
 Vector3 Gear::calcToothPosition(float ang, float radius, float z)
@@ -70,9 +80,9 @@ void Gear::drawGear2D()
 {
     // projecao
     for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
-        points2D.at(i) = Vector3{points[i].x * screenDist / points[i].z, points[i].y * screenDist / points[i].z, 0};
+        points2D.at(i) = Vector3{points[i].x * screenDist / (points[i].z + translation.z), points[i].y * screenDist / (points[i].z  + translation.z), 0};
     for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
-        lines2D.at(i) = Vector3{lines[i].x * screenDist / lines[i].z, lines[i].y * screenDist / lines[i].z, 0};
+        lines2D.at(i) = Vector3{lines[i].x * screenDist / (lines[i].z + translation.z), lines[i].y * screenDist / (lines[i].z + translation.z), 0};
 
     // translada para o ponto desejado (origem do desenho)
     for (vector<Vector3>::size_type i = 0; i != points2D.size(); i++)
@@ -119,6 +129,7 @@ void Gear::drawGear2D()
 void Gear::initDraw2D(int* i, int* j, bool frontBack)
 {
     angTeeth = PI_2 / (float)nTeeth;
+    radiusOut = radius * 1.5;
     float p, w = width / 2.0;
     int countp = 0, countl = 0;
     bool inOut = true;
@@ -155,20 +166,15 @@ void Gear::initDraw2D(int* i, int* j, bool frontBack)
 
 void Gear::rotate3D(int axis, float rad)
 {
-    for(vector<Vector3>::size_type i = 0; i != points.size(); i++) {
-        //points[i] = Utils::translate(points[i], Vector3{-origin.x, -origin.y, -1});
+    for(vector<Vector3>::size_type i = 0; i != points.size(); i++)
         points[i] = Utils::rotatePoint(points[i], rad, axis);
-        //points[i] = Utils::translate(points[i], Vector3{origin.x, origin.y, 1});
-    }
-    for(unsigned int i = 0; i < lines.size(); i++) {
-        //lines[i] = Utils::translate(lines[i], Vector3{-origin.x, -origin.y, -1});
+    for(unsigned int i = 0; i < lines.size(); i++)
         lines[i] = Utils::rotatePoint(lines[i], rad, axis);
-        //lines[i] = Utils::translate(lines[i], Vector3{origin.x, origin.y, 1});
-    }
 }
 
 void Gear::MoveZ (float dist)
 {
+    origin.z += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
         points[i].z += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
@@ -177,6 +183,7 @@ void Gear::MoveZ (float dist)
 
 void Gear::MoveY (float dist)
 {
+    origin.y += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
         points[i].y += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
@@ -185,8 +192,8 @@ void Gear::MoveY (float dist)
 
 void Gear::MoveX (float dist)
 {
+    origin.x += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
-        //if (points2D[i].x >= 0 && points2D[i].x < MAX_X)
         points[i].x += (velTranslation * dist);
     for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
         lines[i].x += (velTranslation * dist);
@@ -236,7 +243,10 @@ void Gear::updateArraysSize()
 
 void Gear::setWidth (float value)
 {
-    this->width = value;
+    if (perspective && !orthographic) {
+        this->widthP = value;
+        this->width = value;
+    }
     initGear();
 }
 
@@ -244,5 +254,43 @@ void Gear::setNroTeeth (int value)
 {
     this->nTeeth = value;
     updateArraysSize();
+    initGear();
+}
+
+void Gear::setRadius (float value)
+{
+    this->radius = value;
+    initGear();
+}
+
+void Gear::setRotateZ (bool value)
+{
+    if (!rotateX && !rotateY)
+        this->rotateZ = value;
+}
+
+void Gear::setRotateY (bool value)
+{
+    if (!rotateX && !rotateZ)
+        this->rotateY = value;
+}
+
+void Gear::setRotateX (bool value)
+{
+    if (!rotateY && !rotateZ)
+        this->rotateX = value;
+}
+
+void Gear::orthographicDraw ()
+{
+    if (orthographic && !perspective)
+        this->width = 0;
+    initGear();
+}
+
+void Gear::perspectiveDraw ()
+{
+    if (!orthographic && perspective)
+        this->width = this->widthP;
     initGear();
 }

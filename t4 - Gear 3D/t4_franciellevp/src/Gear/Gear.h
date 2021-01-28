@@ -25,6 +25,9 @@ private:
     Vector3 translation;
     float angTeeth;
     float radiusOut;
+    float radius;
+    int nTeeth;
+    float width;
 
     void drawGear2D();
     void initDraw2D(int* i, int* j, bool frontBack);
@@ -35,13 +38,17 @@ private:
 
 public:
     Alert* alerts;
-    float radius;
-    float width;
-    int nTeeth;
     int nFaces;
     float velRotation;
     float velTranslation;
     int screenDist;
+    float widthP;
+    bool rotateZ;
+    bool rotateY;
+    bool rotateX;
+
+    bool orthographic;
+    bool perspective;
 
     Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, float y, float z);
     Gear();
@@ -52,6 +59,12 @@ public:
     void MoveZ(float dist);
     void setWidth(float value);
     void setNroTeeth(int value);
+    void setRadius (float value);
+    void setRotateZ (bool value);
+    void setRotateY (bool value);
+    void setRotateX (bool value);
+    void orthographicDraw ();
+    void perspectiveDraw ();
 };
 
 #endif

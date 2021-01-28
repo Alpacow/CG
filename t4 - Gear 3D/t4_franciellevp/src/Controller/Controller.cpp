@@ -19,11 +19,11 @@ Controller::Controller()
     screenWidth = 1200;
     screenHeight = 620;
     fps = 100.0;
-    gear = new Gear(100, 10, 4, Utils::RGBtoFloat(25,25,112), 500, 310, 0);
+    gear = new Gear(10, 3, 3, Utils::RGBtoFloat(25,25,112), 500, 310, 100);
     frames  = new Frames();
     alerts = new Alert();
     wds.push_back(alerts);
-    wds.push_back(new Button());
+    wds.push_back(new Checkbox(&gear));
     //wds.push_back(new Input());
     wds.push_back(new Slider(&gear));
 }
@@ -36,7 +36,7 @@ void Controller::Render()
 {
     rgb = Utils::RGBtoFloat(220,220,220);
     CV::color(rgb[0], rgb[1], rgb[2]);
-    CV::rectFill(screenWidth - 200, 0, screenWidth, screenHeight);
+    CV::rectFill(screenWidth - 250, 0, screenWidth, screenHeight);
 
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
@@ -61,22 +61,22 @@ void Controller::Keyboard(int key)
             exit(0);
             break;
         case Utils::UpArrow:
-            gear->MoveY(-10);
+            gear->MoveY(-2);
             break;
         case Utils::DownArrow:
-            gear->MoveY(10);
+            gear->MoveY(2);
             break;
         case Utils::LeftArrow:
-            gear->MoveX(-10);
+            gear->MoveX(-2);
             break;
         case Utils::RightArrow:
-            gear->MoveX(10);
+            gear->MoveX(2);
             break;
         case Utils::KeyS:
-            gear->MoveZ(10);
+            gear->MoveZ(2);
             break;
         case Utils::KeyD:
-            gear->MoveZ(-10);
+            gear->MoveZ(-2);
             break;
     }
 }

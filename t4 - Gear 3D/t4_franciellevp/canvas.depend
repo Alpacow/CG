@@ -534,14 +534,14 @@
 	<stdio.h>
 	<time.h>
 
-1611791927 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\utils.cpp
+1611849470 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\utils.cpp
 	"../Canvas/gl_canvas2d.h"
 	"Utils.h"
 	<unistd.h>
 	<iostream>
 	<math.h>
 
-1611848360 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\controller\controller.cpp
+1611871463 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\controller\controller.cpp
 	"Controller.h"
 	"../Widgets/Slider.h"
 	"../Widgets/Button.h"
@@ -554,12 +554,14 @@
 	"../Gear/Gear.h"
 	<string>
 
-1610923982 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\button.h
+1611863786 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\button.h
 	"Widget.h"
+	"../Gear/Gear.h"
 	<string>
 
-1610923487 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\checkbox.h
+1611864522 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\checkbox.h
 	"Widget.h"
+	"../Gear/Gear.h"
 	<string>
 
 1611095655 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\alert.cpp
@@ -568,12 +570,12 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1610924598 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\button.cpp
+1611863837 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\button.cpp
 	"Button.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 
-1610924164 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\checkbox.cpp
+1611867470 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\checkbox.cpp
 	"Checkbox.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
@@ -585,13 +587,13 @@
 	"../Utils/Utils.h"
 	<string>
 
-1611848172 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\slider.cpp
+1611866734 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\slider.cpp
 	"Slider.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 	<iostream>
 
-1611846096 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.h
+1611866165 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.h
 	"../Widgets/Alert.h"
 	"../Utils/Vector3.h"
 	<vector>
@@ -599,7 +601,7 @@
 1611785513 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\vector3.h
 	<math.h>
 
-1611849369 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.cpp
+1611871431 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.cpp
 	"Gear.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
