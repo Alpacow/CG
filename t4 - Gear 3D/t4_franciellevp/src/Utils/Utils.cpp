@@ -122,7 +122,8 @@ bool Utils::checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRi
 Vector3 Utils::rotatePoint(Vector3 p, float rad, int axis)
 {
     float newX, newY, newZ;
-    double mz[3][3] = {cos(rad),-sin(rad),0,
+    double mz[3][3] = {
+        cos(rad),-sin(rad),0,
                        sin(rad), cos(rad), 0,
                        0, 0, 1};
     double mx[3][3] = {1, 0, 0,
@@ -156,15 +157,14 @@ Vector3 Utils::translate(Vector3 p, Vector3 o)
     // em Z
     double matriz[3][3] = {1,0, o.x,
                            0, 1, o.y,
-                           0,0,o.z
+                           0,0, o.z
                           };
-    new_x = p.x*matriz[0][0] + p.y*matriz[0][1] + p.z*matriz[0][2];
-    new_y = p.x*matriz[1][0] + p.y*matriz[1][1] + p.z*matriz[1][2];
-    new_z = p.x*matriz[2][0] + p.y*matriz[2][1] + p.z*matriz[2][2];
+    new_x = p.x * matriz[0][0] + p.y * matriz[0][1] + p.z * matriz[0][2];
+    new_y = p.x * matriz[1][0] + p.y * matriz[1][1] + p.z * matriz[1][2];
+    new_z = p.x * matriz[2][0] + p.y * matriz[2][1] + p.z * matriz[2][2];
     p.x = new_x;
     p.y = new_y;
     p.z = new_z;
-
     return Vector3{new_x, new_y, new_z};
 }
 

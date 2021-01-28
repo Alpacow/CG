@@ -1,0 +1,115 @@
+# depslib dependency file v1.0
+1467405732 source:d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1467405838 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1521140482 source:d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\main_c.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"gl_canvas2d.h"
+
+1531743930 source:d:\ufsm\disciplinas\computacao grafica\programas\gl_1_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1531743969 d:\ufsm\disciplinas\computacao grafica\programas\gl_1_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 d:\ufsm\disciplinas\computacao grafica\programas\gl_1_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 d:\ufsm\disciplinas\computacao grafica\programas\gl_1_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 d:\ufsm\disciplinas\computacao grafica\programas\gl_1_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1531744528 source:d:\ufsm\disciplinas\computacao grafica\programas\gl_1_canvasglut\src\main_c.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"gl_canvas2d.h"
+
+1531743930 source:c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1531743969 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1531744528 source:c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\main_c.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"gl_canvas2d.h"
+

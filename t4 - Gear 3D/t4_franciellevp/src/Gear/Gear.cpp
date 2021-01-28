@@ -59,15 +59,16 @@ Gear::Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, floa
     }
 
     int i = 0, j = 0;
-    initDraw2D(&i, &j, 1); // parte da frente da engrenagem
+    //initDraw2D(&i, &j, 1); // parte da frente da engrenagem
+    initDraw2D(&i, &j, 0); // parte da frente da engrenagem
 }
 
 /* Renderiza/desenha o botao na tela
 */
 void Gear::render()
 {
-    //rotate3D(Utils::Y, 1 * PI / 180);
     drawGear2D();
+    rotate3D(Utils::X, 1 * PI / 180);
 }
 
 Vector3 Gear::calcToothPosition(float ang, float radius, float z)
@@ -95,7 +96,7 @@ void Gear::drawGear2D()
 
     CV::color(color[0], color[1], color[2]);
     for (vector<Vector3>::size_type i = 0; i != points2D.size(); i++) {
-        CV::point(points2D[i].x + origin.x, points2D[i].y + origin.y);
+        CV::point(points2D[i].x, points2D[i].y);
     }
     for (unsigned int i = 0; i < lines2D.size() - 1; i += 2) {
         CV::color(color[0], color[1], color[2]);
@@ -113,7 +114,7 @@ void Gear::drawGear2D()
     last = lines2D.begin() + lines2D.size();
     vector<Vector3> backPoints(first, last);
     for (unsigned int i = 0; i < frontPoints.size(); i++) {
-      //CV::line(frontPoints[i].x + origin.x, frontPoints[i].y + origin.y, backPoints[i].x + origin.x, backPoints[i].y + origin.y);
+        //CV::line(frontPoints[i].x + origin.x, frontPoints[i].y + origin.y, backPoints[i].x + origin.x, backPoints[i].y + origin.y);
     }
     //CV::circle(origin.x * DIST / (origin.z - width / 2.0), origin.y  * DIST / (origin.z - width / 2.0), radius - radius / 1.5, 50); // frente
     //CV::circle(origin.x * DIST / (origin.z + width / 2.0), origin.y * DIST / (origin.z + width / 2.0), radius - radius / 1.5, 50); // tras
@@ -154,22 +155,17 @@ void Gear::initDraw2D(int* i, int* j, bool frontBack)
 
 void Gear::rotate3D(int axis, float rad)
 {
-    for (vector<Vector3>::size_type i = 0; i != points2D.size(); i++) {
-        Utils::translate(points2D[i], Vector3{-origin.x, -origin.y, -origin.z});
-        if (Utils::Z)
-            points2D[i] = Utils::rotatePoint(points2D[i], rad, axis);
-        Utils::translate(points2D[i], origin);
+    for(vector<Vector3>::size_type i = 0; i != points.size(); i++) {
+        Utils::translate(points[i], rad)
+        points[i] = Utils::rotatePoint(points[i], rad, axis);
     }
-    for (unsigned int i = 0; i < lines2D.size(); i++) {
-        Utils::translate(lines2D[i], Vector3{-origin.x, -origin.y, -origin.z});
-        lines2D[i] = Utils::rotatePoint(lines2D[i], rad, axis);
-        Utils::translate(lines2D[i], origin);
-    }
+    for(unsigned int i = 0; i < lines.size(); i++)
+        lines[i] = Utils::rotatePoint(lines[i], rad, axis);
 }
 
 void Gear::MoveZ (float dist)
 {
-    origin.z += dist;
+    //origin.z += dist;
     for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
         points[i].z += dist;
     for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
@@ -178,10 +174,16 @@ void Gear::MoveZ (float dist)
 
 void Gear::MoveY (float dist)
 {
-    origin.y += dist;
+    for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
+        points[i].y += dist;
+    for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
+        lines[i].y += dist;
 }
 
 void Gear::MoveX (float dist)
 {
-    origin.x += dist;
+    for (vector<Vector3>::size_type i = 0; i != points.size(); i++)
+        points[i].x += dist;
+    for (vector<Vector3>::size_type i = 0; i != lines.size(); i++)
+        lines[i].x += dist;
 }

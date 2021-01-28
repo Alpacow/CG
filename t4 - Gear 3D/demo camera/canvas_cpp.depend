@@ -1,0 +1,285 @@
+# depslib dependency file v1.0
+1467405732 source:d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1467405838 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1168267666 source:d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\relogio.cpp
+	"Relogio.h"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+
+1193146156 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\relogio.h
+	"gl_canvas2d.h"
+
+1490702906 source:d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"gl_canvas2d.h"
+	"Bola.h"
+	"Relogio.h"
+
+1490704699 d:\ufsm\disciplinas\computacao grafica\programas\gl_3_canvasglut\src\bola.h
+	"gl_canvas2d.h"
+
+1531743930 source:c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1531743969 c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1594938455 source:c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"gl_canvas2d.h"
+
+1490704699 c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\src\bola.h
+	"gl_canvas2d.h"
+
+1193146156 c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\src\relogio.h
+	"gl_canvas2d.h"
+
+1168267666 source:c:\users\mathe\documents\curso\cg\demos\gl_1_canvasglut\src\relogio.cpp
+	"Relogio.h"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+
+1531743930 source:c:\users\mathe\documents\curso\pet\topico cg\demo camera\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1531743969 c:\users\mathe\documents\curso\pet\topico cg\demo camera\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 c:\users\mathe\documents\curso\pet\topico cg\demo camera\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 c:\users\mathe\documents\curso\pet\topico cg\demo camera\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 c:\users\mathe\documents\curso\pet\topico cg\demo camera\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1594938455 source:c:\users\mathe\documents\curso\pet\topico cg\demo camera\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"gl_canvas2d.h"
+
+1531743930 source:c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1531743969 c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1594955200 source:c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"gl_canvas2d.h"
+	"Objeto.h"
+	"Cubo.h"
+	"paint.h"
+
+1594939511 c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\src\objeto.h
+
+1594944649 c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\src\cubo.h
+	<vector>
+	<iostream>
+
+1594955618 c:\users\mathe\documents\curso\pet\topico cg\demos\demo camera\src\paint.h
+	<vector>
+
+1531743930 source:c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1531743969 c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1594955200 source:c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"gl_canvas2d.h"
+	"Objeto.h"
+	"Cubo.h"
+	"paint.h"
+
+1594939511 c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\src\objeto.h
+
+1594944649 c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\src\cubo.h
+	<vector>
+	<iostream>
+
+1594955618 c:\users\matheus\documents\curso\pet\topico cg\demos\demo camera\src\paint.h
+	<vector>
+
+1531743930 source:c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1531743969 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1594955200 source:c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"gl_canvas2d.h"
+	"Objeto.h"
+	"Cubo.h"
+	"paint.h"
+
+1594939511 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\objeto.h
+
+1611535723 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\cubo.h
+	<vector>
+	<iostream>
+
+1594955618 c:\users\flan\desktop\cg\t4 - gear 3d\demo camera\src\paint.h
+	<vector>
+
