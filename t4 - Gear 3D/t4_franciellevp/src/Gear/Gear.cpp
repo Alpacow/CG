@@ -30,22 +30,23 @@ Gear::~Gear() {}
    @param label: texto contido dentro do botao
    @param labelColor: array contendo a cor RGB do texto do botao
 */
-Gear::Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, float y, float z)
+Gear::Gear(float rad, float radBack, int nTeeth, int nFaces, vector<float> color, float x, float y, float z)
 {
     this->radius = rad;
-    this->radiusOut = rad * 1.5;
+    this->radiusBack = radBack;
     this->nTeeth = nTeeth;
     this->nFaces = nFaces;
     this->color = color;
     this->width = 2;
     this->widthP = 2;
-    this->screenDist = 300;
+    this->screenDist = 200;
     this->velRotation = 1;
     this->velTranslation = 1;
     this->origin = Vector3{0, 0, 0};
     this->translation = Vector3{x, y, z};
     this->angTeeth = PI_2 / (float)nTeeth;
-    this->rotateX = this->rotateY = this->rotateZ = this->perspective = false;
+    this->rotateX = this->rotateY = this->perspective = false;
+    this->rotateZ = true;
     this->orthographic = true;
 
     updateArraysSize();
@@ -55,13 +56,13 @@ Gear::Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, floa
 
 /* Renderiza/desenha o botao na tela
 */
-void Gear::render()
+void Gear::render(float fps)
 {
     if (rotateZ)
         rotate3D(Utils::Z, velRotation * PI / 180);
-    else if (rotateY)
+    if (rotateY)
         rotate3D(Utils::Y, velRotation * PI / 180);
-    else if (rotateX)
+    if (rotateX)
         rotate3D(Utils::X, velRotation * PI / 180);
     if (orthographic || perspective)
         drawGear2D();
@@ -126,20 +127,20 @@ void Gear::drawGear2D()
         CV::line(lines2D[i], lines2D[i + lines2D.size() / 2.0]);
 }
 
-void Gear::initDraw2D(int* i, int* j, bool frontBack)
+void Gear::initDraw2D(int* i, int* j, bool frontBack, float angleRad)
 {
     angTeeth = PI_2 / (float)nTeeth;
-    radiusOut = radius * 1.5;
+    float radiusOut = angleRad * 1.5;
     float p, w = width / 2.0;
     int countp = 0, countl = 0;
     bool inOut = true;
     for (float t = 0; t <= PI_2; t += (angTeeth / 2.0)) {
         Vector3 p1, p2, p3;
         if (inOut) {
-            p1 = calcToothPosition(t, radius, origin.z);
+            p1 = calcToothPosition(t, angleRad, origin.z);
             p2 = calcToothPosition(t, radiusOut, origin.z);
             for (p = t; p < (t + angTeeth / 2.0); p += 0.001) {
-                p3 = calcToothPosition(p, radius, origin.z);
+                p3 = calcToothPosition(p, angleRad, origin.z);
                 if (frontBack) // true = front
                     points[*j] = Vector3{p3.x, p3.y, p3.z - w};
                 else
@@ -149,7 +150,7 @@ void Gear::initDraw2D(int* i, int* j, bool frontBack)
             }
         } else {
             p1 = calcToothPosition(t, radiusOut, origin.z);
-            p2 = calcToothPosition(t, radius, origin.z);
+            p2 = calcToothPosition(t, angleRad, origin.z);
         }
         if (frontBack) { // true = front
             lines[*i] = Vector3{p1.x, p1.y, p1.z - w};
@@ -202,8 +203,8 @@ void Gear::MoveX (float dist)
 void Gear::initGear ()
 {
     int i = 0, j = 0;
-    initDraw2D(&i, &j, 1); // parte da frente da engrenagem
-    initDraw2D(&i, &j, 0); // parte da tras da engrenagem
+    initDraw2D(&i, &j, 1, radius); // parte da frente da engrenagem
+    initDraw2D(&i, &j, 0, radiusBack); // parte da tras da engrenagem
 }
 
 void Gear::updateArraysSize()
@@ -259,38 +260,53 @@ void Gear::setNroTeeth (int value)
 
 void Gear::setRadius (float value)
 {
-    this->radius = value;
+    if (perspective) {
+        this->radius = value;
+    } else {
+        this->radius = value;
+        this->radiusBack = value;
+    }
+    initGear();
+}
+
+void Gear::setRadiusBack (float value)
+{
+    if (perspective) {
+        this->radiusBack = value;
+    } else {
+        this->radiusBack = value;
+        this->radius = value;
+    }
     initGear();
 }
 
 void Gear::setRotateZ (bool value)
 {
-    if (!rotateX && !rotateY)
-        this->rotateZ = value;
+    this->rotateZ = value;
 }
 
 void Gear::setRotateY (bool value)
 {
-    if (!rotateX && !rotateZ)
-        this->rotateY = value;
+    this->rotateY = value;
 }
 
 void Gear::setRotateX (bool value)
 {
-    if (!rotateY && !rotateZ)
-        this->rotateX = value;
+    this->rotateX = value;
 }
 
 void Gear::orthographicDraw ()
 {
-    if (orthographic && !perspective)
+    if (orthographic) {
         this->width = 0;
+        this->radiusBack = radius;
+    }
     initGear();
 }
 
 void Gear::perspectiveDraw ()
 {
-    if (!orthographic && perspective)
+    if (perspective)
         this->width = this->widthP;
     initGear();
 }

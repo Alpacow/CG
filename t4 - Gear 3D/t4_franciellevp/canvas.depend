@@ -462,7 +462,7 @@
 	"../Utils/Utils.h"
 	<iostream>
 
-1611762605 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\canvas\gl_canvas2d.cpp
+1611934363 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\canvas\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
@@ -530,7 +530,7 @@
 	"Widget.h"
 	<string>
 
-1531759395 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\fps.h
+1611935458 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\fps.h
 	<stdio.h>
 	<time.h>
 
@@ -541,7 +541,7 @@
 	<iostream>
 	<math.h>
 
-1611871463 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\controller\controller.cpp
+1611956792 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\controller\controller.cpp
 	"Controller.h"
 	"../Widgets/Slider.h"
 	"../Widgets/Button.h"
@@ -575,7 +575,7 @@
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 
-1611867470 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\checkbox.cpp
+1611953579 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\checkbox.cpp
 	"Checkbox.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
@@ -587,13 +587,13 @@
 	"../Utils/Utils.h"
 	<string>
 
-1611866734 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\slider.cpp
+1611957359 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\widgets\slider.cpp
 	"Slider.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"
 	<iostream>
 
-1611866165 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.h
+1611956453 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.h
 	"../Widgets/Alert.h"
 	"../Utils/Vector3.h"
 	<vector>
@@ -601,7 +601,7 @@
 1611785513 c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\utils\vector3.h
 	<math.h>
 
-1611871431 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.cpp
+1611957156 source:c:\users\flan\desktop\cg\t4 - gear 3d\t4_franciellevp\src\gear\gear.cpp
 	"Gear.h"
 	"../Canvas/gl_canvas2d.h"
 	"../Utils/Utils.h"

@@ -10,14 +10,18 @@ direita: move engrenagem para direita
 cima: move para cima (eixo X)
 baixo: move para baixo
 
+
 Funções
 Parametrizações:
-- Raio
-- Número de dentes
+- Raio frontal (obrigatório)
+- Raio traseiro (obrigatório)
+- Número de dentes (obrigatório)
 - Espessura da engrenagem
+- Tamanho dos dentes
 - Velocidade de translação
 - Velocidade de rotação
 - Distância focal
+- Visualização de FPS
 
+- Angulação dos dentes
 - Rotação em sentido horário ou antihorário
-- Controle de FPS

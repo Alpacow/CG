@@ -366,4 +366,3 @@ void CV::run()
 {
     glutMainLoop();
 }
-

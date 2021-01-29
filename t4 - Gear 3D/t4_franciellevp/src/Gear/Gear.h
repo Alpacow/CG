@@ -24,13 +24,13 @@ private:
     Vector3 origin;
     Vector3 translation;
     float angTeeth;
-    float radiusOut;
     float radius;
+    float radiusBack;
     int nTeeth;
     float width;
 
     void drawGear2D();
-    void initDraw2D(int* i, int* j, bool frontBack);
+    void initDraw2D(int* i, int* j, bool frontBack, float angleRad);
     void rotate3D(int axis, float rad);
     void initGear();
     Vector3 calcToothPosition(float ang, float radius, float z);
@@ -50,16 +50,17 @@ public:
     bool orthographic;
     bool perspective;
 
-    Gear(float rad, int nTeeth, int nFaces, vector<float> color, float x, float y, float z);
+    Gear(float rad, float radBack, int nTeeth, int nFaces, vector<float> color, float x, float y, float z);
     Gear();
     ~Gear();
-    void render();
+    void render(float fps);
     void MoveX(float dist);
     void MoveY(float dist);
     void MoveZ(float dist);
     void setWidth(float value);
     void setNroTeeth(int value);
     void setRadius (float value);
+    void setRadiusBack (float value);
     void setRotateZ (bool value);
     void setRotateY (bool value);
     void setRotateX (bool value);

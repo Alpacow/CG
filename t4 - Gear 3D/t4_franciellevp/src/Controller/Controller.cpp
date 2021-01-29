@@ -19,12 +19,11 @@ Controller::Controller()
     screenWidth = 1200;
     screenHeight = 620;
     fps = 100.0;
-    gear = new Gear(10, 3, 3, Utils::RGBtoFloat(25,25,112), 500, 310, 100);
+    gear = new Gear(10, 10, 3, 3, Utils::RGBtoFloat(25,25,112), 500, 310, 80);
     frames  = new Frames();
     alerts = new Alert();
     wds.push_back(alerts);
     wds.push_back(new Checkbox(&gear));
-    //wds.push_back(new Input());
     wds.push_back(new Slider(&gear));
 }
 
@@ -45,7 +44,7 @@ void Controller::Render()
     sprintf(text, "FPS: %.0f", fps);
     CV::text(10, screenHeight - 10, text);
 
-    gear->render();
+    gear->render(fps);
 }
 
 /* Controla as teclas apertadas durante a execucao

@@ -88,8 +88,9 @@ void Slider::checkState(int button, int state, int x, int y)
     for (vector<Slider>::size_type i = 0; i != sliders.size(); i++) {
         if (button == 0) {
             if (state == 0) {
-                if (Utils::checkCircleCollision(x, y, sliders[i]->circle, RAD))
-                    sliders[i]->canDrag = true;
+                if (Utils::checkCircleCollision(x, y, sliders[i]->circle, RAD)) {
+                        sliders[i]->canDrag = true;
+                }
             } else if (state == 1) // soltou o mouse
                 sliders[i]->canDrag = false;
         } else if (button == -2) {
@@ -106,8 +107,8 @@ void Slider::checkState(int button, int state, int x, int y)
                         (*gearController)->setNroTeeth(s->currentValue);
                     else if (i == 2)
                         (*gearController)->setRadius(s->currentValue);
-                    //else if (i == 3)
-                        //(*gearController)->setRadiusBack(s->currentValue);
+                    else if (i == 3)
+                        (*gearController)->setRadiusBack(s->currentValue);
                     else if (i == 4)
                         (*gearController)->screenDist = s->currentValue;
                     else if (i == 5)
@@ -123,11 +124,11 @@ void Slider::checkState(int button, int state, int x, int y)
 void Slider::create()
 {
     vector<float> bg = Utils::RGBtoFloat(28,28,28);
-    sliders.push_back(new Slider(980, 50, 120, 2, bg, "Espessura:", 1, 30));
-    sliders.push_back(new Slider(980, 100, 120, 2, bg, "Nro de dentes:", 3, 10));
-    sliders.push_back(new Slider(980, 150, 120, 2, bg, "Raio frontal:", 10, 100));
-    sliders.push_back(new Slider(980, 200, 120, 2, bg, "Raio traseiro:", 10, 100));
-    sliders.push_back(new Slider(980, 250, 120, 2, bg, "Distancia camera:", 300, 2000));
+    sliders.push_back(new Slider(980, 50, 120, 2, bg, "Espessura:", 1, 50));
+    sliders.push_back(new Slider(980, 100, 120, 2, bg, "Nro de dentes:", 3, 20));
+    sliders.push_back(new Slider(980, 150, 120, 2, bg, "Raio frontal:", 10, 50));
+    sliders.push_back(new Slider(980, 200, 120, 2, bg, "Raio traseiro:", 10, 50));
+    sliders.push_back(new Slider(980, 250, 120, 2, bg, "Distancia camera:", 20, 400));
     sliders.push_back(new Slider(980, 300, 120, 2, bg, "Velocidade translacao:", 0, 4));
     sliders.push_back(new Slider(980, 350, 120, 2, bg, "Velocidade rotacao:", 1, 10));
 }

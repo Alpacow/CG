@@ -79,7 +79,6 @@ void Checkbox::checkState(int button, int state, int x, int y)
         if( state == 0 ) {
             if(check[i]->checkCollision(x, y)) {
                 check[i]->isChecked = (check[i]->isChecked) ? false : true;
-                uncheckOthers(i);
                 if (i == 0) (*gearController)->setRotateZ(check[0]->isChecked);
                 if (i == 1) (*gearController)->setRotateY(check[1]->isChecked);
                 if (i == 2) (*gearController)->setRotateX(check[2]->isChecked);
@@ -104,7 +103,7 @@ void Checkbox::checkState(int button, int state, int x, int y)
 void Checkbox::create()
 {
     vector<float> labelColor = Utils::RGBtoFloat(28,28,28);
-    check.push_back(new Checkbox(975, 385, 20, 20, false, "Z", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(975, 385, 20, 20, true, "Z", labelColor, Utils::RGBtoFloat(255,250,250)));
     check.push_back(new Checkbox(1035, 385, 20, 20, false, "Y", labelColor, Utils::RGBtoFloat(255,250,250)));
     check.push_back(new Checkbox(1095, 385, 20, 20, false, "X", labelColor, Utils::RGBtoFloat(255,250,250)));
 
@@ -114,14 +113,7 @@ void Checkbox::create()
 
 void Checkbox::uncheckOthers (unsigned int checked)
 {
-    if (checked < 3) {
-        for(vector<Checkbox>::size_type i = 0; i < 3; i++) {
-            if (i != checked)
-                if (check[i]->isChecked)
-                    check[i]->isChecked = false;
-        }
-    }
-    else if (checked > 2) {
+    if (checked > 2) {
         for(vector<Checkbox>::size_type i = 3; i < 5; i++) {
             if (i != checked)
                 if (check[i]->isChecked)
