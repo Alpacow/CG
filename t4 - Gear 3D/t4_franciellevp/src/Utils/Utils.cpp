@@ -113,11 +113,11 @@ bool Utils::checkRectCollision(int mx, int my, Vector2 topLeft, Vector2 bottomRi
     return (mx >= topLeft.x && mx <= bottomRight.x && my >= topLeft.y && my <= bottomRight.y);
 }
 
-/* Recebe o vetor p e seu ponto central mid, e calcula os novos valores com base na rotação na variável rad
-    @param p: vetor de pontos a rotacionar
-    @param mid: vetor de pontos centrais
-    @param rad: valor em radianos da rotação
-    @return novo vetor de pontos rotacionais
+/*  Rotaciona um ponto 3D
+    @param p: vetor a ser rotacionado
+    @param rad: valor em radianos do angulo de rotacao
+    @param axis: eixo de rotacao (x, Y, Z)
+    @return novas coordenadas do vetor rotacionado
 */
 Vector3 Utils::rotatePoint(Vector3 p, float rad, int axis)
 {
@@ -131,15 +131,15 @@ Vector3 Utils::rotatePoint(Vector3 p, float rad, int axis)
     double my[3][3] = {cos(rad), 0, sin(rad),
                        0, 1, 0,
                        -sin(rad), 0, cos(rad)};
-    if (axis == Utils::Z) { //Rotação em Z
+    if (axis == Utils::Z) { //Rotacao em Z
         newX = p.x * mz[0][0] + p.y * mz[0][1] + p.z * mz[0][2];
         newY = p.x * mz[1][0] + p.y * mz[1][1] + p.z * mz[1][2];
         newZ = p.x * mz[2][0] + p.y * mz[2][1] + p.z * mz[2][2];
-    } else if (axis == Utils::X) { //Rotação em X
+    } else if (axis == Utils::X) { //Rotacao em X
         newX = p.x * mx[0][0] + p.y * mx[0][1] + p.z * mx[0][2];
         newY = p.x * mx[1][0] + p.y * mx[1][1] + p.z * mx[1][2];
         newZ = p.x * mx[2][0] + p.y * mx[2][1] + p.z * mx[2][2];
-    } else if (axis == Utils::Y) { //Rotação em X
+    } else if (axis == Utils::Y) { //Rotacao em Y
         newX = p.x * my[0][0] + p.y * my[0][1] + p.z * my[0][2];
         newY = p.x * my[1][0] + p.y * my[1][1] + p.z * my[1][2];
         newZ = p.x * my[2][0] + p.y * my[2][1] + p.z * my[2][2];
@@ -147,6 +147,11 @@ Vector3 Utils::rotatePoint(Vector3 p, float rad, int axis)
     return Vector3{newX, newY, newZ};
 }
 
+/*  Translada um vetor 3D
+    @param p: vetor a ser transladado
+    @param o: coordenadas referentes ao lugar que deseja-se transladar o vetor
+    @return novas coordenadas do vetor transladado
+*/
 Vector3 Utils::translate(Vector3 p, Vector3 o)
 {
     float newX, newY, newZ;
@@ -191,7 +196,9 @@ float Utils::distanceBetweenPoints(Vector2 p1, Vector2 p2)
     return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
 
-
+/*  Limpa/reseta um vector (tamanho e capacidade)
+    @param v: vector a ter seus valores limpados
+*/
 void Utils::clearVector (vector<Vector3>& v) {
     v.erase(v.begin(), v.end());
     v.shrink_to_fit();

@@ -23,7 +23,7 @@ public:
         SUCCESS
     };
 
-    enum {
+    enum { // eixos 3D
         X,
         Y,
         Z

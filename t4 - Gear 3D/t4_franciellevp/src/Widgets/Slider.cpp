@@ -101,19 +101,21 @@ void Slider::checkState(int button, int state, int x, int y)
                     float percentPx = (s->circle.x - s->p.x) * 100 / s->width;
                     float valueSlided = percentPx * (s->maxRange - s->minRange) / 100;
                     s->currentValue = s->minRange + valueSlided;
-                    if (i == 0)
+                    if (i == 0) // espessura
                         (*gearController)->setWidth(s->currentValue);
-                    else if (i == 1)
+                    else if (i == 1) // nro de dentes
                         (*gearController)->setNroTeeth(s->currentValue);
-                    else if (i == 2)
+                    else if (i == 2) // raio frontal
                         (*gearController)->setRadius(s->currentValue);
-                    else if (i == 3)
+                    else if (i == 3) // raio traseiro
                         (*gearController)->setRadiusBack(s->currentValue);
-                    else if (i == 4)
+                    else if (i == 4) // tamanho dentes
+                        (*gearController)->setTeethSize(s->currentValue);
+                    else if (i == 5) // distancia focal
                         (*gearController)->screenDist = s->currentValue;
-                    else if (i == 5)
+                    else if (i == 6) // velocidade translacao
                         (*gearController)->velTranslation = s->currentValue;
-                    else if (i == 6)
+                    else if (i == 7) // velocidade rotacao
                         (*gearController)->velRotation = s->currentValue;
                 }
             }
@@ -125,12 +127,13 @@ void Slider::create()
 {
     vector<float> bg = Utils::RGBtoFloat(28,28,28);
     sliders.push_back(new Slider(980, 50, 120, 2, bg, "Espessura:", 1, 50));
-    sliders.push_back(new Slider(980, 100, 120, 2, bg, "Nro de dentes:", 3, 20));
+    sliders.push_back(new Slider(980, 100, 120, 2, bg, "Nro de dentes:", 3, 15));
     sliders.push_back(new Slider(980, 150, 120, 2, bg, "Raio frontal:", 10, 50));
     sliders.push_back(new Slider(980, 200, 120, 2, bg, "Raio traseiro:", 10, 50));
-    sliders.push_back(new Slider(980, 250, 120, 2, bg, "Distancia camera:", 20, 400));
-    sliders.push_back(new Slider(980, 300, 120, 2, bg, "Velocidade translacao:", 0, 4));
-    sliders.push_back(new Slider(980, 350, 120, 2, bg, "Velocidade rotacao:", 1, 10));
+    sliders.push_back(new Slider(980, 250, 120, 2, bg, "Tamanho dentes:", 1, 3));
+    sliders.push_back(new Slider(980, 300, 120, 2, bg, "Distancia camera:", 20, 400));
+    sliders.push_back(new Slider(980, 350, 120, 2, bg, "Velocidade translacao:", 0, 4));
+    sliders.push_back(new Slider(980, 400, 120, 2, bg, "Velocidade rotacao:", 1, 10));
 }
 
 /* Cria todos os inputs da aplicacao

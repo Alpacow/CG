@@ -12,16 +12,16 @@ baixo: move para baixo
 
 
 Funções
+- Visualização ortográfica e perspectiva
+- Rotação
+- Translação
+- Visualização de FPS
 Parametrizações:
-- Raio frontal (obrigatório)
-- Raio traseiro (obrigatório)
-- Número de dentes (obrigatório)
+- Raio frontal
+- Raio traseiro
+- Número de dentes
 - Espessura da engrenagem
 - Tamanho dos dentes
 - Velocidade de translação
 - Velocidade de rotação
 - Distância focal
-- Visualização de FPS
-
-- Angulação dos dentes
-- Rotação em sentido horário ou antihorário

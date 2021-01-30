@@ -2,29 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src\Utils\Fps.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Widgets\Widget.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="297" topLine="0" />
+			<Cursor1 position="502" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="src\Utils\Vector2.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Widgets\Input.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1595" topLine="74" />
-		</Cursor>
-	</File>
-	<File name="src\Controller\Controller.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="808" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="src\Gear\Gear.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1362" topLine="44" />
-		</Cursor>
-	</File>
-	<File name="src\Controller\Controller.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="845" topLine="28" />
+			<Cursor1 position="671" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src\Utils\Vector3.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -32,34 +17,9 @@
 			<Cursor1 position="922" topLine="97" />
 		</Cursor>
 	</File>
-	<File name="src\Canvas\gl_canvas2d.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Widgets\Checkbox.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8808" topLine="348" />
-		</Cursor>
-	</File>
-	<File name="src\Utils\Utils.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4992" topLine="141" />
-		</Cursor>
-	</File>
-	<File name="src\Widgets\Alert.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2963" topLine="68" />
-		</Cursor>
-	</File>
-	<File name="src\Widgets\Slider.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4558" topLine="117" />
-		</Cursor>
-	</File>
-	<File name="src\Canvas\gl_canvas2d.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="217" topLine="52" />
-		</Cursor>
-	</File>
-	<File name="src\Widgets\Checkbox.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="220" topLine="12" />
+			<Cursor1 position="4241" topLine="66" />
 		</Cursor>
 	</File>
 	<File name="src\Widgets\Alert.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -67,9 +27,9 @@
 			<Cursor1 position="812" topLine="18" />
 		</Cursor>
 	</File>
-	<File name="src\Widgets\Checkbox.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Utils\Vector2.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3474" topLine="76" />
+			<Cursor1 position="1595" topLine="74" />
 		</Cursor>
 	</File>
 	<File name="src\Widgets\Button.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
@@ -77,34 +37,44 @@
 			<Cursor1 position="2593" topLine="67" />
 		</Cursor>
 	</File>
+	<File name="src\Widgets\Alert.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2695" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="src\Widgets\Slider.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="397" topLine="15" />
+			<Cursor1 position="438" topLine="12" />
 		</Cursor>
 	</File>
-	<File name="src\main.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="src\Widgets\Slider.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="695" topLine="18" />
+			<Cursor1 position="5306" topLine="121" />
 		</Cursor>
 	</File>
-	<File name="src\Widgets\Widget.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Controller\Controller.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="430" topLine="6" />
+			<Cursor1 position="1089" topLine="18" />
 		</Cursor>
 	</File>
-	<File name="src\Widgets\Input.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Gear\Gear.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3852" topLine="95" />
+			<Cursor1 position="4731" topLine="150" />
 		</Cursor>
 	</File>
-	<File name="src\Widgets\Input.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Utils\Fps.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="671" topLine="9" />
+			<Cursor1 position="297" topLine="23" />
 		</Cursor>
 	</File>
-	<File name="src\Gear\Gear.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+	<File name="src\Utils\Utils.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1757" topLine="53" />
+			<Cursor1 position="532" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Canvas\gl_canvas2d.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6377" topLine="257" />
 		</Cursor>
 	</File>
 	<File name="src\Widgets\Button.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -112,9 +82,39 @@
 			<Cursor1 position="493" topLine="7" />
 		</Cursor>
 	</File>
-	<File name="src\Utils\Utils.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Controller\Controller.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="879" topLine="41" />
+			<Cursor1 position="702" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Gear\Gear.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="625" topLine="51" />
+		</Cursor>
+	</File>
+	<File name="src\Canvas\gl_canvas2d.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="217" topLine="52" />
+		</Cursor>
+	</File>
+	<File name="src\Widgets\Input.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3852" topLine="95" />
+		</Cursor>
+	</File>
+	<File name="src\main.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="869" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="src\Utils\Utils.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6678" topLine="184" />
+		</Cursor>
+	</File>
+	<File name="src\Widgets\Checkbox.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="220" topLine="12" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

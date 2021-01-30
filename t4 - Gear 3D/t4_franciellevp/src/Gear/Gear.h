@@ -1,8 +1,8 @@
-//************************************************************
+//****************************************************************
 //
-// classe para renderizar e realizar operacoes da engrenagem
+// classe responsavel pelo desenho e transformacoes da engrenagem
 //
-//************************************************************
+//****************************************************************
 #ifndef ___GEAR__H___
 #define ___GEAR__H___
 
@@ -15,7 +15,7 @@ using namespace std;
 class Gear
 {
 private:
-    vector<float> rgb;           // controla cores passadas em RGB
+    vector<float> rgb;
     vector<Vector3> points;
     vector<Vector3> points2D;
     vector<Vector3> lines;
@@ -26,11 +26,12 @@ private:
     float angTeeth;
     float radius;
     float radiusBack;
-    int nTeeth;
     float width;
+    float teethSize;
+    int nTeeth;
 
     void drawGear2D();
-    void initDraw2D(int* i, int* j, bool frontBack, float angleRad);
+    void initDraw2D(int* i, int* j, bool frontBack, float radiusFrontBack);
     void rotate3D(int axis, float rad);
     void initGear();
     Vector3 calcToothPosition(float ang, float radius, float z);
@@ -38,7 +39,6 @@ private:
 
 public:
     Alert* alerts;
-    int nFaces;
     float velRotation;
     float velTranslation;
     int screenDist;
@@ -50,7 +50,7 @@ public:
     bool orthographic;
     bool perspective;
 
-    Gear(float rad, float radBack, int nTeeth, int nFaces, vector<float> color, float x, float y, float z);
+    Gear(float rad, float radBack, int nTeeth, vector<float> color, float x, float y, float z);
     Gear();
     ~Gear();
     void render(float fps);
@@ -60,6 +60,7 @@ public:
     void setWidth(float value);
     void setNroTeeth(int value);
     void setRadius (float value);
+    void setTeethSize (float value);
     void setRadiusBack (float value);
     void setRotateZ (bool value);
     void setRotateY (bool value);

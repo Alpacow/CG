@@ -57,7 +57,8 @@ void Checkbox::render()
         CV::circleFill(p.x + width/2, p.y + height/2, width/3, 100);
     }
 
-    CV::text(975, 380, "Rotacoes:");
+    CV::text(975, 440, "Rotacoes:");
+    CV::text(975, 510, "Visualizacao:");
 }
 
 /* Percorre um array contendo todos os checkboxes para desenha-los na tela
@@ -103,12 +104,12 @@ void Checkbox::checkState(int button, int state, int x, int y)
 void Checkbox::create()
 {
     vector<float> labelColor = Utils::RGBtoFloat(28,28,28);
-    check.push_back(new Checkbox(975, 385, 20, 20, true, "Z", labelColor, Utils::RGBtoFloat(255,250,250)));
-    check.push_back(new Checkbox(1035, 385, 20, 20, false, "Y", labelColor, Utils::RGBtoFloat(255,250,250)));
-    check.push_back(new Checkbox(1095, 385, 20, 20, false, "X", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(975, 455, 20, 20, true, "Z", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(1035, 455, 20, 20, false, "Y", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(1095, 455, 20, 20, false, "X", labelColor, Utils::RGBtoFloat(255,250,250)));
 
-    check.push_back(new Checkbox(975, 460, 20, 20, true, "Ortografica", labelColor, Utils::RGBtoFloat(255,250,250)));
-    check.push_back(new Checkbox(975, 500, 20, 20, false, "Perspectiva", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(975, 525, 20, 20, true, "Ortografica", labelColor, Utils::RGBtoFloat(255,250,250)));
+    check.push_back(new Checkbox(975, 555, 20, 20, false, "Perspectiva", labelColor, Utils::RGBtoFloat(255,250,250)));
 }
 
 void Checkbox::uncheckOthers (unsigned int checked)

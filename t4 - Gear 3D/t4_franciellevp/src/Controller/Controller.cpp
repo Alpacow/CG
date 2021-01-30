@@ -19,7 +19,7 @@ Controller::Controller()
     screenWidth = 1200;
     screenHeight = 620;
     fps = 100.0;
-    gear = new Gear(10, 10, 3, 3, Utils::RGBtoFloat(25,25,112), 500, 310, 80);
+    gear = new Gear(10, 10, 3, Utils::RGBtoFloat(54,54,54), 500, 310, 80);
     frames  = new Frames();
     alerts = new Alert();
     wds.push_back(alerts);
@@ -36,14 +36,12 @@ void Controller::Render()
     rgb = Utils::RGBtoFloat(220,220,220);
     CV::color(rgb[0], rgb[1], rgb[2]);
     CV::rectFill(screenWidth - 250, 0, screenWidth, screenHeight);
-
     for(vector<Widget>::size_type i = 0; i != wds.size(); i++)
         wds[i]->renderWidgets();
     fps = frames->getFrames();
     char* text = (char*)malloc(sizeof(char) * 30);
     sprintf(text, "FPS: %.0f", fps);
     CV::text(10, screenHeight - 10, text);
-
     gear->render(fps);
 }
 
